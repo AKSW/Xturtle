@@ -1,0 +1,62 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://www.w3.org/2000/10/annotation-ns#>
+    dc:title "Annotea Annotation Schema" ;
+    rdfs:comment "$Revision: 1.5 $ $Date: 2003/07/31 17:07:41 $", "A namespace for describing annotations" ;
+    rdfs:seeAlso <http://www.w3.org/2000/02/Collaboration/Annotation/papers>, <http://www.w3.org/2001/Annotea/User/Protocol.html> .
+
+<http://www.w3.org/2000/10/annotation-ns#Annotation>
+    a rdfs:Class ;
+    rdfs:comment "The target type of a annotation resource." ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "Annotation"@en .
+
+<http://www.w3.org/2000/10/annotation-ns#annotates>
+    a rdf:Property ;
+    rdfs:comment "Relates an Annotation to the resource to which the Annotation applies.  The inverse relation is 'hasAnnotation'" ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "annotates"@en .
+
+<http://www.w3.org/2000/10/annotation-ns#author>
+    a rdf:Property ;
+    rdfs:comment "The name of the person or organization most responsible for creating the Annotation." ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "author"@en ;
+    rdfs:subPropertyOf dc:creator .
+
+<http://www.w3.org/2000/10/annotation-ns#body>
+    a rdf:Property ;
+    rdfs:comment "Relates the resource representing the 'content' of an Annotation to the Annotation resource" ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "body"@en ;
+    rdfs:subPropertyOf <http://www.w3.org/2000/10/annotation-ns#related> .
+
+<http://www.w3.org/2000/10/annotation-ns#context>
+    a rdf:Property ;
+    rdfs:comment "The context within the resource named in 'annotates' to which the Annotation most directly applies." ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "context"@en .
+
+<http://www.w3.org/2000/10/annotation-ns#created>
+    a rdf:Property ;
+    rdfs:comment "The date and time on which the Annotation was created.  yyyy-mm-ddThh:mm:ssZ format recommended." ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "created"@en ;
+    rdfs:subPropertyOf dc:date .
+
+<http://www.w3.org/2000/10/annotation-ns#modified>
+    a rdf:Property ;
+    rdfs:comment "Annotations currently use http://purl.org/dc/elements/1.1/date directly", "The date and time on which the Annotation was modified.  yyyy-mm-ddThh:mm:ssZ format recommended." ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "modified"@en ;
+    rdfs:subPropertyOf dc:date .
+
+<http://www.w3.org/2000/10/annotation-ns#related>
+    a rdf:Property ;
+    rdfs:comment """A relationship between an annotation and additional resources that is less specific than 'body'.  The 'related' property is expected to be
+ subclassed by more specific relationships.""" ;
+    rdfs:isDefinedBy <http://www.w3.org/2000/10/annotation-ns#> ;
+    rdfs:label "related"@en .
+
