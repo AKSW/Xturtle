@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
+<template id="Xturtle_base" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Base" deleted="false" description="base definition" enabled="true" name="base">@base &lt;${baseUri}&gt;.
+${cursor}</template>
+<template  id="Xturtle_prefix" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.PrefixId" deleted="false" description="prefix definition" enabled="true" name="prefix">@prefix ${prefixid}:${namespace}.
+${cursor}
+</template></templates>

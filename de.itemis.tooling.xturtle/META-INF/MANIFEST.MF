@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Turtle Sprachinfrastruktur
+Bundle-Vendor: itemis
+Bundle-Version: 0.0.1.qualifier
+Bundle-SymbolicName: de.itemis.tooling.xturtle; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
+ org.eclipse.xtext.generator;resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: de.itemis.tooling.xturtle,
+ de.itemis.tooling.xturtle.formatting,
+ de.itemis.tooling.xturtle.resource,
+ de.itemis.tooling.xturtle.parser.antlr,
+ de.itemis.tooling.xturtle.parser.antlr.internal,
+ de.itemis.tooling.xturtle.scoping,
+ de.itemis.tooling.xturtle.serializer,
+ de.itemis.tooling.xturtle.services,
+ de.itemis.tooling.xturtle.validation,
+ de.itemis.tooling.xturtle.xturtle,
+ de.itemis.tooling.xturtle.xturtle.impl,
+ de.itemis.tooling.xturtle.xturtle.util

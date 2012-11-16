@@ -1,0 +1,68 @@
+grammar de.itemis.tooling.xturtle.Xturtle// with org.eclipse.xtext.common.Terminals
+hidden(WS, SL_COMMENT)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate xturtle "http://www.itemis.de/tooling/xturtle/Xturtle"
+
+TurtleDoc: statements+=Statement*;
+Statement: (Directive|Triples)=>'.';
+Directive: PrefixId|Base;
+PrefixId:AT'prefix' (id=PrefixName? =>':') uri=URI;
+Base:AT'base' uri=URI;
+
+Triples hidden(SL_COMMENT): subject=Subject WS+ predObjs+=PredicateObjectList (WS*=>';' WS* predObjs+=PredicateObjectList)* (WS*';')?WS*;
+
+PredicateObjectList: verb=Predicate WS+ objects+=Object (WS*=>','WS* objects+=Object)*;
+
+Subject:Resource|Blank;
+Object: (ResourceRef|Blank|Literal);
+Predicate: (ResourceRef|{TypePredicate}=>'a');
+Resource:QNameDef|UriDef;
+ResourceRef:QNameRef|UriRef;
+
+Blank:NodeId|BlankObjects|BlankCollection;
+NodeId:'_:' {NodeId} id=Name?;
+BlankObjects:'['{BlankObjects}(WS* predObjs+=PredicateObjectList (WS*';'WS* predObjs+=PredicateObjectList)* (WS*';')?)?WS*']';
+BlankCollection:'(' WS* {BlankCollection} (objects+=Object(WS+ objects+=Object)* WS*)?')';
+
+
+//ref to prefix URI
+QNameDef:{QNameDef}prefix=[PrefixId|PrefixName] ? =>':' id=Name?;
+QNameRef:{QNameRef}prefix=[PrefixId|PrefixName] ? ref=[Resource|ColonName];
+UriDef:uri=URI;
+UriRef:ref=[Resource|URI];
+
+
+Literal:NumberLiteral|StringLiteral|BooleanLiteral;
+NumberLiteral:value=NUMBER;
+StringLiteral:value=STRING('^^'type=ResourceRef| AT language=Language
+)?;
+BooleanLiteral:value=('true'|'false');
+
+Name:ID|'a'|'base'|'prefix';
+PrefixName:ID|'a'|'base'|'prefix';
+Language:ID;
+ColonName: =>':' Name?;
+
+terminal ID: START_CHARACTER CHARACTER*;
+terminal SL_COMMENT 	: '#' !('\n'|'\r')* ('\r'? '\n')?;
+terminal NUMBER: ('-')?DIGIT+('.'DIGIT*)?(('e'|'E')('+'|'-')?DIGIT+)?;
+
+//TODO allow \> in URI?
+terminal URI: '<'->'>';
+//TODO this covers much, but probably not all cases
+terminal STRING:'"' ( '\\' ('t'|'n'|'r'|'U'|'u'|'"'|'\\') | !('\\'|'"') )* '"' |
+				('"' '"' '"')(
+					(('\\''"'?)*!('\\'|'"')) | 
+					('"' '"'? !'"')
+				)*('\\''"')?('"' '"' '"');
+
+terminal WS: (' '|'\t'|'\r'|'\n')+;
+terminal AT:'@';
+
+terminal ANY_OTHER: .;
+
+terminal fragment DIGIT:'0'..'9';
+terminal fragment START_CHARACTER:('A'..'Z') | "_" | ('a'..'z') | ('\u00C0'..'\u00D6') | ('\u00D8'..'\u00F6') | ('\u00F8'..'\u02FF') | ('\u0370'..'\u037D') | ('\u037F'..'\u1FFF') | ('\u200C'..'\u200D') | ('\u2070'..'\u218F') | ('\u2C00'..'\u2FEF') | ('\u3001'..'\uD7FF') | ('\uF900'..'\uFDCF') | ('\uFDF0'..'\uFFFD');// | ('\u10000'..'\uEFFFF');
+terminal fragment CHARACTER: START_CHARACTER | '-' | DIGIT | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040');

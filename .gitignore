@@ -1,5 +1,9 @@
 *.class
-
+.DS_Store
+plugin.xml_gen
+bin/
+src-gen/
+xtend-gen/
 # Package Files #
 *.jar
 *.war

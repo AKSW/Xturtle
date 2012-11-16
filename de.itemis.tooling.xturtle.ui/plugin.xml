@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+<!-- added for multi-line-string folding-->
+ 	<extension
+         point="org.eclipse.ui.commands">
+           <command
+            name="Collapse Strings"
+            description="collapses strings"
+            categoryId="org.eclipse.ui.category.textEditor"
+            id="org.xtext.example.folding.ui.folding.collapseStrings">
+      </command>
+    </extension>
+    <extension
+            point="org.eclipse.ui.editors">
+        <editor
+              class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+              contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+              default="true"
+              extensions="ttl"
+              icon="icons/xturtle_16x16.png"
+              id="de.itemis.tooling.xturtle.Xturtle"
+              name="Xturtle Editor">
+        </editor>
+    </extension>
+    <extension
+        point="org.eclipse.ui.handlers">
+        <handler
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
+            <activeWhen>
+                <reference
+                    definitionId="de.itemis.tooling.xturtle.Xturtle.Editor.opened">
+                </reference>
+            </activeWhen>
+        </handler>
+        <handler
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="de.itemis.tooling.xturtle.Xturtle.validate">
+         <activeWhen>
+            <reference
+                    definitionId="de.itemis.tooling.xturtle.Xturtle.Editor.opened">
+            </reference>
+         </activeWhen>
+      </handler>
+    </extension>
+    <extension point="org.eclipse.core.expressions.definitions">
+        <definition id="de.itemis.tooling.xturtle.Xturtle.Editor.opened">
+            <and>
+                <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
+                <with variable="activeEditor">
+                    <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
+                        value="de.itemis.tooling.xturtle.Xturtle" 
+                        forcePluginActivation="true"/>
+                </with>        
+            </and>
+        </definition>
+    </extension>
+    <extension
+            point="org.eclipse.ui.preferencePages">
+        <page
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle"
+            name="Xturtle">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.coloring"
+            name="Syntax Coloring">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.templates"
+            name="Templates">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
+    </extension>
+    <extension
+            point="org.eclipse.ui.propertyPages">
+        <page
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle"
+            name="Xturtle">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+            <enabledWhen>
+	            <adapt type="org.eclipse.core.resources.IProject"/>
+			</enabledWhen>
+	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+        </page>
+    </extension>
+    <extension
+        point="org.eclipse.ui.keywords">
+        <keyword
+            id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"
+            label="Xturtle"/>
+    </extension>
+    <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Trigger expensive validation"
+            id="de.itemis.tooling.xturtle.Xturtle.validate"
+            name="Validate">
+      </command>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution
+            locationURI="popup:#TextEditorContext?after=group.edit">
+             <command
+                 commandId="de.itemis.tooling.xturtle.Xturtle.validate"
+                 style="push"
+                 tooltip="Trigger expensive validation">
+            <visibleWhen checkEnabled="false">
+                <reference
+                    definitionId="de.itemis.tooling.xturtle.Xturtle.Editor.opened">
+                </reference>
+            </visibleWhen>
+         </command>  
+         </menuContribution>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
+			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
+				<visibleWhen checkEnabled="false">
+                	<reference definitionId="de.itemis.tooling.xturtle.Xturtle.Editor.opened">
+                	</reference>
+            	</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension point="org.eclipse.ui.handlers">
+	    <handler
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            commandId="org.eclipse.xtext.ui.editor.FindReferences">
+            <activeWhen>
+                <reference
+                    definitionId="de.itemis.tooling.xturtle.Xturtle.Editor.opened">
+                </reference>
+            </activeWhen>
+        </handler>
+    </extension>   
+
+<!-- adding resource factories -->
+
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="ttl">
+		</parser>
+	</extension>
+	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
+        <resourceServiceProvider
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="ttl">
+        </resourceServiceProvider>
+    </extension>
+
+
+    <!-- marker definitions for de.itemis.tooling.xturtle.Xturtle -->
+    <extension
+            id="xturtle.check.fast"
+            name="Xturtle Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.fast"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="xturtle.check.normal"
+            name="Xturtle Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.normal"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="xturtle.check.expensive"
+            name="Xturtle Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.expensive"/>
+        <persistent value="true"/>
+    </extension>
+
+	<!-- Quick Outline -->
+	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
+			<activeWhen>
+				<reference
+					definitionId="de.itemis.tooling.xturtle.Xturtle.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Open the quick outline."
+			id="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+			name="Quick Outline">
+		</command>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline"
+				style="push"
+				tooltip="Open Quick Outline">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="de.itemis.tooling.xturtle.Xturtle.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+    <!-- quickfix marker resolution generator for de.itemis.tooling.xturtle.Xturtle -->
+    <extension
+            point="org.eclipse.ui.ide.markerResolution">
+        <markerResolutionGenerator
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="de.itemis.tooling.xturtle.ui.xturtle.check.fast">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="de.itemis.tooling.xturtle.ui.xturtle.check.normal">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="de.itemis.tooling.xturtle.ui.xturtle.check.expensive">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+    </extension>
+
+</plugin>
