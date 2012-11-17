@@ -13,7 +13,9 @@ Require-Bundle: de.itemis.tooling.xturtle;visibility:=reexport,
  org.eclipse.ui,
  org.antlr.runtime,
  org.eclipse.xtext.ui.codetemplates.ui,
- org.eclipse.xtext.builder;bundle-version="2.3.1"
+ org.eclipse.xtext.builder;bundle-version="2.3.1",
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: de.itemis.tooling.xturtle.ui.contentassist,

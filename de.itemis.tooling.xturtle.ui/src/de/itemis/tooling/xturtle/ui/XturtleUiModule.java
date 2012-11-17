@@ -101,6 +101,12 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	public Class<? extends IFoldingRegionProvider> bindFoldingRegionProvider() {
 		return TurtleFoldingRegionProvider.class;
 	}
-	//Folding Start
+	//Folding End
+
+	// contributed by org.eclipse.xtext.ui.generator.projectWizard.SimpleProjectWizardFragment
+	public Class<? extends org.eclipse.xtext.ui.wizard.IProjectCreator> bindIProjectCreator() {
+		return de.itemis.tooling.xturtle.ui.wizard.TurtleProjectCreator.class;
+	}
+
 
 }
