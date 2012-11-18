@@ -222,10 +222,13 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 				List<de.itemis.tooling.xturtle.xturtle.Predicate> candidates = EcoreUtil2.getAllContentsOfType(root, de.itemis.tooling.xturtle.xturtle.Predicate.class);
 				for (de.itemis.tooling.xturtle.xturtle.Predicate predicate : candidates) {
 					if(name.equals(service.getQualifiedName(predicate))){
-						EList<Object> objects = ((PredicateObjectList)predicate.eContainer()).getObjects();
-						for (Object object : objects) {
-							if(object instanceof StringLiteral){
-								acceptor.accept(createCompletionProposal(((StringLiteral) object).getValue(), context));
+						EObject container = predicate.eContainer();
+						if(container instanceof PredicateObjectList){
+							EList<Object> objects = ((PredicateObjectList)predicate.eContainer()).getObjects();
+							for (Object object : objects) {
+								if(object instanceof StringLiteral){
+									acceptor.accept(createCompletionProposal(((StringLiteral) object).getValue(), context));
+								}
 							}
 						}
 					}
