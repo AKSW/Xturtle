@@ -4,6 +4,7 @@
 package de.itemis.tooling.xturtle.ui;
 
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
+import org.eclipse.jface.text.templates.ContextTypeRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -32,6 +33,7 @@ import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleHyperlinkHelper;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingConfig;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingMapper;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleSemanticHighlighter;
+import de.itemis.tooling.xturtle.ui.templates.TurtleTemplateContextTypeRegistry;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -106,6 +108,11 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	// contributed by org.eclipse.xtext.ui.generator.projectWizard.SimpleProjectWizardFragment
 	public Class<? extends org.eclipse.xtext.ui.wizard.IProjectCreator> bindIProjectCreator() {
 		return de.itemis.tooling.xturtle.ui.wizard.TurtleProjectCreator.class;
+	}
+
+	@Override
+	public Class<? extends ContextTypeRegistry> bindContextTypeRegistry() {
+		return TurtleTemplateContextTypeRegistry.class;
 	}
 
 
