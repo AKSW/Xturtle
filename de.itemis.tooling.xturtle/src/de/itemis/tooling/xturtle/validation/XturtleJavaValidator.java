@@ -1,7 +1,17 @@
 package de.itemis.tooling.xturtle.validation;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.validation.Check;
 
 import com.google.inject.Inject;
@@ -9,6 +19,7 @@ import com.google.inject.Inject;
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.services.Prefixes;
 import de.itemis.tooling.xturtle.xturtle.Directive;
+import de.itemis.tooling.xturtle.xturtle.Directives;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
@@ -18,9 +29,12 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	@Inject 
 	private Prefixes prefixes;
 	@Inject 
-	TurtleResourceService service;
+	private TurtleResourceService service;
+	@Inject
+	private TurtleValidationSeverityLevels levels;
 
 	//there may be a linked prefix *after* the Triple
+	//TODO fällt wahrscheinlich weg
 	@Check
 	public void checkEmptyPrefixDefined(QNameDef def) {
 		if(service.getQualifiedName(def)==null){
@@ -42,18 +56,70 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	//check prefix definition is in line with prefix.cc
 	@Check
 	public void checkPrefixCC(PrefixId def) {
-		if(def.getId()!=null && prefixes.isKnownPrefix(def.getId())){
-			List<String> expectedNs=prefixes.getUris(def.getId());
-			if(!expectedNs.contains(service.getUriString(def))){
-				warning("namespace <"+expectedNs+"> is expected", XturtlePackage.Literals.PREFIX_ID__ID);
+		Severity severity=levels.getNamespaceMismatchLevel();
+		if(severity!=null){
+			if(def.getId()!=null && prefixes.isKnownPrefix(def.getId())){
+				List<String> expectedNs=prefixes.getUris(def.getId());
+				if(!expectedNs.contains(service.getUriString(def))){
+					createError(severity, "namespace <"+expectedNs+"> is expected", XturtlePackage.Literals.PREFIX_ID__ID);
+				}
 			}
 		}
-		String uri = service.getUriString(def);
-		if(uri!=null && prefixes.isKnownNameSpace(uri)){
-			List<String> expectedPrefixes=prefixes.getPrefixes(uri);
-			if(!expectedPrefixes.contains(def.getId())){
-				warning("prefix '"+expectedPrefixes.get(0)+"' expected", XturtlePackage.Literals.PREFIX_ID__ID);
+
+		severity=levels.getPrefixMismatchLevel();
+		if(severity!=null){
+			String uri = service.getUriString(def);
+			if(uri!=null && prefixes.isKnownNameSpace(uri)){
+				List<String> expectedPrefixes=prefixes.getPrefixes(uri);
+				if(!expectedPrefixes.contains(def.getId())){
+					createError(severity,"prefix '"+expectedPrefixes.get(0)+"' expected", XturtlePackage.Literals.PREFIX_ID__ID);
+				}
 			}
+		}
+	}
+
+	@Check
+	public void checkUnusedPrefix(PrefixId def) {
+		Severity s=levels.getUnusedPrefixLevel();
+		if(s!=null){
+			Collection<Setting> candidates = EcoreUtil.UsageCrossReferencer.find(def, def.eResource());
+			if(candidates.size()==0){
+				createError(s, "unused prefix", XturtlePackage.Literals.PREFIX_ID__ID);
+			}
+		}
+	}
+
+	@Check
+	public void checkDuplicatePrefixInDirectives(Directives directives){
+		Map<String,PrefixId> firstOccurence=new HashMap<String,PrefixId>();
+		Set<String> duplicatePrefixes=new HashSet<String>();
+		for (PrefixId prefixId : EcoreUtil2.typeSelect(directives.getDirective(), PrefixId.class)) {
+			String prefix=prefixId.getId();
+			if(firstOccurence.containsKey(prefix)){
+				duplicatePrefixes.add(prefix);
+				error("duplicate prefix id", prefixId, XturtlePackage.Literals.PREFIX_ID__ID,-1);
+			}else{
+				firstOccurence.put(prefix, prefixId);
+			}
+		}
+		for (String string : duplicatePrefixes) {
+			error("duplicate prefix id",firstOccurence.get(string), XturtlePackage.Literals.PREFIX_ID__ID,-1);
+		}
+	}
+
+	private void createError(Severity s, String errorMEssage, EStructuralFeature feature){
+		switch (s) {
+		case ERROR:
+			error(errorMEssage, feature);
+			break;
+		case WARNING:
+			warning(errorMEssage, feature);
+			break;
+		case INFO:
+			info(errorMEssage, feature);
+			break;
+		default:
+			break;
 		}
 	}
 }

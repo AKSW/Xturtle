@@ -58,9 +58,17 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		public boolean isCandidateMatchingPrefix(String name, String prefix) {
 			return label.contains(prefix.substring(1).toLowerCase());
 		}
-		
-	}	
-	
+	}
+
+	@Override
+	protected String getDisplayString(EObject element,
+			String qualifiedNameAsString, String shortName) {
+		if(element instanceof PrefixId){
+			return ((PrefixId) element).getId()+" - "+((PrefixId) element).getUri();
+		}
+		return super.getDisplayString(element, qualifiedNameAsString, shortName);
+	}
+
 	@Override
 	public void completeQNameRef_Ref(EObject model, Assignment assignment,
 			final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {

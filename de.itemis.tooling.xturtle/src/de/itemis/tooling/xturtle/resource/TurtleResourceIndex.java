@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -203,12 +204,16 @@ class TurtleResourceIndex implements Adapter {
 		}
 		return QualifiedName.create(namespace,name);
 	}
-	//TODO base uri
+
 	private void resetMaps(Resource resource){
 		fragmentMap=HashBiMap.create();
 		prefixToUriMap=new HashMap<String, String>();
 		qNameMap=new HashMap<EObject, QualifiedName>();
-		currentBaseUri=URI.create("file://"+resource.getURI().lastSegment()+"/");
+		StringBuilder b=new StringBuilder("file://");
+		b.append(Platform.getLocation());
+		b.append(resource.getURI().toPlatformString(true));
+		b.append("#");
+		currentBaseUri=URI.create(b.toString());
 	}
 
 	private void addFragmentEntry(int index, EObject object){

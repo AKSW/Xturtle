@@ -3,8 +3,10 @@ package de.itemis.tooling.xturtle.ui.folding;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
@@ -13,7 +15,8 @@ import org.eclipse.ui.texteditor.IUpdate;
 import org.eclipse.ui.texteditor.ResourceAction;
 import org.eclipse.xtext.ui.editor.folding.FoldingActionGroup;
 
-import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider.TextFoldedRegion;
+import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider.TypedFoldedRegion;
+import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
 
 class TurtleFoldingActionGroup extends FoldingActionGroup {
 
@@ -44,6 +47,7 @@ class TurtleFoldingActionGroup extends FoldingActionGroup {
 		this.viewwer=(ProjectionViewer) viewer;
 		
 		collapseStrings= new FoldingAction(TurtleFoldingMessages.getResourceBundle(), "Projection.CollapseStrings.") { //$NON-NLS-1$
+			private final EClass type=XturtlePackage.Literals.STRING_LITERAL;
 			public void run() {
 				ProjectionAnnotationModel model = viewwer.getProjectionAnnotationModel();
 				Iterator<?> iterator = model.getAnnotationIterator();
@@ -53,7 +57,8 @@ class TurtleFoldingActionGroup extends FoldingActionGroup {
 						ProjectionAnnotation pa = (ProjectionAnnotation) next;
 						//foldable regions for strings have been marked by using the TextFoldedRegion class
 						//there may indeed be better ways...
-						if(model.getPosition(pa) instanceof TextFoldedRegion){
+						Position position = model.getPosition(pa);
+						if(position instanceof TypedFoldedRegion && type==((TypedFoldedRegion) position).getType()){
 							model.collapse(pa);
 						}
 					}

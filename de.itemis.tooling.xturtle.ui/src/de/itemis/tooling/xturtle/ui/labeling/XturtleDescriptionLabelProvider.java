@@ -25,6 +25,12 @@ public class XturtleDescriptionLabelProvider extends DefaultDescriptionLabelProv
     }	 
 */
 	public String text(IEObjectDescription ele) {
-		  return ele.getQualifiedName().getLastSegment() + ": "+ele.getEObjectURI().lastSegment();
+		StringBuilder b=new StringBuilder();
+		b.append(ele.getQualifiedName().getLastSegment());
+		b.append(" (");
+		b.append(ele.getQualifiedName().toString(""));
+		b.append("): ");
+		b.append(ele.getEObjectURI().lastSegment());
+		return b.toString();
 		}
 }

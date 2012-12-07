@@ -21,7 +21,9 @@ import de.itemis.tooling.xturtle.resource.TurtleIndexingStrategy;
 import de.itemis.tooling.xturtle.resource.TurtleLocationInFileProvider;
 import de.itemis.tooling.xturtle.scoping.TurtleLocalScopeProvider;
 import de.itemis.tooling.xturtle.services.TurtleDataTypeConverters;
+import de.itemis.tooling.xturtle.validation.TurtleFixedSeverityLevels;
 import de.itemis.tooling.xturtle.validation.TurtleNamesAreUniqueValidationHelper;
+import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 
 
 /**
@@ -78,5 +80,9 @@ public class XturtleRuntimeModule extends de.itemis.tooling.xturtle.AbstractXtur
 
 	public Class<? extends INamesAreUniqueValidationHelper> bindUniqueNameValidationHelper() {
 		return TurtleNamesAreUniqueValidationHelper.class;
+	}
+
+	public Class<? extends TurtleValidationSeverityLevels> bindSeverityLevels() {
+		return TurtleFixedSeverityLevels.class;
 	}
 }

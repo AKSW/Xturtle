@@ -3,7 +3,11 @@
  */
 package de.itemis.tooling.xturtle.scoping;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
@@ -18,6 +22,7 @@ import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+import de.itemis.tooling.xturtle.xturtle.DirectiveBlock;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.TurtleDoc;
 
@@ -29,29 +34,46 @@ import de.itemis.tooling.xturtle.xturtle.TurtleDoc;
  *
  */
 public class XturtleScopeProvider extends AbstractDeclarativeScopeProvider {
-
 	@Inject
 	IResourceScopeCache cache;
+
 	//only the prefixes defined within the model are visible
-	//TODO maybe link prefix directly
-	IScope scope_QNameDef_prefix(TurtleDoc m, EReference ref){
-		return getNamespacePrefixScope(m);
-	}
-	IScope scope_QNameRef_prefix(TurtleDoc m, EReference ref){
-		return getNamespacePrefixScope(m);
+	IScope scope_QNameDef_prefix(TurtleDoc doc, EReference ref){
+		return IScope.NULLSCOPE;
 	}
 
-	//adapt Linker in order to get the correct target!!
-	private IScope getNamespacePrefixScope(final TurtleDoc m) {
-		List<PrefixId> prefixIds = cache.get("prefixIds", m.eResource(), new Provider<List<PrefixId>>() {
+	IScope scope_QNameDef_prefix(DirectiveBlock m, EReference ref){
+		return getNamespacePrefixScope(m,ref);
+	}
+	IScope scope_QNameRef_prefix(DirectiveBlock m, EReference ref){
+		return getNamespacePrefixScope(m,ref);
+	}
+
+	private IScope getNamespacePrefixScope(final DirectiveBlock b, EReference ref){
+		List<PrefixId> prefixIds = cache.get(b, b.eResource(), new Provider<List<PrefixId>>() {
 			public List<PrefixId> get() {
-				return EcoreUtil2.getAllContentsOfType(m, PrefixId.class);
+				List<PrefixId> list = EcoreUtil2.getAllContentsOfType(b.getDirecives(), PrefixId.class);
+				Collections.reverse(list);
+
+				Set<String> prefixes=new HashSet<String>();
+				Iterator<PrefixId> iterator= list.iterator();
+				//only the last occurence of a prefix can be linked
+				//not removing them would show them in content assist nonetheless
+				while(iterator.hasNext()){
+					PrefixId id = iterator.next();
+					if(prefixes.contains(id.getId())){
+						iterator.remove();
+					}else{
+						prefixes.add(id.getId());
+					}
+				}
+				return list;
 			}
 		});
 		return Scopes.scopeFor(prefixIds, new Function<PrefixId, QualifiedName>() {
 			public QualifiedName apply(PrefixId def){
 					return QualifiedName.create("",Optional.fromNullable(def.getId()).or(""));
 			}
-		}, IScope.NULLSCOPE);
+		}, getScope(b.eContainer(), ref));
 	}
 }

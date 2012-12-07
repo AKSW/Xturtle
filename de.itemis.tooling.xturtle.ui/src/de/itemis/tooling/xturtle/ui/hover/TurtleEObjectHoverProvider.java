@@ -63,4 +63,9 @@ public class TurtleEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		}
 		return resultString.replaceAll("\\\\\"", "\"").replaceAll("\n", "</br>");
 	}
+
+	@Override
+	protected boolean hasHover(EObject o) {
+		return service.getUriString(o)!=null;
+	}
 }

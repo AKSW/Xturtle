@@ -35,9 +35,9 @@ public class XturtleFormatter extends AbstractDeclarativeFormatter {
 //		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
 //		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
 
-		c.setLinewrap().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
+//		c.setLinewrap().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
 		c.setIndentationDecrement().after(grammarAccess.getPredicateObjectListAccess().getObjectsAssignment_2());
-		c.setIndentationDecrement().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
+//		c.setIndentationDecrement().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
 		c.setIndentationIncrement().before(grammarAccess.getPredicateObjectListAccess().getVerbAssignment_0());
 		c.setNoSpace().around(grammarAccess.getColonNameAccess().getColonKeyword_0());
 		c.setNoSpace().around(grammarAccess.getQNameDefAccess().getColonKeyword_2());

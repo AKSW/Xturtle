@@ -79,7 +79,41 @@
             name="Templates">
             <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
         </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtleLabelPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.indexing.Labels"
+            name="Label-URIs">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtleDescriptionsPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.indexing.Descriptions"
+            name="Description-URIs">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtleFoldingPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.Folding"
+            name="Folding">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtleValidationPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.Validation"
+            name="Validation">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
     </extension>
+    <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceInitializer">
+      </initializer>
+   </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
@@ -257,5 +291,4 @@
             project="true">
       </wizard>
    </extension>
-
 </plugin>

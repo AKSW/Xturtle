@@ -72,7 +72,6 @@ public class TurtleReferencedProjectsSelectionPage extends WizardPage {
 		Font font = parent.getFont();
 		for (int i = 0; i < projects.length; i++) {
 			Button checkBox = new Button(parent, SWT.CHECK | SWT.LEFT);
-			new Button(parent, SWT.CHECK | SWT.LEFT);new Button(parent, SWT.CHECK | SWT.LEFT);new Button(parent, SWT.CHECK | SWT.LEFT);new Button(parent, SWT.CHECK | SWT.LEFT);new Button(parent, SWT.CHECK | SWT.LEFT);new Button(parent, SWT.CHECK | SWT.LEFT);
 			checkBoxButtons[i] = checkBox;
 			checkBox.setText(projects[i].getName());
 			checkBox.setData(projects[i]);

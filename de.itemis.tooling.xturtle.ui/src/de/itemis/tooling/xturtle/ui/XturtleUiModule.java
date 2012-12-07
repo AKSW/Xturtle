@@ -12,6 +12,7 @@ import org.eclipse.xtext.ui.editor.actions.IActionContributor;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
@@ -23,17 +24,22 @@ import com.google.inject.Binder;
 import com.google.inject.Provider;
 import com.google.inject.name.Names;
 
+import de.itemis.tooling.xturtle.resource.TurtleIndexUserDataNamesProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleAutoEditStrategyProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleNewLineAutoedit;
 import de.itemis.tooling.xturtle.ui.findrefs.TurtleReferenceFinder;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingActionContributor;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider;
+import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHover;
 import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHoverProvider;
 import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleHyperlinkHelper;
+import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedUserDataNamesProvider;
+import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedValidationSeverityLevels;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingConfig;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingMapper;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleSemanticHighlighter;
 import de.itemis.tooling.xturtle.ui.templates.TurtleTemplateContextTypeRegistry;
+import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -57,6 +63,11 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 
 	public Class<? extends ISemanticHighlightingCalculator> bindSemanticHighlighter(){
 		return TurtleSemanticHighlighter.class;
+	}
+
+	@Override
+	public Class<? extends IEObjectHover> bindIEObjectHover() {
+		return TurtleEObjectHover.class;
 	}
 
 	public Class<? extends IEObjectHoverProvider> bindHoverProvider(){
@@ -115,5 +126,11 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 		return TurtleTemplateContextTypeRegistry.class;
 	}
 
+	public Class<? extends TurtleIndexUserDataNamesProvider> bindUserDataNamesProvider() {
+		return TurtlePreferenceBasedUserDataNamesProvider.class;
+	}
 
+	public Class<? extends TurtleValidationSeverityLevels> bindSeverityLevels() {
+		return TurtlePreferenceBasedValidationSeverityLevels.class;
+	}
 }
