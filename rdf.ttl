@@ -1,11 +1,10 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
 
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    dc:description "This is the RDF Schema for the RDF vocabulary defined in the RDF namespace." ;
-    dc:title "The RDF Vocabulary (RDF)" ;
+    rdfs:comment "This is the RDF Schema for the RDF vocabulary defined in the RDF namespace." ;
+    rdfs:label "The RDF Vocabulary (RDF)" ;
     a owl:Ontology ;
     rdfs:seeAlso <http://www.w3.org/2000/01/rdf-schema-more> .
 
