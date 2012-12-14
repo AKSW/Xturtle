@@ -1,6 +1,5 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix grddl: <http://www.w3.org/2003/g/data-view#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -29,10 +28,7 @@
    """ ;
     rdfs:isDefinedBy <http://www.w3.org/TR/owl2-mapping-to-rdf/>, <http://www.w3.org/TR/owl2-rdf-based-semantics/>, <http://www.w3.org/TR/owl2-syntax/> ;
     rdfs:seeAlso <http://www.w3.org/TR/owl2-rdf-based-semantics/#table-axiomatic-classes>, <http://www.w3.org/TR/owl2-rdf-based-semantics/#table-axiomatic-properties> ;
-    owl:imports <http://www.w3.org/2000/01/rdf-schema> ;
-    owl:versionIRI <http://www.w3.org/2002/07/owl> ;
-    owl:versionInfo "$Date: 2009/11/15 10:54:12 $" ;
-    grddl:namespaceTransformation <http://dev.w3.org/cvsweb/2009/owl-grddl/owx2rdf.xsl> .
+    owl:imports <http://www.w3.org/2000/01/rdf-schema> .
 
 owl:AllDifferent
     a rdfs:Class ;
