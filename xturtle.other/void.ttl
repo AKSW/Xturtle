@@ -219,9 +219,9 @@ void:vocabulary
     dcterms:created "2010-01-26"^^xsd:date ;
     dcterms:description "The Vocabulary of Interlinked Datasets (VoID) is an RDF Schema vocabulary for expressing metadata about RDF datasets. It is intended as a bridge between the publishers and users of RDF data, with applications ranging from data discovery to cataloging and archiving of datasets. This document provides a formal definition of the new RDF classes and properties introduced for VoID. It is a companion to the main specification document for VoID, <em><a href=\"http://www.w3.org/TR/void/\">Describing Linked Datasets with the VoID Vocabulary</a></em>." ;
     dcterms:modified "2011-03-06"^^xsd:date ;
-    dcterms:partOf <http://vocab.deri.ie> ;
+    dcterms:isPartOf <http://vocab.deri.ie> ;
     dcterms:publisher "http://vocab.deri.ie/void#Digital%20Enterprise%20Research%20Institute%2C%20NUI%20Galway" ;
-    dcterms:status <http://purl.org/adms/status/UnderDevelopment> ;
+    adms:status <http://purl.org/adms/status/UnderDevelopment> ;
     dcterms:title "Vocabulary of Interlinked Datasets (VoID)" ;
     dcterms:type <http://purl.org/adms/assettype/Ontology> ;
     vann:preferredNamespacePrefix "void" ;
@@ -279,13 +279,13 @@ void:vocabulary
 
 <http://vocab.deri.ie/void#rdf>
     dcterms:FileFormat <file:///Users/seebi/aksw.org/vocabularies/void.ttl> ;
-    a adms:SemanticDistribution ;
+    a adms:SemanticAssetDistribution ;
     adms:accessURL "http://vocab.deri.ie/void.rdf" ;
     adms:status <http://purl.org/adms/status/Completed> .
 
 <http://vocab.deri.ie/void#ttl>
     dcterms:FileFormat <file:///Users/seebi/aksw.org/vocabularies/void.ttl> ;
-    a adms:SemanticDistribution ;
+    a adms:SemanticAssetDistribution ;
     adms:accessURL "http://vocab.deri.ie/void.ttl" ;
     adms:status <http://purl.org/adms/status/Completed> .
 
