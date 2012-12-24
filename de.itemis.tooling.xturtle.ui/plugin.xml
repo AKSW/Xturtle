@@ -19,7 +19,7 @@
               contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
               default="true"
               extensions="ttl"
-              icon="icons/xturtle_16x16.png"
+              icon="icons/rdf16.png"
               id="de.itemis.tooling.xturtle.Xturtle"
               name="Xturtle Editor">
         </editor>
@@ -285,10 +285,16 @@
       <wizard
             category="org.eclipse.xtext.projectwiz"
             class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.wizard.TurtleNewProjectWizard"
-            icon="icons/xturtle_16x16.png"
+            icon="icons/sw-cube.png"
             id="de.itemis.tooling.xturtle.ui.wizard.TurtleNewProjectWizard"
             name="Xturtle Project"
             project="true">
+      </wizard>
+      <wizard
+            class="de.itemis.tooling.xturtle.ui.wizard.TurtleNewFileWizard"
+            icon="icons/rdf16.png"
+            id="de.itemis.tooling.xturtle.ui.wizard.TurtleNewFileWizard"
+            name="New turtle file">
       </wizard>
    </extension>
 </plugin>

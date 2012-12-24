@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
-<template id="Xturtle_base" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Directive" deleted="false" description="base definition" enabled="true" name="base">@base &lt;${baseUri}&gt;.
+<template id="Xturtle_base" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Directive" deleted="false" description="base definition" enabled="true" name="base">@base &lt;${baseUri}&gt; .
 ${cursor}</template>
-<template  id="Xturtle_prefix" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Directive" deleted="false" description="prefix definition" enabled="true" name="prefix">@prefix ${prefixid}:${namespace}.
+<template id="Xturtle_prefix" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Directive" deleted="false" description="prefix definition" enabled="true" name="prefix">@prefix ${prefixid}: ${namespace} .
 ${cursor}
-</template></templates>
+</template>
+<template id="Xturtle_basic_class" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Subject" deleted="false" description="definition of a basic class" enabled="true" name="class">:${localname} a owl:Class;
+	rdfs:label "${label}";
+	rdfs:comment "${comment}".
+
+${cursor}</template>
+<template id="Xturtle_datatype_property" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Subject" deleted="false" description="a basic owl datatype property" enabled="true" name="dprop">:${localname} a rdf:Property, owl:DatatypeProperty ;
+	rdfs:label "${label}" ;
+	rdfs:comment "${comment}" ;
+	rdfs:domain ${domain} ;
+	rdfs:range rdfs:Literal .
+
+${cursor}</template>
+<template id="Xturtle_object_property" autoinsert="true" context="de.itemis.tooling.xturtle.Xturtle.Subject" deleted="false" description="a basic owl object property" enabled="true" name="oprop">:${localname} a rdf:Property, owl:ObjectProperty ;
+	rdfs:label "${label}" ;
+	rdfs:comment "${comment}" ;
+	rdfs:domain ${domain} ;
+	rdfs:range ${range} .
+
+${cursor}</template>
+</templates>

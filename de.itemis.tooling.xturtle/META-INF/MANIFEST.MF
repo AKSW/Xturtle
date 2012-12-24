@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Turtle Sprachinfrastruktur
 Bundle-Vendor: itemis
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 0.0.9.qualifier
 Bundle-SymbolicName: de.itemis.tooling.xturtle; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;visibility:=reexport,

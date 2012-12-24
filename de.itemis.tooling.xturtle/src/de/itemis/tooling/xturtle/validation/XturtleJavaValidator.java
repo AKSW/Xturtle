@@ -22,6 +22,7 @@ import de.itemis.tooling.xturtle.xturtle.Directive;
 import de.itemis.tooling.xturtle.xturtle.Directives;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
+import de.itemis.tooling.xturtle.xturtle.QNameRef;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
  
 
@@ -33,12 +34,16 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	@Inject
 	private TurtleValidationSeverityLevels levels;
 
-	//there may be a linked prefix *after* the Triple
-	//TODO fällt wahrscheinlich weg
 	@Check
 	public void checkEmptyPrefixDefined(QNameDef def) {
-		if(service.getQualifiedName(def)==null){
+		if(def.getPrefix()==null && service.getQualifiedName(def)==null){
 			error("no @prefix-Definition up to this point", XturtlePackage.Literals.QNAME_DEF__PREFIX);
+		}
+	}
+	@Check
+	public void checkEmptyPrefixDefined(QNameRef ref) {
+		if(ref.getPrefix()==null && service.getQualifiedName(ref)==null){
+			error("no @prefix-Definition up to this point", XturtlePackage.Literals.QNAME_REF__PREFIX);
 		}
 	}
 
@@ -61,7 +66,7 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 			if(def.getId()!=null && prefixes.isKnownPrefix(def.getId())){
 				List<String> expectedNs=prefixes.getUris(def.getId());
 				if(!expectedNs.contains(service.getUriString(def))){
-					createError(severity, "namespace <"+expectedNs+"> is expected", XturtlePackage.Literals.PREFIX_ID__ID);
+					createError(severity, "Namespace <"+expectedNs+"> is recommended by prefix.cc", XturtlePackage.Literals.PREFIX_ID__ID);
 				}
 			}
 		}
@@ -71,8 +76,8 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 			String uri = service.getUriString(def);
 			if(uri!=null && prefixes.isKnownNameSpace(uri)){
 				List<String> expectedPrefixes=prefixes.getPrefixes(uri);
-				if(!expectedPrefixes.contains(def.getId())){
-					createError(severity,"prefix '"+expectedPrefixes.get(0)+"' expected", XturtlePackage.Literals.PREFIX_ID__ID);
+				if(def.getId()!=null && !expectedPrefixes.contains(def.getId())){
+					createError(severity,"Prefix '"+expectedPrefixes.get(0)+"' is recommended by prefix.cc", XturtlePackage.Literals.PREFIX_ID__ID);
 				}
 			}
 		}
@@ -82,9 +87,13 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	public void checkUnusedPrefix(PrefixId def) {
 		Severity s=levels.getUnusedPrefixLevel();
 		if(s!=null){
-			Collection<Setting> candidates = EcoreUtil.UsageCrossReferencer.find(def, def.eResource());
-			if(candidates.size()==0){
-				createError(s, "unused prefix", XturtlePackage.Literals.PREFIX_ID__ID);
+			if(def.getId()!=null){
+				Collection<Setting> candidates = EcoreUtil.UsageCrossReferencer.find(def, def.eResource());
+				if(candidates.size()==0){
+					createError(s, "unused prefix", XturtlePackage.Literals.PREFIX_ID__ID);
+				}
+			}else{
+				//TODO currently no validation for unused empty prefixes
 			}
 		}
 	}

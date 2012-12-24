@@ -24,7 +24,7 @@ public class TurtleNewProjectWizard extends XtextNewProjectWizard {
 	public void addPages() {
 		mainPage = new WizardNewProjectCreationPage("basicNewProjectPage");
 		mainPage.setTitle("Xturtle Project");
-		mainPage.setDescription("Create a new Xturtle project.");
+		mainPage.setDescription("Create a new Xturtle project. Go to the next page to select projects, whose ttl-files should be visible from the new project.");
 		addPage(mainPage);
 		refProjectPage=new TurtleReferencedProjectsSelectionPage("refSelection");
 		refProjectPage.setTitle("Xturtle Project");

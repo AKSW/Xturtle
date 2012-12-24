@@ -9,10 +9,12 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -21,10 +23,12 @@ import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.services.Prefixes;
+import de.itemis.tooling.xturtle.services.XturtleGrammarAccess;
 import de.itemis.tooling.xturtle.xturtle.Object;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
@@ -37,6 +41,8 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 
 	@Inject 
 	TurtleResourceService service;
+	@Inject
+	XturtleGrammarAccess ga;
 
 	@Inject
 	Prefixes prefixes;
@@ -110,8 +116,10 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 				acceptor.accept(
 						createCompletionProposal(
 								":"+additional.getQualifiedName().getLastSegment(), 
-								label,
+								new StyledString(label),
 								null,
+								100,
+								context.getPrefix(),
 								context.copy().setMatcher(new LabelPrefixMatcher(label)).toContext()));
 			}
 		}
@@ -142,11 +150,31 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 	}
 
 	//fetch the most popular URI from prefix.cc
-	public void completePrefixId_Uri(PrefixId model, Assignment assignment,
+	@Override
+	public void completePrefixId_Uri(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		List<String> uri=prefixes.getUris(model.getId());
-		if(uri!=null){
-			acceptor.accept(createCompletionProposal("<"+uri.get(0)+">", context));
+		String id=null;
+		if(model instanceof PrefixId){
+			id=((PrefixId)model).getId();
+		}else{
+			//for some strange reason, NodeModelUtils will always return TurtleDoc as the
+			//semantic element attached to any node, even if there is an assignment within PrefixId
+			//As we know that we are within the PrefixId node, we look for the (only) ID node which
+			//which contains the prefix
+			INode node=context.getLastCompleteNode();
+			do {
+				if(node.getGrammarElement()==ga.getIDRule()){
+					id=node.getText();
+					break;
+				}
+				node=node.getPreviousSibling();
+			} while (node.getGrammarElement()==null || node.getGrammarElement()!=ga.getATRule());
+		}
+		if(id!=null){
+			List<String> uri=prefixes.getUris(id);
+			if(uri!=null){
+				acceptor.accept(createCompletionProposal("<"+uri.get(0)+">", context));
+			}
 		}
 	}
 
@@ -243,5 +271,20 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 				}
 			}
 		}
+	}
+
+	private static final List<String> languages=ImmutableList.of("en","zh","hi","es","fr","ar","ru","pt","bn","de","ja","ko");
+	@Override
+	public void completeStringLiteral_Language(EObject model,
+			Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		for (String language : languages) {
+			acceptor.accept(createCompletionProposal(language, context));
+		}
+	}
+
+	public void complete_AT(StringLiteral model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		acceptor.accept(createCompletionProposal("@", context));
 	}
 }

@@ -110,8 +110,10 @@ class TurtleResourceIndex implements Adapter {
 			List<INode> refNodes = NodeModelUtils.findNodesForFeature(obj, XturtlePackage.Literals.RESOURCE_REF__REF);
 			String ref=NodeModelUtils.getTokenText(refNodes.get(0));
 			if(ref!=null&& ref.length()>0&& ref.charAt(0)==':'){
-				//TODO don't like invalid here
-				qNameMap.put(obj, QualifiedName.create(Optional.fromNullable(prefixToUriMap.get(prefix)).or("invalid"), ref.substring(1)));
+				String nsUri=prefixToUriMap.get(prefix);
+				if(nsUri!=null){
+					qNameMap.put(obj, QualifiedName.create(nsUri, ref.substring(1)));
+				}
 			}
 
 		} else if(obj instanceof UriRef){
@@ -122,9 +124,10 @@ class TurtleResourceIndex implements Adapter {
 				ref=ref.substring(1, ref.length()-1);
 				qName=resolve(currentBaseUri, ref);
 				qNameMap.put(obj, qName);
-			}else{
-				qNameMap.put(obj, QualifiedName.create("invalid","invalid"));
 			}
+//			else{
+//				qNameMap.put(obj, QualifiedName.create("invalid","invalid"));
+//			}
 		}	
 	}
 
@@ -212,7 +215,7 @@ class TurtleResourceIndex implements Adapter {
 		StringBuilder b=new StringBuilder("file://");
 		b.append(Platform.getLocation());
 		b.append(resource.getURI().toPlatformString(true));
-		b.append("#");
+//		b.append("#");
 		currentBaseUri=URI.create(b.toString());
 	}
 
