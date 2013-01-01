@@ -1,6 +1,5 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcam: <http://purl.org/dc/dcam/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -672,7 +671,7 @@ dcterms:hasFormat
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Has Format"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:hasPart
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#hasPart-003> ;
@@ -683,7 +682,7 @@ dcterms:hasPart
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Has Part"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:hasVersion
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#hasVersion-003> ;
@@ -694,7 +693,7 @@ dcterms:hasVersion
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Has Version"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:identifier
     dcterms:description "Recommended best practice is to identify the resource by means of a string conforming to a formal identification system. "@en ;
@@ -728,7 +727,7 @@ dcterms:isFormatOf
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Is Format Of"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:isPartOf
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#isPartOf-003> ;
@@ -739,7 +738,7 @@ dcterms:isPartOf
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Is Part Of"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:isReferencedBy
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#isReferencedBy-003> ;
@@ -750,7 +749,7 @@ dcterms:isReferencedBy
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Is Referenced By"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:isReplacedBy
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#isReplacedBy-003> ;
@@ -761,7 +760,7 @@ dcterms:isReplacedBy
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Is Replaced By"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:isRequiredBy
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#isRequiredBy-003> ;
@@ -772,7 +771,7 @@ dcterms:isRequiredBy
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Is Required By"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:isVersionOf
     dcterms:description "Changes in version imply substantive changes in content rather than differences in format."@en ;
@@ -784,7 +783,7 @@ dcterms:isVersionOf
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Is Version Of"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:issued
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#issued-003> ;
@@ -887,7 +886,7 @@ dcterms:references
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "References"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:relation
     dcterms:description "Recommended best practice is to identify the related resource by means of a string conforming to a formal identification system. "@en ;
@@ -899,7 +898,7 @@ dcterms:relation
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Relation"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation> ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:replaces
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#replaces-003> ;
@@ -910,7 +909,7 @@ dcterms:replaces
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Replaces"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:requires
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#requires-003> ;
@@ -921,7 +920,7 @@ dcterms:requires
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Requires"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:rights
     dcterms:description "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en ;
@@ -955,7 +954,7 @@ dcterms:source
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Source"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/source>, dcterms:relation ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:spatial
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#spatial-003> ;
@@ -978,7 +977,7 @@ dcterms:subject
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Subject"@en ;
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/subject> ;
-    skos:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 dcterms:tableOfContents
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#tableOfContents-003> ;

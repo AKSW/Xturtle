@@ -4,7 +4,6 @@
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dctype: <http://purl.org/dc/dcmitype/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 
 <http://www.w3.org/ns/dcat>
@@ -140,7 +139,7 @@ dcat:theme
     rdfs:comment "the main category of the dataset. A dataset can have multiple themes" ;
     rdfs:isDefinedBy <http://www.w3.org/ns/dcat> ;
     rdfs:label "theme" ;
-    rdfs:range skos:Concept ;
+    rdfs:range <http://www.w3.org/2004/02/skos/core#Concept> ;
     rdfs:subPropertyOf dct:subject .
 
 dcat:themeTaxonomy
@@ -149,5 +148,5 @@ dcat:themeTaxonomy
     rdfs:domain dcat:Catalog ;
     rdfs:isDefinedBy <http://www.w3.org/ns/dcat> ;
     rdfs:label "themes" ;
-    rdfs:range skos:ConceptScheme .
+    rdfs:range <http://www.w3.org/2004/02/skos/core#ConceptScheme> .
 
