@@ -1,6 +1,5 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix : <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix XML: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix sioc: <http://rdfs.org/sioc/ns#> .
 
@@ -597,7 +596,7 @@ sioc:num_authors
     :comment "The number of unique authors (UserAccounts and unregistered posters) who have contributed to this Item, Thread, Post, etc."@en ;
     :isDefinedBy <http://rdfs.org/sioc/ns#> ;
     :label "num authors"@en ;
-    :range XML:nonNegativeInteger .
+    :range xsd:nonNegativeInteger .
 
 sioc:num_items
     a owl:DatatypeProperty ;
@@ -605,14 +604,14 @@ sioc:num_items
     :domain sioc:Container ;
     :isDefinedBy <http://rdfs.org/sioc/ns#> ;
     :label "num items"@en ;
-    :range XML:nonNegativeInteger .
+    :range xsd:nonNegativeInteger .
 
 sioc:num_replies
     a owl:DatatypeProperty ;
     :comment "The number of replies that this Item, Thread, Post, etc. has. Useful for when the reply structure is absent."@en ;
     :isDefinedBy <http://rdfs.org/sioc/ns#> ;
     :label "num replies"@en ;
-    :range XML:nonNegativeInteger .
+    :range xsd:nonNegativeInteger .
 
 sioc:num_threads
     a owl:DatatypeProperty ;
@@ -620,14 +619,14 @@ sioc:num_threads
     :domain sioc:Forum ;
     :isDefinedBy <http://rdfs.org/sioc/ns#> ;
     :label "num threads"@en ;
-    :range XML:nonNegativeInteger .
+    :range xsd:nonNegativeInteger .
 
 sioc:num_views
     a owl:DatatypeProperty ;
     :comment "The number of times this Item, Thread, UserAccount profile, etc. has been viewed."@en ;
     :isDefinedBy <http://rdfs.org/sioc/ns#> ;
     :label "num views"@en ;
-    :range XML:nonNegativeInteger .
+    :range xsd:nonNegativeInteger .
 
 sioc:owner_of
     a owl:ObjectProperty ;
