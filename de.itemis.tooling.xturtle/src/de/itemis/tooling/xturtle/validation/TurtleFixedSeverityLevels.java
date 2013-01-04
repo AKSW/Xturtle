@@ -20,4 +20,7 @@ public class TurtleFixedSeverityLevels implements
 	public Severity getUnusedPrefixLevel() {
 		return Severity.ERROR;
 	}
+	public Severity getXsdTypeLevel() {
+		return Severity.INFO;
+	}
 }

@@ -27,12 +27,14 @@ import com.google.inject.name.Names;
 import de.itemis.tooling.xturtle.resource.TurtleIndexUserDataNamesProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleAutoEditStrategyProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleNewLineAutoedit;
+import de.itemis.tooling.xturtle.ui.contentassist.TurtleLiteralsLanguages;
 import de.itemis.tooling.xturtle.ui.findrefs.TurtleReferenceFinder;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingActionContributor;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider;
 import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHover;
 import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHoverProvider;
 import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleHyperlinkHelper;
+import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedLiteralsLanguages;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedUserDataNamesProvider;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedValidationSeverityLevels;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingConfig;
@@ -132,5 +134,9 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 
 	public Class<? extends TurtleValidationSeverityLevels> bindSeverityLevels() {
 		return TurtlePreferenceBasedValidationSeverityLevels.class;
+	}
+
+	public Class<? extends TurtleLiteralsLanguages> bindCALanguages() {
+		return TurtlePreferenceBasedLiteralsLanguages.class;
 	}
 }

@@ -12,8 +12,10 @@ import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Severity;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.validation.Check;
 
+import com.google.common.base.Optional;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
@@ -23,6 +25,7 @@ import de.itemis.tooling.xturtle.xturtle.Directives;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.QNameRef;
+import de.itemis.tooling.xturtle.xturtle.StringLiteral;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
  
 
@@ -113,6 +116,18 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 		}
 		for (String string : duplicatePrefixes) {
 			error("duplicate prefix id",firstOccurence.get(string), XturtlePackage.Literals.PREFIX_ID__ID,-1);
+		}
+	}
+
+	@Check
+	public void checkXSDType(StringLiteral literal){
+		Severity level=levels.getXsdTypeLevel();
+		if(level!=null && literal.getType()!=null){
+			QualifiedName uri = service.getQualifiedName(literal.getType());
+			Optional<String> errorMessage = XsdTypeValidator.getXsdError(literal.getValue(), uri);
+			if(errorMessage.isPresent()){
+				createError(level, errorMessage.get(), XturtlePackage.Literals.LITERAL__VALUE);
+			}
 		}
 	}
 

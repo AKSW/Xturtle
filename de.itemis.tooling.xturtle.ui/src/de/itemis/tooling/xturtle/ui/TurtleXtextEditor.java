@@ -94,7 +94,8 @@ public class TurtleXtextEditor extends XtextEditor{
 				getLanguageName() + ".indexing.Labels",
 				getLanguageName() + ".indexing.Descriptions",
 				getLanguageName() + ".Folding",
-				getLanguageName() + ".Validation"
+				getLanguageName() + ".Validation",
+				getLanguageName() + ".LanguageContentAssist"
 				};
 		return ObjectArrays.concat(superPages, xturtlePages, String.class);
 	}

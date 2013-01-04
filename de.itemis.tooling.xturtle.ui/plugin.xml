@@ -107,6 +107,13 @@
             name="Validation">
             <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
         </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtleLanguagesPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.LanguageContentAssist"
+            name="Languages">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+        </page>
     </extension>
     <extension
          point="org.eclipse.core.runtime.preferences">
@@ -296,5 +303,21 @@
             id="de.itemis.tooling.xturtle.ui.wizard.TurtleNewFileWizard"
             name="New turtle file">
       </wizard>
+   </extension>
+   <extension
+         id="de.itemis.tooling.xturtleNature"
+         name="Xturtle nature"
+         point="org.eclipse.core.resources.natures">
+      <requires-nature
+            id="org.eclipse.xtext.ui.shared.xtextNature">
+      </requires-nature>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icons/xturtle_16x16.png"
+            id="de.itemis.tooling.xturtle.ui.de.itemis.tooling.xturtleNature.image"
+            natureId="de.itemis.tooling.xturtle.ui.de.itemis.tooling.xturtleNature">
+      </image>
    </extension>
 </plugin>

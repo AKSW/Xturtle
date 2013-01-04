@@ -18,6 +18,7 @@ public class TurtlePreferenceBasedValidationSeverityLevels implements
 	Severity prefixMismatch;
 	Severity nsMismatch;
 	Severity unusedPrefix;
+	Severity xsdType;
 
 	@Inject
 	public TurtlePreferenceBasedValidationSeverityLevels(IPreferenceStore store) {
@@ -46,6 +47,10 @@ public class TurtlePreferenceBasedValidationSeverityLevels implements
 		return unusedPrefix;
 	}
 
+	public Severity getXsdTypeLevel() {
+		return xsdType;
+	}
+
 	public void propertyChange(PropertyChangeEvent event) {
 		if(event.getProperty().contains(".validation.")){
 			initValues();
@@ -58,6 +63,7 @@ public class TurtlePreferenceBasedValidationSeverityLevels implements
 		unusedPrefix=getSeverity(TurtlePreferenceConstants.VALIDATION_UNUSED_PREFIX_KEY);
 		nsMismatch=getSeverity(TurtlePreferenceConstants.VALIDATION_NS_MISMATCH_KEY);
 		prefixMismatch=getSeverity(TurtlePreferenceConstants.VALIDATION_PREFIX_MISMATCH_KEY);
+		xsdType=getSeverity(TurtlePreferenceConstants.VALIDATION_XSD_TYPE_KEY);
 	}
 
 	Severity getSeverity(String key){

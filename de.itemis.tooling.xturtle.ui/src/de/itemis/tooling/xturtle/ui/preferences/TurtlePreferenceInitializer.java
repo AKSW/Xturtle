@@ -40,6 +40,10 @@ public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_UNRESOLVED_QNAME_KEY, "error");
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_UNRESOLVED_URI_KEY, "null");
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_UNUSED_PREFIX_KEY, "info");
+		store.setDefault(TurtlePreferenceConstants.VALIDATION_XSD_TYPE_KEY, "info");
+
+		//content assist
+		store.setDefault(TurtlePreferenceConstants.CA_LANGUAGES_KEY, "en,,zh,,hi,,es,,fr,,ar,,ru,,pt,,bn,,de,,ja,,ko");
 	}
 
 	private String getDefaultDescriptionUris() {

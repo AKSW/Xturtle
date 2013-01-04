@@ -23,7 +23,6 @@ import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
@@ -46,6 +45,10 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 
 	@Inject
 	Prefixes prefixes;
+	
+	@Inject
+	TurtleLiteralsLanguages languages;
+
 	//prefixMatcher only for ColonNames!!
 	private PrefixMatcher subStringMatcher=new PrefixMatcher(){
 		CamelCase delegate=new CamelCase();
@@ -273,12 +276,11 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		}
 	}
 
-	private static final List<String> languages=ImmutableList.of("en","zh","hi","es","fr","ar","ru","pt","bn","de","ja","ko");
 	@Override
 	public void completeStringLiteral_Language(EObject model,
 			Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
-		for (String language : languages) {
+		for (String language : languages.getLanguagesToPropose()) {
 			acceptor.accept(createCompletionProposal(language, context));
 		}
 	}
