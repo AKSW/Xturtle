@@ -304,7 +304,7 @@
             name="New turtle file">
       </wizard>
    </extension>
-   <extension
+   <!--extension
          id="de.itemis.tooling.xturtleNature"
          name="Xturtle nature"
          point="org.eclipse.core.resources.natures">
@@ -319,5 +319,5 @@
             id="de.itemis.tooling.xturtle.ui.de.itemis.tooling.xturtleNature.image"
             natureId="de.itemis.tooling.xturtle.ui.de.itemis.tooling.xturtleNature">
       </image>
-   </extension>
+   </extension-->
 </plugin>

@@ -38,7 +38,7 @@ public class TurtleProjectCreator extends AbstractProjectCreator{
 	}
 
 	protected String[] getProjectNatures() {
-		return new String[] { XtextProjectHelper.NATURE_ID,"de.itemis.tooling.xturtle.ui.de.itemis.tooling.xturtleNature"};
+		return new String[] { XtextProjectHelper.NATURE_ID/*,"de.itemis.tooling.xturtle.ui.de.itemis.tooling.xturtleNature"*/};
 	}
 
 	protected String[] getBuilders() {
