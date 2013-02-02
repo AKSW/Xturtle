@@ -86,7 +86,7 @@ public class TurtleFoldingRegionProvider extends DefaultFoldingRegionProvider {
 		super.computeObjectFolding(eObject, foldingRegionAcceptor);
 	}
 
-	private static final Set<EClass>foldableElements=new HashSet<EClass>(Arrays.asList(XturtlePackage.Literals.TRIPLES, XturtlePackage.Literals.STRING_LITERAL, XturtlePackage.Literals.DIRECTIVES));
+	private static final Set<EClass>foldableElements=new HashSet<EClass>(Arrays.asList(XturtlePackage.Literals.TRIPLES, XturtlePackage.Literals.STRING_LITERAL, XturtlePackage.Literals.DIRECTIVES, XturtlePackage.Literals.BLANK_COLLECTION, XturtlePackage.Literals.BLANK_OBJECTS));
 	//for now we allow folding only for directives, triples and string literals
 	//TODO check whether to extend that to BlankObjects/BlankCollection
 	@Override

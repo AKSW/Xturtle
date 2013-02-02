@@ -33,6 +33,8 @@ public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(TurtlePreferenceConstants.FOLD_DIRECTIVES_KEY, true);
 		store.setDefault(TurtlePreferenceConstants.FOLD_STRINGS_KEY, true);
 		store.setDefault(TurtlePreferenceConstants.FOLD_TRIPLES_KEY, false);
+		store.setDefault(TurtlePreferenceConstants.FOLD_BLANK_COLL, true);
+		store.setDefault(TurtlePreferenceConstants.FOLD_BLANK_OBJ, true);
 
 		//validation
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_NS_MISMATCH_KEY, "warn");
@@ -48,6 +50,8 @@ public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
 
 	private String getDefaultDescriptionUris() {
 		StringBuilder b = new StringBuilder();
+		b.append("http://www.w3.org/2004/02/skos/core#definition");
+		b.append("\n");
 		b.append("http://www.w3.org/2000/01/rdf-schema#comment");
 		b.append("\n");
 		b.append("http://purl.org/dc/terms/description");

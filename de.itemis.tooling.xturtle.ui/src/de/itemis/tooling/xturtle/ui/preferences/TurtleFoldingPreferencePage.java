@@ -22,6 +22,8 @@ public class TurtleFoldingPreferencePage extends FieldEditorPreferencePage  impl
 		addField(new BooleanFieldEditor(TurtlePreferenceConstants.FOLD_DIRECTIVES_KEY, "directives", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(TurtlePreferenceConstants.FOLD_STRINGS_KEY, "multi-line strings", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(TurtlePreferenceConstants.FOLD_TRIPLES_KEY, "triple definitions", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(TurtlePreferenceConstants.FOLD_BLANK_COLL, "blank collection", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(TurtlePreferenceConstants.FOLD_BLANK_OBJ, "blank objects", getFieldEditorParent()));
 	}
 	public void init(IWorkbench workbench) {}
 }

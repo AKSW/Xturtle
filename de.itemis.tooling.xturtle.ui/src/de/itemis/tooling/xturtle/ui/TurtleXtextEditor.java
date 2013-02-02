@@ -72,6 +72,12 @@ public class TurtleXtextEditor extends XtextEditor{
 		if(preferencStore.getBoolean(TurtlePreferenceConstants.FOLD_DIRECTIVES_KEY)){
 			typesToFold.add(XturtlePackage.Literals.DIRECTIVES);
 		}
+		if(preferencStore.getBoolean(TurtlePreferenceConstants.FOLD_BLANK_COLL)){
+			typesToFold.add(XturtlePackage.Literals.BLANK_COLLECTION);
+		}
+		if(preferencStore.getBoolean(TurtlePreferenceConstants.FOLD_BLANK_OBJ)){
+			typesToFold.add(XturtlePackage.Literals.BLANK_OBJECTS);
+		}
 		if(!typesToFold.isEmpty()){
 			Iterator<?> iterator = model.getAnnotationIterator();
 			while (iterator.hasNext()){

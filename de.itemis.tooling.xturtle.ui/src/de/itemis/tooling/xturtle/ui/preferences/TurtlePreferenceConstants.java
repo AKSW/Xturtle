@@ -20,6 +20,8 @@ public class TurtlePreferenceConstants {
 	public static final String FOLD_DIRECTIVES_KEY = LANGUAGE_PREFIX+".folding.directives";
 	public static final String FOLD_STRINGS_KEY = LANGUAGE_PREFIX+".folding.strings";
 	public static final String FOLD_TRIPLES_KEY = LANGUAGE_PREFIX+".folding.triples";
+	public static final String FOLD_BLANK_COLL = LANGUAGE_PREFIX+".folding.bcol";
+	public static final String FOLD_BLANK_OBJ = LANGUAGE_PREFIX+".folding.bobj";
 
 	//validation
 	public static final String VALIDATION_UNRESOLVED_URI_KEY = LANGUAGE_PREFIX+".validation.unresolvedUri";

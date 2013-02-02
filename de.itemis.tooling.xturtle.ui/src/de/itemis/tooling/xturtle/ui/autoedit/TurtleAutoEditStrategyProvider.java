@@ -14,6 +14,11 @@ public class TurtleAutoEditStrategyProvider extends
 		configureStringLiteral(acceptor);
 		acceptor.accept(partitionInsert.newInstance("<", ">"),IDocument.DEFAULT_CONTENT_TYPE);
 		acceptor.accept(partitionDeletion.newInstance("<",">"),IDocument.DEFAULT_CONTENT_TYPE);
+		
+		configureParenthesis(acceptor);
+		configureSquareBrackets(acceptor);
+		acceptor.accept(compoundMultiLineTerminals.newInstanceFor("[", "]"), IDocument.DEFAULT_CONTENT_TYPE);
+
 		//		super.configure(acceptor);
 	}
 	
