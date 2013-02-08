@@ -1,0 +1,170 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix doc: <http://www.w3.org/2000/10/swap/pim/doc#> .
+@prefix gen: <http://www.w3.org/2006/gen/ont#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix link: <file:///Users/seebi/aksw.org/vocabularies/link.n3#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<file:///Users/seebi/aksw.org/vocabularies/link.n3>
+    <http://purl.org/dc/elements/1.1/description> """
+        This is a vocabulary for describing relationships betweem
+        linked data objects and things fetched from the web.
+      """ ;
+    <http://purl.org/dc/elements/1.1/title> "Ontology for Linked Data" ;
+    a owl:Ontology ;
+    doc:version "$Id: link.n3,v 1.14 2011/12/20 20:31:46 timbl Exp $" .
+
+link:Access
+    a :Class ;
+    :comment "An event in which a network access is made." ;
+    :label "access" .
+
+link:Document
+    a rdf:Class ;
+    :comment """An Information Resource, such as a web page, image,
+        data file, etc.""" ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "document" ;
+    owl:disjointWith foaf:Person ;
+    owl:sameClassAs gen:InformationResource .
+
+link:Mailbox
+    a rdf:Class ;
+    :comment """An end point in the Internet Mail sytem. 
+            Anything which has a URI in the malto: scheme is a Mailbox.""" ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "mailbox" ;
+    owl:disjointWith link:Document, foaf:Person .
+
+link:ProtocolEvent
+    a :Class ;
+    :comment """A step in a network protocol, such as a request
+        or response message.""" ;
+    :label "protocol event"@en .
+
+link:RDFDocument
+    a rdf:Class ;
+    :comment "An Information Resource whose meaning which can directly mapped into the RDF model. For example a data file which can be reterived as RDF using HTTP." ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "data document" ;
+    :subClassOf link:Document .
+
+link:Response
+    a :Class ;
+    :comment "A network response to a request." ;
+    :label "access" .
+
+link:Session
+    a :Class ;
+    :comment """A run of the application software in which various
+        network acecssses etc happen.""" ;
+    :label "session" .
+
+link:isMentionedIn
+    a rdf:Property ;
+    :comment """
+      This class is mentioned in the following document
+    """ ;
+    :domain :Class ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "is mentioned in" ;
+    :range :Resource ;
+    owl:inverseOf link:mentionsClass .
+
+link:mentionsClass
+    a rdf:Property ;
+    :comment "This document mentions the following class" ;
+    :domain :Resource ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "mentions" ;
+    :range :Class ;
+    owl:inverseOf link:isMentionedIn .
+
+link:protocol
+    a rdf:Property ;
+    :comment "The application supports this network protocol." ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "supports protocol" .
+
+link:redirectedRequest
+    a rdf:Property ;
+    :domain link:Access ;
+    :label "redirected request" ;
+    :range link:Access ;
+    owl:inverseOf [
+        :label "redirected from"
+    ] .
+
+link:requestedBy
+    a rdf:Property ;
+    :comment """A resource which contains a reference to the subject.
+         That is, one of the statements in the object file
+         has the subject URI.
+         This property is stored by the tabulator library to explain 
+         why it looked up a given URI. This can help 
+         trace an error when it was in fact a mis-spelling.""" ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "referrer" ;
+    owl:inverseOf [
+        :label "refers to"
+    ] .
+
+link:requestedURI
+    a rdf:Property ;
+    :domain link:Access ;
+    :label "requested URI" ;
+    owl:inverseOf [
+        :label "request"
+    ] .
+
+link:response
+    a rdf:Property ;
+    :domain link:Access ;
+    :label "response" ;
+    :range link:Response .
+
+link:session
+    a rdf:Property ;
+    :domain foaf:Project ;
+    :label "session" ;
+    :range link:Session .
+
+link:source
+    a rdf:Property ;
+    :comment "A source file accessed in this session." ;
+    :domain link:Session ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "uses source" ;
+    :range link:Document ;
+    owl:inverseOf [
+        :label "session"
+    ] .
+
+link:status
+    a rdf:Property ;
+    :comment "The status of a network access." ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "status" .
+
+link:testDataset
+    a rdf:Property ;
+    :comment "Soemthing which can be used as an example for testing purposes" ;
+    :domain foaf:Project ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "examples and test data" .
+
+link:uri
+    a rdf:Property ;
+    :comment """The URI requested in this access. 
+        This is NOT the relationship betwen a URI and a thing t identifiers""" ;
+    :label "URI" .
+
+[]
+    a rdf:Property ;
+    :comment "The range uses the domain as a resource." ;
+    :isDefinedBy <file:///Users/seebi/aksw.org/vocabularies/link.n3> ;
+    :label "is used by" ;
+    owl:inverseOf link:source .
+

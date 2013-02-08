@@ -1,0 +1,388 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix voaf: <http://labs.mondeca.com/vocab/voaf#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xhv: <http://www.w3.org/1999/xhtml/vocab#> .
+@prefix xh: <http://www.w3.org/1999/xhtml> .
+@prefix wdrs: <http://www.w3.org/2007/05/powder-s#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix rad: <http://www.w3.org/ns/rad#> .
+@prefix : <http://www.w3.org/ns/adms#> .
+
+<http://dbpedia.org/resource/European_Commission>
+    foaf:homepage <http://ec.europa.eu/> ;
+    foaf:name "European Commission"@en-gb .
+
+dcterms:FileFormat
+    dcterms:identifier "dcterms:FileFormat"@en-gb ;
+    vann:usageNote "Used in ADMS to provide the technical format that a Distribution is available in, e.g. PDF for a document, XML for a schema."@en ;
+    rdfs:comment "The dcterms:FileFormat class fully represents the ADMS concept of a file format."@en ;
+    rdfs:isDefinedBy <http://dublincore.org/documents/dcmi-terms/> ;
+    rdfs:label "File Format"@en .
+
+dcterms:PeriodOfTime
+    dcterms:identifier "dcterms:PeriodOfTime"@en-gb ;
+    vann:usageNote "Used in ADMS to provide a time period relevant for an Asset, e.g. for its validity."@en ;
+    rdfs:comment "The dcterms:PeriodOfTime class fully represents the ADMS concept of the same name."@en ;
+    rdfs:isDefinedBy <http://dublincore.org/documents/dcmi-terms/> ;
+    rdfs:label "Period Of Time"@en .
+
+dcterms:temporal
+    dcterms:identifier "dcterms:temporal"@en-gb ;
+    vann:usageNote "Used in ADMS to link to the Period of Time class. Note that the range is dcterms:PeriodOfTime"@en ;
+    rdfs:comment "The <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"http://purl.org/dc/terms/temporal\">dcterms:temporal</xh:a> property fully represents the ADMS relationship of temporal coverage."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <http://dublincore.org/documents/dcmi-terms/> ;
+    rdfs:label "temporal coverage"@en .
+
+dcterms:type
+    dcterms:identifier "dcterms:type"@en-gb ;
+    vann:usageNote "Used in ADMS to link an Asset to its Asset Type."@en ;
+    a rdf:Property ;
+    rdfs:comment "The <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"http://purl.org/dc/terms/type\">dcterms:type</xh:a> property fully represents the ADMS property of asset type, and the type properties of both the Licence and Publisher classes. The range of dcterms:type is rdfs:Class."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <http://dublincore.org/documents/dcmi-terms/> ;
+    rdfs:label "type"@en .
+
+schema:endDate
+    dcterms:identifier "schema:endDate"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "The schema:endDate fully represents the ADMS property that gives the end of the <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#PeriodOfTime\">Period of Time</xh:a>."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy schema:Event ;
+    rdfs:label "end"@en .
+
+schema:startDate
+    dcterms:identifier "schema:startDate"@en-gb ;
+    vann:usageNote "Used in ADMS to provide the beginning of the <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#PeriodOfTime\">Period of Time</xh:a> relevant to a Semantic Asset. The term is defined as part of schema.org's <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"http://schema.org/Event\">Event vocabulary</xh:a> but has no defined domain and range and so is suitable for use in this context."^^rdf:XMLLiteral ;
+    a rdf:Property ;
+    rdfs:comment "The schema:startDate fully represents the ADMS property of start."@en ;
+    rdfs:isDefinedBy schema:Event ;
+    rdfs:label "start"@en .
+
+skos:Concept
+    dcterms:identifier "skos:Concept"@en-gb ;
+    vann:usageNote "ADMS uses SKOS Concepts to provide an indication of the maturity of an Asset or Distribution."@en, "ADMS uses SKOS Concepts to provide the level according to the European Interoperability Framework (EIF 2.0) for which an Asset is relevant."@en, "ADMS uses SKOS Concepts to represent the machine-readable language in which a Distribution is expressed. This differs from File Format in that, for example, the XML File Format can be used to represent a number of different langauges including UML, RDF and more."@en, "Used in ADMS to provide a classification of a Semantic Asset according to a controlled vocabulary, e.g. code list, metadata schema."@en ;
+    rdfs:comment """<xh:p xmlns:xh=\"http://www.w3.org/1999/xhtml\">The Conceptual Model includes a 'Code' datatype that 
+      is used by several classes. This is expressed using the <xh:a xh:href=\"http://www.w3.org/TR/skos-primer/\">SKOS vocabulary</xh:a> with
+      a particular 'code' usually being a skos:Concept thatis part of a scheme. 
+      The intention is that the skos:Concept class be used as follows;</xh:p><xh:ul xmlns:xh=\"http://www.w3.org/1999/xhtml\">
+      <xh:li>for the content property, use skos:notation</xh:li>
+      <xh:li>the 'list' property will be taken care of by means of the skos:inScheme property;</xh:li>
+      <xh:li>the list agency property is likely to be applied to the scheme as a whole for which dcterms:creator is appropriate;</xh:li>
+      <xh:li>the list version property can be fulfilled using schema:version (see <xh:a xh:href=\"http://schema.org/CreativeWork\">http://schema.org/CreativeWork</xh:a>)</xh:li></xh:ul>
+    """^^rdf:XMLLiteral, "The skos:Concept class fully represents the ADMS class of Asset Type (see section on the <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#Code\">Code</xh:a> datatype for details)."^^rdf:XMLLiteral, "The skos:Concept class fully represents the ADMS class of Interoperability Level (see section on the <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#Code\">Code</xh:a> datatype for details)."^^rdf:XMLLiteral, "The skos:Concept class fully represents the ADMS class of Representation Technique (see section on the <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#Code\">Code</xh:a> datatype for details)."^^rdf:XMLLiteral, "The skos:Concept class fully represents the ADMS class of Status (see section on the <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#Code\">Code</xh:a> datatype for details)."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <http://www.w3.org/TR/skos-primer/> ;
+    rdfs:label "Asset Type"@en, "Code"@en, "Interoperability Level"@en, "Representation Technique"@en, "Status"@en .
+
+vcard:VCard
+    dcterms:identifier "vcard:VCard"@en-gb ;
+    vann:usageNote "ADMS uses VCard to provide contact information regarding a Semantic Asset, including e-mail, address, name and associated Web page information. See <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"http://www.w3.org/TR/vcard-rdf/\">Representing vCard Objects in RDF</xh:a> for details of this widely used specification."^^rdf:XMLLiteral ;
+    rdfs:comment "VCard fully represents the ADMS class of Contact Information"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/TR/vcard-rdf/> ;
+    rdfs:label "Contact Information"@en .
+
+wdrs:describedby
+    dcterms:identifier "wdrs:describedby"@en-gb ;
+    vann:usageNote "Used in ADMS to link to the main documentation or specification of the Asset."@en ;
+    rdfs:comment "The <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"http://www.w3.org/2007/05/powder-s#describedby\">wdrs:describedby</xh:a> property fully represents the ADMS relationship of main documentation."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <http://www.w3.org/2007/05/powder-s#> ;
+    rdfs:label "documentation"@en .
+
+<http://www.w3.org/2012/05/ADMS_Conceptual_Model.png>
+    rdfs:label "Asset Description Metadata Schema (ADMS) UML Class Diagram"@en-gb .
+
+<http://www.w3.org/ns/adms#>
+    cc:attributionName "European Commission"@en-gb ;
+    cc:attributionURL <http://ec.europa.eu/> ;
+    voaf:specializes <http://www.w3.org/ns/rad#> ;
+    dcterms:abstract """ADMS is intended as a model that facilitates federation 
+    and co-operation. It is not the primary intention that repository owners 
+    redesign or convert their current systems and data to conform to ADMS, but 
+    rather that ADMS can act as a common layer among repositories that want to 
+    exchange data. A change log for this namespace document is maintained in the
+    HTML representation of this document, available at http://www.w3.org/ns/adms.html.
+    """@en-gb ;
+    dcterms:conformsTo <https://joinup.ec.europa.eu/elibrary/document/isa-deliverable-process-and-methodology-developing-core-vocabularies> ;
+    dcterms:creator [
+        rdfs:seeAlso <http://makxdekkers.com/makxdekkers.rdf#me> ;
+        foaf:homepage <http://makxdekkers.com/> ;
+        foaf:name "Makx Dekkers"@en-gb
+    ], [
+        schema:affiliation [
+            foaf:homepage <http://ies.jrc.ec.europa.eu/DE> ;
+            foaf:name "European Commission, Joint Research Centre "@en-gb
+        ] ;
+        rdfs:seeAlso <http://andrea-perego.name/foaf/#me> ;
+        foaf:homepage <http://andrea-perego.name/> ;
+        foaf:name "Andrea Perego"@en-gb
+    ], [
+        schema:affiliation [
+            foaf:homepage <http://www.w3.org/> ;
+            foaf:name "W3C/ERCIM"@en-gb
+        ] ;
+        rdfs:seeAlso <http://philarcher.org/foaf.rdf#me> ;
+        foaf:homepage <http://www.w3.org/People/all#phila> ;
+        foaf:name "Phil Archer"@en-gb
+    ] ;
+    dcterms:description """This is the RDF encoding of the Asset Description 
+      Metadata Schema, developed under the European Union's ISA Programme,
+      specifically under SEMIC Phase II, directed by Vassilios Peristeras of
+      DG DIGIT. It re-uses terms from several other vocabularues, notably Dublin Core with elements of SKOS, FOAF 
+      and more. The ADMS Concept Scheme, available at http://www.w3.org/ns/adms.html, defines
+      its own lexical terms for its classes, properties and relationships.
+    """@en-gb ;
+    dcterms:license <https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v10> ;
+    dcterms:modified "2012-06-25"^^xsd:date ;
+    dcterms:publisher <http://dbpedia.org/resource/European_Commission> ;
+    dcterms:relation <https://joinup.ec.europa.eu/asset/adms/topic/public-comments-adms-specification-v10> ;
+    dcterms:rights "Copyright © 2012 European Commission."@en-gb ;
+    vann:preferredNamespacePrefix "adms"@en-gb ;
+    vann:preferredNamespaceUri "http://www.w3.org/ns/adms#"@en-gb ;
+    a voaf:Vocabulary, owl:Ontology ;
+    rdfs:comment "This file specifies the set of RDF classes and properties used in ADMS"@en ;
+    rdfs:label "Asset Description Metadata Schema (ADMS)"@en ;
+    owl:versionInfo "25 June 2012"@en ;
+    wdrs:describedby <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    foaf:depiction <http://www.w3.org/2012/05/ADMS_Conceptual_Model.png> ;
+    foaf:maker [
+        foaf:name "ADMS Working Group"@en-gb ;
+        foaf:page <http://joinup.ec.europa.eu/asset/adms/home>
+    ] .
+
+:Identifier
+    dcterms:identifier "adms:Identifier"@en-gb ;
+    a rdfs:Class ;
+    rdfs:comment """<xh:p xmlns:xh=\"http://www.w3.org/1999/xhtml\">This class is based on 
+      the UN/CEFACT Identifier complex type defined in See Section 5.8 of <xh:a xh:href=\"http://www.unece.org/fileadmin/DAM/cefact/codesfortrade/CCTS/CCTS-DTCatalogueVersion3p1.pdf\">Core Components Data Type Catalogue Version 3.1</xh:a></xh:p>
+      <xh:p xmlns:xh=\"http://www.w3.org/1999/xhtml\">The various properties can be fulfilled as follows:</xh:p><xh:ul xmlns:xh=\"http://www.w3.org/1999/xhtml\">
+      <xh:li>use <xh:a xh:href=\"http://www.w3.org/2004/02/skos/core#notation\">skos:notation</xh:a> to provide the actual identifier (the Identifier class is effectively meaningless without this property and conceptually it is mandatory);</xh:li>
+      <xh:li>use <xh:a xh:href=\"http://purl.org/dc/terms/type\">dcterms:type</xh:a> to provide an identifier for the type of identifier issued (the identifier scheme);</xh:li>
+      <xh:li>use <xh:a xh:href=\"#schemeversion\">adms:schemeVersion</xh:a> to identify the version of the identifier scheme;</xh:li>
+      <xh:li>use <xh:a xh:href=\"#schemeagency\">adms:schemeAgency</xh:a> to provide the name of the agency that created the identifier (as an rdfs:Literal).</xh:li></xh:ul>
+      <xh:p xmlns:xh=\"http://www.w3.org/1999/xhtml\">Although not part of the ADMS conceptual model, it may be useful to provide further properties to the Identifier class:</xh:p><xh:ul xmlns:xh=\"http://www.w3.org/1999/xhtml\">
+      <xh:li>use <xh:a xh:href=\"http://purl.org/dc/terms/creator\">dcterms:creator</xh:a> to link to a URI of an Agent class describing the issuing Agency;</xh:li>
+      <xh:li>use <xh:a xh:href=\"http://purl.org/dc/terms/created\">dcterms:created</xh:a> to provide the date on which the identifier was issued.</xh:li></xh:ul>
+    """^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "Identifier"@en .
+
+:Item
+    dcterms:identifier "adms:Item"@en-gb ;
+    a rdfs:Class ;
+    rdfs:comment "An item that is contained inside an Asset, e.g. an individual term in a vocabulary, an individual code in a code list or some other ‘atomic’ element of an Asset."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "Item"@en .
+
+:SemanticAsset
+    dcterms:identifier "adms:SemanticAsset"@en-gb ;
+    rdfs:comment "A Semantic Asset in the model is an abstract entity that reflects the intellectual content of the asset and represents those characteristics of the asset that are independent of its physical embodiment. This abstract entity combines the FRBR entities work (a distinct intellectual or artistic creation) and expression (the intellectual or artistic realization of a work). Assets can be versioned. Every time the intellectual content of an asset changes, the result is considered to be a new asset that can be linked to previous and next versions of the Asset. The physical embodiment of an Asset is called a Distribution. A particular Asset may have zero or more Distributions."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "Semantic Asset"@en ;
+    rdfs:subClassOf rad:Asset .
+
+:SemanticAssetDistribution
+    dcterms:identifier "adms:SemanticAssetDistribution"@en-gb ;
+    a rdfs:Class ;
+    rdfs:comment "A Semantic Asset Distribution in the model represents a particular physical embodiment of a Semantic Asset, which is an example of the FRBR entity manifestation (the physical embodiment of an expression of a work). A Distribution is typically a downloadable computer file (but in principle it could also be a paper document) that implements the intellectual content of an Asset. A particular Distribution is associated with one and only one Asset, while all Distributions of an Asset share the same intellectual content in different physical formats. Distributions themselves are not versioned."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "Semantic Asset Distribution"@en ;
+    rdfs:subClassOf rad:Distribution .
+
+:SemanticAssetRepository
+    dcterms:identifier "adms:SemanticAssetRepository"@en-gb ;
+    a rdfs:Class ;
+    rdfs:comment "A Semantic Asset Repository is a system or service that provides facilities for storage and maintenance of descriptions of Semantic Assets and Semantic Asset Distributions, and functionality that allows users to search and access these descriptions. A Semantic Asset Repository will typically contain descriptions of several Semantic Assets and related Semantic Asset Distributions."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "Semantic Asset Repository"@en ;
+    rdfs:subClassOf rad:Repository .
+
+:accessURL
+    dcterms:identifier "adms:accessURL"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "The URL of the Repository or Distribution. The range of adms:accessURL is xsd:anyURI"@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "access URL"@en ;
+    rdfs:range xsd:anyURI .
+
+:contactPoint
+    dcterms:identifier "adms:contactPoint"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links a Semantic Asset to relevant <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#ContactInformation\">Contact Information</xh:a> which is provided using VCard."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "contact point"@en ;
+    rdfs:range vcard:VCard .
+
+:identifier
+    dcterms:identifier "adms:identifier"@en-gb ;
+    vann:usageNote "ADMS uses this to provide any identifier for the Asset."@en ;
+    rdfs:comment "adms:identifier is used to link any resource to an instance of adms:Identifier which is its range. N.B. it is not appropriate to use dcterms:identifer to link to the Identifier class as its range is rdfs:Literal."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "identifier"@en ;
+    rdfs:range :Identifier .
+
+:identifies
+    dcterms:identifier "adms:identifies"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "The identifies relation is used to link an adms:Identifier class to whatever resource it identifies."@en ;
+    rdfs:domain :Identifier ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "identifies"@en .
+
+:includedAsset
+    dcterms:identifier "adms:includedAsset"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to a Semantic Asset that is contained in the Asset being described, e.g. when there are several vocabularies defined in a single document."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "included asset"@en ;
+    rdfs:range :Asset .
+
+:includedItem
+    dcterms:identifier "adms:includedItem"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links a Semantic Asset to an item that is contained within it (e.g. a concept in a controlled vocabulary). The range of adms:includedItem is <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#Item\">adms:Item</xh:a>."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "included item"@en ;
+    rdfs:range :Item .
+
+:interoperabilityLevel
+    dcterms:identifier "adms:interoperabilityLevel"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links a resource to its <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#InteroperabilityLevel\">adms:InteroperabilityLevel</xh:a>. Since this is encoded using skos:Concept, that is the defined range for this property."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "interoperability level"@en ;
+    rdfs:range skos:Concept .
+
+:metadataDate
+    dcterms:identifier "adms:metadataDate"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "The date of the most recent update of the metadata for the Asset."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "metadata date"@en ;
+    rdfs:range rdfs:Literal .
+
+:metadataLanguage
+    dcterms:identifier "adms:metadataLanguage"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to the language of the metadata for the Asset. The range of adms:metadataLanguage is dcterms:LinguisticSystem which is used by RADion (and therefore ADMS) to represent the Language class."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "metadata language"@en ;
+    rdfs:range dcterms:LinguisticSystem .
+
+:metadataPublisher
+    dcterms:identifier "adms:metadataPublisher"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to the organisation making the metadata for the Asset available. The range of adms:metadataPublisher as dcterms:Agent which is used by RADion, and therefore ADMS, for the Publisher class."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "metadata publisher"@en ;
+    rdfs:range dcterms:Agent .
+
+:relatedDocumentation
+    dcterms:identifier "adms:relatedDocumentation"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to documentation that contains information related to the asset. The range of adms:relatedDocumentation is foaf:Document"@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "related documentation"@en ;
+    rdfs:range foaf:Document .
+
+:relatedWebPage
+    dcterms:identifier "adms:relatedWebPage"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to a Web page that contains information related to the asset. The range of adms:relatedWebPage is foaf:Document"@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "related web page"@en ;
+    rdfs:range foaf:Document .
+
+:representationTechnique
+    dcterms:identifier "adms:representationTechnique"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links an adms:Distribution to a skos:Concept that is its <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#RepresentationTechnique\">Representation Technique</xh:a>."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "representation technique"@en ;
+    rdfs:range skos:Concept .
+
+:sample
+    dcterms:identifier "adms:sample"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to a sample of the Semantic Asset (which is itself a Semantic Asset, i.e the range is adms:Asset)."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "sample"@en ;
+    rdfs:range :Asset .
+
+:schemeAgency
+    dcterms:identifier "adms:schemeAgency"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "The name of the agency responsible for issuing the identifier"@en ;
+    rdfs:domain :Identifier ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "scheme agency"@en ;
+    rdfs:range rdfs:Literal .
+
+:schemeVersion
+    dcterms:identifier "adms:schemeVersion"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "The version number of the identifier for the scheme used to create the identifier"@en ;
+    rdfs:domain :Identifier ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "scheme version"@en ;
+    rdfs:range rdfs:Literal .
+
+:status
+    dcterms:identifier "adms:status"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to the status of the Asset or Distribution in the context of a particular workflow process. Since <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"#Status\">Status</xh:a> is defined using a skos:Concept, that is the defined range for this property."^^rdf:XMLLiteral ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "status"@en ;
+    rdfs:range skos:Concept .
+
+:supportedSchema
+    dcterms:identifier "adms:supportedSchema"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "A schema according to which the Repository can provide data about its content, e.g. ADMS"@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "supported schema"@en ;
+    rdfs:range rdfs:Literal .
+
+:translation
+    dcterms:identifier "adms:translation"@en-gb ;
+    a rdf:Property ;
+    rdfs:comment "Links to a translation of the Semantic Asset (which is itself a Semantic Asset, i.e the range is adms:Asset)."@en ;
+    rdfs:isDefinedBy <https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip> ;
+    rdfs:label "translation"@en ;
+    rdfs:range :Asset .
+
+foaf:Document
+    dcterms:identifier "foaf:Documentation"@en-gb ;
+    vann:usageNote "Used in ADMS specifically for the class of documents that further describe a Semantic Asset or give guidelines for its use. ADMS expects all documents to have a title (use <xh:a xmlns:xh=\"http://www.w3.org/1999/xhtml\" xh:href=\"http://purl.org/dc/terms/title\">dcterms:title</xh:a>)."^^rdf:XMLLiteral ;
+    rdfs:comment "The foaf:Document class fully represents the ADMS concept of documentation."@en ;
+    rdfs:isDefinedBy <http://xmlns.com/foaf/spec/> ;
+    rdfs:label "Documentation"@en .
+
+foaf:homepage
+    dcterms:identifier "foaf:homepage"@en-gb ;
+    vann:usageNote "Used in ADMS to link to a Web page that is fully dedicated to the Asset."@en ;
+    rdfs:comment "The foaf:homepage property fully represents the ADMS relationship of the same name."@en ;
+    rdfs:isDefinedBy <http://xmlns.com/foaf/spec/> ;
+    rdfs:label "homepage"@en .
+
+<https://joinup.ec.europa.eu/asset/adms/topic/public-comments-adms-specification-v10>
+    dcterms:title "Public comments on ADMS Specification v1.0"@en-gb ;
+    a sioc:Forum .
+
+<https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v10>
+    cc:attributionName "European Commission"@en-gb ;
+    cc:attributionURL <http://ec.europa.eu/> ;
+    dcterms:title "ISA Open Metadata Licence v1.0"@en-gb .
+
+<https://joinup.ec.europa.eu/elibrary/document/isa-deliverable-process-and-methodology-developing-core-vocabularies>
+    dcterms:title "Process and Methodology for Developing Core Vocabularies"@en-gb .
+
+<https://joinup.ec.europa.eu/system/files/project/ADMS_Specification_v1.00.zip>
+    dcterms:title "ADMS Specification"@en-gb .
+

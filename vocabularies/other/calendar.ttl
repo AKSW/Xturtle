@@ -1,0 +1,510 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix h: <http://www.w3.org/1999/xhtml> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dt: <http://www.w3.org/2001/XMLSchema#> .
+@prefix spec: <http://www.w3.org/2002/12/cal/icalSpec#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/icaltzd#> .
+
+dc:source
+    a owl:ObjectProperty .
+
+<http://www.ietf.org/rfc/rfc2445.txt>
+    a owl:Thing .
+
+spec:valueListType
+    a owl:AnnotationProperty .
+
+spec:valueType
+    a owl:AnnotationProperty .
+
+<http://www.w3.org/2002/12/cal/icaltzd>
+    dc:source <http://www.ietf.org/rfc/rfc2445.txt> ;
+    a owl:Thing ;
+    rdfs:seeAlso <http://esw.w3.org/topic/RdfCalendar>, <http://lists.w3.org/Archives/Public/www-rdf-calendar/>, <http://www.w3.org/2002/12/cal/> ;
+    owl:versionInfo "$Id: icaltzd.rdf,v 1.6 2007/06/28 18:22:09 connolly Exp $", "subject to change with notice to www-rdf-calendar@w3.org" .
+
+cal:Vevent
+    a owl:Class ;
+    rdfs:comment "Provide a grouping of component properties that describe an event." ;
+    rdfs:label "Event" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:attach
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:status
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:summary
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtend
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstart
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:duration
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:transp
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:attendee
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:contact
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:organizer
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:relatedTo
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:categories
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:url
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:uid
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:exrule
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rrule
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:exdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:recurrenceId
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:trigger
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:created
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstamp
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:class
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:lastModified
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:sequence
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:requestStatus
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:comment
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:description
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:geo
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:location
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:priority
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:resources
+    ] .
+
+cal:Vfreebusy
+    a owl:Class ;
+    rdfs:comment "Provide a grouping of component properties that describe either a request for free/busy time, describe a response to a request for free/busy time or describe a published set of busy time." ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:requestStatus
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:comment
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtend
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstart
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:duration
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:freebusy
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:attendee
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:contact
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:organizer
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:url
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:uid
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstamp
+    ] .
+
+cal:Vjournal
+    a owl:Class ;
+    rdfs:comment "Provide a grouping of component properties that describe a journal entry." ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:attach
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:categories
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:class
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:comment
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:description
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:status
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:summary
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:attendee
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:contact
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:organizer
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:relatedTo
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:url
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:uid
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:exrule
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rrule
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:exdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:recurrenceId
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:created
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstamp
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:lastModified
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:sequence
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:requestStatus
+    ] .
+
+cal:Vtimezone
+    a owl:Class ;
+    rdfs:comment "Provide a grouping of component properties that defines a time zone." ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:comment
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstart
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:tzid
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:tzname
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:tzoffsetfrom
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:tzoffsetto
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:tzurl
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rrule
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:exdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:recurrenceId
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:lastModified
+    ] .
+
+cal:Vtodo
+    a owl:Class ;
+    rdfs:comment "Provide a grouping of calendar properties that describe a to-do." ;
+    rdfs:label "To-do" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:attach
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:categories
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:class
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:comment
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:description
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:geo
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:location
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:percentComplete
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:priority
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:resources
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:status
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:summary
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:completed
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:due
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstart
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:duration
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:attendee
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:contact
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:organizer
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:relatedTo
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:url
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:uid
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:exrule
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:rrule
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:exdate
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:recurrenceId
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:trigger
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:created
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:dtstamp
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:lastModified
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:sequence
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality 0 ;
+        owl:onProperty cal:requestStatus
+    ] .
+
+cal:daylight
+    a owl:ObjectProperty ;
+    rdfs:label "DAYLIGHT" .
+
+cal:standard
+    a owl:ObjectProperty ;
+    rdfs:label "STANDARD" .
+
