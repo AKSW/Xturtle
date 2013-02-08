@@ -10,6 +10,7 @@
     dct:modified "2012-04-24"^^xsd:date ;
     a owl:Ontology ;
     rdfs:comment "DCAT is an RDF vocabulary designed to facilitate interoperability between data catalogs published on the Web." ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/ns/dcat";
     rdfs:label "The data catalog vocabulary" .
 
 dcat:Catalog

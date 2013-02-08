@@ -6,6 +6,7 @@
     rdfs:comment "This is the RDF Schema for the RDF vocabulary defined in the RDF namespace." ;
     rdfs:label "The RDF Vocabulary (RDF)" ;
     a owl:Ontology ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     rdfs:seeAlso <http://www.w3.org/2000/01/rdf-schema-more> .
 
 rdf:Alt

@@ -5,6 +5,7 @@
 <http://www.w3.org/2000/01/rdf-schema#>
     rdfs:label "The RDF Schema vocabulary (RDFS)" ;
     a owl:Ontology ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/2000/01/rdf-schema#";
     rdfs:seeAlso <http://www.w3.org/2000/01/rdf-schema-more> .
 
 rdfs:Class

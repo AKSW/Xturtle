@@ -24,6 +24,7 @@ This information can be used to export information from online communities and t
     <http://purl.org/dc/terms/title> "SIOC Core Ontology Namespace"@en ;
     a owl:Ontology, owl:Thing ;
     :seeAlso <http://rdfs.org/sioc/spec> ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://rdfs.org/sioc/ns#";
     owl:versionInfo "Revision: 1.35" .
 
 sioc:Community

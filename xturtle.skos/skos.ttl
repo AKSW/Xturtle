@@ -9,6 +9,7 @@
     <http://purl.org/dc/terms/description> "An RDF vocabulary for describing the basic structure and content of concept schemes such as thesauri, classification schemes, subject heading lists, taxonomies, 'folksonomies', other types of controlled vocabulary, and also concept schemes embedded in glossaries and terminologies."@en ;
     <http://purl.org/dc/terms/title> "SKOS Vocabulary"@en ;
     a owl:Ontology ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/2004/02/skos/core#";
     rdfs:seeAlso <http://www.w3.org/TR/skos-reference/> .
 
 :Collection

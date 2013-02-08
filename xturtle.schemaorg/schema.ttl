@@ -4,6 +4,9 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+<http://schema.org/> a owl:Ontology;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://schema.org/".
+
 schema:AboutPage
     a rdfs:Class ;
     rdfs:comment "Web page type: About page."@en ;

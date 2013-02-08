@@ -13,6 +13,7 @@
     <http://purl.org/dc/elements/1.1/title> "Description of a Project (DOAP) vocabulary" ;
     a owl:Ontology ;
     owl:imports <http://xmlns.com/foaf/0.1/index.rdf> ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://usefulinc.com/ns/doap#";
     <http://xmlns.com/foaf/0.1/maker> [
         a <http://xmlns.com/foaf/0.1/Person> ;
         <http://xmlns.com/foaf/0.1/mbox> <mailto:edd@usefulinc.com> ;

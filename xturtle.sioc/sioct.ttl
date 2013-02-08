@@ -11,6 +11,7 @@
     <http://purl.org/dc/terms/title> "SIOC Types Ontology Module Namespace"@en ;
     a owl:Ontology, owl:Thing ;
     :seeAlso <http://rdfs.org/sioc/spec/#sec-modules> ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://rdfs.org/sioc/types#";
     owl:imports <http://rdfs.org/sioc/ns#> .
 
 sioct:AddressBook

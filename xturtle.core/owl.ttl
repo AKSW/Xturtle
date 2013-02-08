@@ -26,6 +26,7 @@
    """ ;
     rdfs:isDefinedBy <http://www.w3.org/TR/owl2-mapping-to-rdf/>, <http://www.w3.org/TR/owl2-rdf-based-semantics/>, <http://www.w3.org/TR/owl2-syntax/> ;
     rdfs:seeAlso <http://www.w3.org/TR/owl2-rdf-based-semantics/#table-axiomatic-classes>, <http://www.w3.org/TR/owl2-rdf-based-semantics/#table-axiomatic-properties> ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/2002/07/owl#";
     owl:imports <http://www.w3.org/2000/01/rdf-schema> .
 
 owl:AllDifferent

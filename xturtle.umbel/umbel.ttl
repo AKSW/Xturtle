@@ -20,6 +20,8 @@
                          
                          owl:versionIRI <http://umbel.org/umbel/v100#> ;
                          
+                         <http://purl.org/vocab/vann/preferredNamespaceUri> "http://umbel.org/umbel#";
+                         
                          owl:imports <http://www.w3.org/TR/skos-reference/skos-owl1-dl.rdf> .
 
 

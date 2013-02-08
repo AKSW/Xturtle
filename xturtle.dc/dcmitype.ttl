@@ -5,6 +5,7 @@
 <http://purl.org/dc/dcmitype/>
     dcterms:modified "2012-06-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
     dcterms:publisher <http://purl.org/dc/aboutdcmi#DCMI> ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://purl.org/dc/dcmitype/";
     dcterms:title "DCMI Type Vocabulary"@en .
 
 <http://purl.org/dc/dcmitype/Collection>

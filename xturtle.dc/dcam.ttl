@@ -6,6 +6,7 @@
 <http://purl.org/dc/dcam/>
     dcterms:modified "2012-06-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
     dcterms:publisher <http://purl.org/dc/aboutdcmi#DCMI> ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://purl.org/dc/dcam/";
     dcterms:title "Metadata terms related to the DCMI Abstract Model"@en .
 
 dcam:VocabularyEncodingScheme

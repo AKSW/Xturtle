@@ -17,6 +17,7 @@ rdfs:Resource
     a owl:Class .
 
 <http://www.w3.org/ns/r2rml#>
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/ns/r2rml#";
     a <http://purl.org/vocommons/voaf#Vocabulary>, owl:Ontology .
 
 :BaseTableOrView
