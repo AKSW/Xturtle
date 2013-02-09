@@ -15,6 +15,8 @@ import java.io.*;
 import org.eclipse.ui.*;
 import org.eclipse.ui.ide.IDE;
 
+import com.google.common.base.Charsets;
+
 /**
  * This is a sample new wizard. Its role is to create a new file 
  * resource in the provided container. If the container resource
@@ -27,6 +29,7 @@ import org.eclipse.ui.ide.IDE;
  */
 
 public class TurtleNewFileWizard extends Wizard implements INewWizard {
+	public static final String initialFileContent="";
 	private TurtleNewFileWizardPage page;
 	private ISelection selection;
 
@@ -106,6 +109,7 @@ public class TurtleNewFileWizard extends Wizard implements INewWizard {
 				file.create(stream, true, monitor);
 			}
 			stream.close();
+			file.setCharset(Charsets.UTF_8.name(), monitor);
 		} catch (IOException e) {
 		}
 		monitor.worked(1);
@@ -128,7 +132,7 @@ public class TurtleNewFileWizard extends Wizard implements INewWizard {
 	 */
 
 	private InputStream openContentStream() {
-		String contents ="";
+		String contents =initialFileContent;
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 

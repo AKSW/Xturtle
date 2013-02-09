@@ -23,7 +23,7 @@ ${cursor}</template>
 	rdfs:range ${range} .
 
 ${cursor}</template>
-<template id="Xturtle_ontology_header" autoinsert="false" context="de.itemis.tooling.xturtle.Xturtle.Subject" deleted="false" description="A common ontology header" enabled="true" name="head">@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;.
+<template id="Xturtle_ontology_header" autoinsert="false" context="de.itemis.tooling.xturtle.Xturtle.Directive" deleted="false" description="A common ontology header" enabled="true" name="head">@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;.
 @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;.
 @prefix dcterms: &lt;http://purl.org/dc/terms/&gt;.

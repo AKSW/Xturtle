@@ -13,6 +13,7 @@ import org.eclipse.xtext.ui.util.ProjectFactory;
 import org.eclipse.xtext.ui.wizard.AbstractProjectCreator;
 import org.eclipse.xtext.util.StringInputStream;
 
+import com.google.common.base.Charsets;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -46,8 +47,10 @@ public class TurtleProjectCreator extends AbstractProjectCreator{
 	}
 
 	protected void enhanceProject(final IProject project, final IProgressMonitor monitor) throws CoreException {
+		project.setDefaultCharset(Charsets.UTF_8.name(), monitor);
 		IFile file = project.getFile(FILE_NAME);
-		file.create(new StringInputStream(""), true, monitor);
+		file.setCharset(Charsets.UTF_8.name(), monitor);
+		file.create(new StringInputStream(TurtleNewFileWizard.initialFileContent), true, monitor);
 		project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 	}
 	
