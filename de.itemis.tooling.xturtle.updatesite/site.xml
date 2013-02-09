@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <category-def name="XturtleIDE" label="Xturtle Editor">
+      <description>
+         Xtext2 based editor for the RDF serialisation format turtle
+      </description>
+   </category-def>
+</site>

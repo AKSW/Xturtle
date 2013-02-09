@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.itemis.tooling.xturtle.feature"
+      label="Xturtle feature"
+      version="1.0.0"
+      provider-name="itemis AG 4+1">
+
+   <description url="https://github.com/AKSW/Xturtle">
+      Xtext2 based editor for the RDF serialisation format turtle
+   </description>
+
+   <copyright>
+      TODO
+   </copyright>
+
+   <license url="">
+      TODO
+   </license>
+
+   <url>
+      <update url="http://xturtle.nittka.de/releases"/>
+   </url>
+
+   <plugin
+         id="de.itemis.tooling.xturtle"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.itemis.tooling.xturtle.ui"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+</feature>
