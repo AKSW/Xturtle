@@ -17,44 +17,28 @@ import org.eclipse.ui.ide.IDE;
 
 import com.google.common.base.Charsets;
 
-/**
- * This is a sample new wizard. Its role is to create a new file 
- * resource in the provided container. If the container resource
- * (a folder or a project) is selected in the workspace 
- * when the wizard is opened, it will accept it as the target
- * container. The wizard creates one file with the extension
- * "mpe". If a sample multi-page editor (also available
- * as a template) is registered for the same extension, it will
- * be able to open it.
- */
-
 public class TurtleNewFileWizard extends Wizard implements INewWizard {
-	public static final String initialFileContent="";
+	public static final String initialFileContent=new StringBuilder()
+			.append("@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.\n")
+			.append("@prefix owl: <http://www.w3.org/2002/07/owl#>.\n")
+			.append("\n")
+			.append("# In order to use Xturtle as productively as possible, you should know how to use\n")
+			.append("# project references as well as turtle templates. If in doubt, have a look at\n")
+			.append("# https://github.com/AKSW/Xturtle/wiki/Usage\n")
+			.toString();
 	private TurtleNewFileWizardPage page;
 	private ISelection selection;
 
-	/**
-	 * Constructor for SampleNewWizard.
-	 */
 	public TurtleNewFileWizard() {
 		super();
 		setNeedsProgressMonitor(true);
 	}
-	
-	/**
-	 * Adding the page to the wizard.
-	 */
 
 	public void addPages() {
 		page = new TurtleNewFileWizardPage(selection);
 		addPage(page);
 	}
 
-	/**
-	 * This method is called when 'Finish' button is pressed in
-	 * the wizard. We will create an operation and run it
-	 * using wizard as execution context.
-	 */
 	public boolean performFinish() {
 		final String containerName = page.getContainerName();
 		final String fileName = page.getFileName();
@@ -80,13 +64,12 @@ public class TurtleNewFileWizard extends Wizard implements INewWizard {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * The worker method. It will find the container, create the
 	 * file if missing or just replace its contents, and open
 	 * the editor on the newly created file.
 	 */
-
 	private void doFinish(
 		String containerName,
 		String fileName,
@@ -127,10 +110,6 @@ public class TurtleNewFileWizard extends Wizard implements INewWizard {
 		monitor.worked(1);
 	}
 	
-	/**
-	 * We will initialize file contents with a sample text.
-	 */
-
 	private InputStream openContentStream() {
 		String contents =initialFileContent;
 		return new ByteArrayInputStream(contents.getBytes());

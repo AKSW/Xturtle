@@ -17,10 +17,7 @@ public class TurtleNewProjectWizard extends XtextNewProjectWizard {
 		super(projectCreator);
 		setWindowTitle("New Xturtle Project");
 	}
-	/**
-	 * Use this method to add pages to the wizard.
-	 * The one-time generated version of this class will add a default new project page to the wizard.
-	 */
+
 	public void addPages() {
 		mainPage = new WizardNewProjectCreationPage("basicNewProjectPage");
 		mainPage.setTitle("Xturtle Project");
@@ -32,9 +29,6 @@ public class TurtleNewProjectWizard extends XtextNewProjectWizard {
 		addPage(refProjectPage);
 	}
 
-	/**
-	 * Use this method to read the project settings from the wizard pages and feed them into the project info class.
-	 */
 	@Override
 	protected IProjectInfo getProjectInfo() {
 		de.itemis.tooling.xturtle.ui.wizard.XturtleProjectInfo projectInfo = new de.itemis.tooling.xturtle.ui.wizard.XturtleProjectInfo();

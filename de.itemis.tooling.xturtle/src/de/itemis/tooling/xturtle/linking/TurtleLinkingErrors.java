@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
+import de.itemis.tooling.xturtle.validation.XturtleJavaValidator;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.QNameRef;
 import de.itemis.tooling.xturtle.xturtle.ResourceRef;
@@ -26,10 +27,11 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 	public DiagnosticMessage getUnresolvedProxyMessage(
 			ILinkingDiagnosticContext context) {
 		EObject object = context.getContext();
+		String linkText=context.getLinkText();
 		if(object instanceof ResourceRef){
 			//unlinked prefix
 			if(context.getReference()==XturtlePackage.Literals.QNAME_REF__PREFIX){
-				return new DiagnosticMessage("no @prefix-Definition up to this point", Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+				return new DiagnosticMessage("no @prefix-Definition up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
 			}
 
 			Severity severity=null;
@@ -48,7 +50,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 				return null;
 			}
 		} else if(object instanceof QNameDef){
-			return new DiagnosticMessage("no @prefix-Definition up to this point", Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+			return new DiagnosticMessage("no @prefix-Definition up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
 		}
 		return super.getUnresolvedProxyMessage(context);
 	}

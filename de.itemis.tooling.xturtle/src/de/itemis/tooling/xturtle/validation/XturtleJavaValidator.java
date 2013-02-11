@@ -37,16 +37,19 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	@Inject
 	private TurtleValidationSeverityLevels levels;
 
+	public static final String UNKNOWN_PREFIX="unknownPrefix";
+
 	@Check
 	public void checkEmptyPrefixDefined(QNameDef def) {
 		if(def.getPrefix()==null && service.getQualifiedName(def)==null){
-			error("no @prefix-Definition up to this point", XturtlePackage.Literals.QNAME_DEF__PREFIX);
+			error("no @prefix-Definition up to this point", XturtlePackage.Literals.QNAME_DEF__PREFIX,
+					UNKNOWN_PREFIX,"");
 		}
 	}
 	@Check
 	public void checkEmptyPrefixDefined(QNameRef ref) {
 		if(ref.getPrefix()==null && service.getQualifiedName(ref)==null){
-			error("no @prefix-Definition up to this point", XturtlePackage.Literals.QNAME_REF__PREFIX);
+			error("no @prefix-Definition up to this point", XturtlePackage.Literals.QNAME_REF__PREFIX,"");
 		}
 	}
 
@@ -56,7 +59,7 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 		if(uri.length()>0){
 			char lastCharacter = uri.charAt(uri.length()-1);
 			if(lastCharacter!='#' && lastCharacter!='/'){
-				error("onlx # and / allowed as last character, otherwise Uri-Resolution will fail", XturtlePackage.Literals.DIRECTIVE__URI);
+				warning("onlx # and / allowed as last character, otherwise Uri-Resolution will fail", XturtlePackage.Literals.DIRECTIVE__URI);
 			}
 		}
 	}
