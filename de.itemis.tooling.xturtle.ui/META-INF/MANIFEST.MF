@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xturtle UI
 Bundle-Vendor: itemis AG 4+1
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1.qualifier
 Bundle-SymbolicName: de.itemis.tooling.xturtle.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: de.itemis.tooling.xturtle;visibility:=reexport,
@@ -17,7 +17,7 @@ Require-Bundle: de.itemis.tooling.xturtle;visibility:=reexport,
  org.eclipse.core.runtime,
  org.eclipse.core.resources
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: de.itemis.tooling.xturtle.ui.contentassist,
  de.itemis.tooling.xturtle.ui.contentassist.antlr,
  de.itemis.tooling.xturtle.ui.internal
