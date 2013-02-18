@@ -45,7 +45,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 				}
 			}
 			if(severity!=null){
-				return new DiagnosticMessage("could not find defintion for "+service.getUriString(object), severity, Diagnostic.LINKING_DIAGNOSTIC);
+				return new DiagnosticMessage("could not find definition for "+service.getUriString(object), severity, Diagnostic.LINKING_DIAGNOSTIC);
 			}else{
 				return null;
 			}
