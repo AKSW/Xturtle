@@ -134,7 +134,7 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 		}
 	}
 
-	private void createError(Severity s, String errorMEssage, EStructuralFeature feature){
+	protected void createError(Severity s, String errorMEssage, EStructuralFeature feature){
 		switch (s) {
 		case ERROR:
 			error(errorMEssage, feature);
@@ -148,5 +148,9 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 		default:
 			break;
 		}
+	}
+
+	protected TurtleResourceService getService() {
+		return service;
 	}
 }

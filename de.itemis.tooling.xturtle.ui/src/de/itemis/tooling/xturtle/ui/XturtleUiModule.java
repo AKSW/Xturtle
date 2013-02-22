@@ -41,6 +41,7 @@ import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingConfig;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingMapper;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleSemanticHighlighter;
 import de.itemis.tooling.xturtle.ui.templates.TurtleTemplateContextTypeRegistry;
+import de.itemis.tooling.xturtle.ui.validation.XturtleUIJavaValidator;
 import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 
 /**
@@ -139,4 +140,10 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	public Class<? extends TurtleLiteralsLanguages> bindCALanguages() {
 		return TurtlePreferenceBasedLiteralsLanguages.class;
 	}
+
+	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends de.itemis.tooling.xturtle.validation.XturtleJavaValidator> bindXturtleJavaValidator() {
+		return XturtleUIJavaValidator.class;
+	}
+
 }

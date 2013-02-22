@@ -44,10 +44,14 @@ public class XturtleFormatter extends AbstractDeclarativeFormatter {
 		for (Keyword at : grammarAccess.findKeywords("@")) {
 			c.setNoSpace().after(at);
 		}
-		c.setNoSpace().before(grammarAccess.getPrefixIdAccess().getPrefixKeyword_1());
-		c.setNoSpace().before(grammarAccess.getBaseAccess().getBaseKeyword_1());
+		c.setNoSpace().before(grammarAccess.getPrefixIdAccess().getPrefixKeywordParserRuleCall_0());
+		c.setNoSpace().before(grammarAccess.getBaseAccess().getBaseKeywordParserRuleCall_0());
 		c.setNoSpace().after(grammarAccess.getQNameRefAccess().getPrefixAssignment_1());
 		c.setNoLinewrap().after(grammarAccess.getTriplesAccess().getSemicolonKeyword_3_1());
 		c.setNoSpace().between(grammarAccess.getTriplesAccess().getSubjectAssignment_0(), grammarAccess.getTriplesAccess().getPredObjsAssignment_2());
+
+		c.setLinewrap(1).between(grammarAccess.getDirectivesAccess().getDirectiveAssignment_1(), grammarAccess.getDirectivesAccess().getDirectiveAssignment_1());
+		c.setLinewrap(2).between(grammarAccess.getDirectiveBlockAccess().getDirectivesAssignment_1(), grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_0());
+		c.setLinewrap(2).before(grammarAccess.getDirectiveBlockAccess().getDirectiveblockAssignment_2_2());
 	}
 }

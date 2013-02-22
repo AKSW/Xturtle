@@ -6,6 +6,8 @@ package de.itemis.tooling.xturtle.ui.labeling;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
 
+import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
+
 /**
  * Provides labels for a IEObjectDescriptions and IResourceDescriptions.
  * 
@@ -27,9 +29,12 @@ public class XturtleDescriptionLabelProvider extends DefaultDescriptionLabelProv
 	public String text(IEObjectDescription ele) {
 		StringBuilder b=new StringBuilder();
 		b.append(ele.getQualifiedName().getLastSegment());
-		b.append(" (");
-		b.append(ele.getQualifiedName().toString(""));
-		b.append("): ");
+		if(ele.getEClass()!=XturtlePackage.Literals.TRIPLES){
+			b.append(" (");
+			b.append(ele.getQualifiedName().toString(""));
+			b.append(")");
+		}
+		b.append(": ");
 		b.append(ele.getEObjectURI().lastSegment());
 		return b.toString();
 		}

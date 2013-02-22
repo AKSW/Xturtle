@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
@@ -21,7 +22,9 @@ import org.eclipse.xtext.util.IAcceptor;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.collect.Maps;
 
+import de.itemis.tooling.xturtle.xturtle.DirectiveBlock;
 import de.itemis.tooling.xturtle.xturtle.Predicate;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
 import de.itemis.tooling.xturtle.xturtle.Resource;
@@ -54,6 +57,8 @@ public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
 				acceptor.accept(desc);
 			}
 			return false;
+		} else if(eObject instanceof Triples){
+			extractPotentialNamespaceDefinition((Triples)eObject, acceptor);
 		}
 		return true;
 	}
@@ -80,6 +85,43 @@ public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
 			}
 		}
 		return userData;
+	}
+
+	private void extractPotentialNamespaceDefinition(Triples triple,
+			IAcceptor<IEObjectDescription> acceptor) {
+		//TODO more than one namespace per triple?
+		String namespace=null;
+		String prefix=null;
+		for (PredicateObjectList predList : triple.getPredObjs()) {
+			Predicate verb = predList.getVerb();
+			String verbName = service.getUriString(verb);
+			if(verbName!=null){
+				if(verbName.equals("http://purl.org/vocab/vann/preferredNamespaceUri")){
+					namespace=getStringFromObjectList(predList);
+				}else if(verbName.equals("http://purl.org/vocab/vann/preferredNamespacePrefix")){
+					prefix=getStringFromObjectList(predList);
+				}
+			}
+		}
+		if(namespace!=null){
+			Map<String,String>userData=Maps.newHashMap();
+			if(prefix!=null){
+				userData.put("prefix", prefix);
+			}
+			if(namespace.charAt(0)=='"' && namespace.charAt(namespace.length()-1)=='"'){
+				namespace=namespace.substring(1,namespace.length()-1);
+			}
+			acceptor.accept(EObjectDescription.create(QualifiedName.create(namespace), triple, userData));
+		}
+	}
+
+	private String getStringFromObjectList(PredicateObjectList predList) {
+		List<String> candidates=getStringLiteralValues(predList, Optional.<Set<String>>absent());
+		if(candidates.size()>0){
+			return candidates.get(0);
+		}else{
+			return null;
+		}
 	}
 
 	private List<String> getStringLiteralValues(PredicateObjectList predList, Optional<Set<String>> languages){

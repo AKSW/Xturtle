@@ -35,7 +35,6 @@ public class TurtleTemplateContextTypeRegistry extends
 		allContextTypes.add(getType(ga.getDirectiveRule(), ctxTypeProvider));
 		allContextTypes.add(getType(ga.getSubjectRule(), ctxTypeProvider));
 		allContextTypes.add(getType(ga.getObjectRule(), ctxTypeProvider));
-		allContextTypes.add(getType(ga.getTurtleDocRule(), ctxTypeProvider));
 		Collections.sort(allContextTypes);
 		for (XtextTemplateContextType templateContextType: allContextTypes) {
 			addContextType(templateContextType);

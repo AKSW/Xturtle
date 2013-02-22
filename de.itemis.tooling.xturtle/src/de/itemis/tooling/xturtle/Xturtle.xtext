@@ -4,26 +4,22 @@ hidden(WS, SL_COMMENT)
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 generate xturtle "http://www.itemis.de/tooling/xturtle/Xturtle"
+//Search filter für Triples, so that exported name spaces do not appear in opem model elements dialog?
 
-TurtleDoc:
-	triples+=Triples* 
-	directiveblock=DirectiveBlock
+DirectiveBlock: {DirectiveBlock}
+		directives=Directives
+		(=>triples+=Triples
+		 =>triples+=Triples*
+		directiveblock=DirectiveBlock)?
 ;
-
-DirectiveBlock: {DirectiveBlock} 
-	(
-		direcives=Directives
-		triples+=Triples*
-		directiveblock=DirectiveBlock
-	)?
-;
-Directives: 
-	directive+=Directive
+Directives:{Directives} 
 	directive+=Directive*
 ;
 Directive: =>(PrefixId|Base)=>'.';
-PrefixId:AT'prefix' (id=PrefixName? =>':') uri=URI;
-Base:AT'base' uri=URI;
+PrefixId:PrefixKeyword (id=PrefixName? =>':') uri=URI;
+Base:BaseKeyword uri=URI;
+PrefixKeyword hidden():AT'prefix';
+BaseKeyword hidden():AT'base';
 
 Triples hidden(SL_COMMENT): subject=Subject WS+ predObjs+=PredicateObjectList (WS*=>';' WS* predObjs+=PredicateObjectList)* (WS*';')?WS*=>'.';
 
@@ -50,7 +46,7 @@ UriRef:ref=[Resource|URI];
 
 Literal:NumberLiteral|StringLiteral|BooleanLiteral;
 NumberLiteral:value=NUMBER;
-StringLiteral:value=STRING('^^'type=ResourceRef| AT language=Language
+StringLiteral hidden():value=STRING('^^'type=ResourceRef| AT language=Language
 )?;
 BooleanLiteral:value=('true'|'false');
 

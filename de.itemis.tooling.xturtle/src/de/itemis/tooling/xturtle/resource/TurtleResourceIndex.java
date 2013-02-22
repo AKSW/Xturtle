@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -213,7 +214,11 @@ class TurtleResourceIndex implements Adapter {
 		prefixToUriMap=new HashMap<String, String>();
 		qNameMap=new HashMap<EObject, QualifiedName>();
 		StringBuilder b=new StringBuilder("file://");
-		b.append(Platform.getLocation());
+		try {
+			b.append(Platform.getLocation());
+		} catch (AssertionFailedException e) {
+			//OK in tests
+		}
 		b.append(resource.getURI().toPlatformString(true));
 //		b.append("#");
 		currentBaseUri=URI.create(b.toString());
