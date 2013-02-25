@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.runtime.AssertionFailedException;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -53,8 +51,6 @@ class TurtleResourceIndex implements Adapter {
 
 	private BiMap<EObject,String> fragmentMap;
 	private URI currentBaseUri;
-	//TODO store acutal prefix for linking the correct one (or rather a list indicating the position
-	//starting at whicht that prefix became active)
 	private Map<String, String> prefixToUriMap;
 	private Map<EObject,QualifiedName> qNameMap;
 
@@ -176,7 +172,7 @@ class TurtleResourceIndex implements Adapter {
 		String namespace;
 		String name;
 		//from baseUri alone
-		if(uriAsString==null){
+		if(uriAsString==null || uriAsString.length()==0){
 			String fragment=base.getFragment();
 			String baseAsString=base.toString();
 			if(fragment!=null){
@@ -213,14 +209,8 @@ class TurtleResourceIndex implements Adapter {
 		fragmentMap=HashBiMap.create();
 		prefixToUriMap=new HashMap<String, String>();
 		qNameMap=new HashMap<EObject, QualifiedName>();
-		StringBuilder b=new StringBuilder("file://");
-		try {
-			b.append(Platform.getLocation());
-		} catch (AssertionFailedException e) {
-			//OK in tests
-		}
-		b.append(resource.getURI().toPlatformString(true));
-//		b.append("#");
+		StringBuilder b=new StringBuilder("file:///");
+		b.append(resource.getURI().lastSegment());
 		currentBaseUri=URI.create(b.toString());
 	}
 
