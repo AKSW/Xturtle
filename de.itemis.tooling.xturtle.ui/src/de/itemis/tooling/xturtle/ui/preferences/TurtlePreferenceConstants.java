@@ -30,6 +30,7 @@ public class TurtlePreferenceConstants {
 	public static final String VALIDATION_NS_MISMATCH_KEY = LANGUAGE_PREFIX+".validation.namespaceMismatch";
 	public static final String VALIDATION_UNUSED_PREFIX_KEY = LANGUAGE_PREFIX+".validation.unusedPrefix";
 	public static final String VALIDATION_XSD_TYPE_KEY = LANGUAGE_PREFIX+".validation.xsdType";
+	public static final String VALIDATION_DUPLICATE_SUBJECT_KEY = LANGUAGE_PREFIX+".validation.duplicateSubject";
 
 	//languages (content assist)
 	public static final String CA_LANGUAGES_KEY = LANGUAGE_PREFIX+".contentassist.languages";

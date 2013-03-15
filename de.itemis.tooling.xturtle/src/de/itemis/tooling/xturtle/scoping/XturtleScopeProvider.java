@@ -24,7 +24,6 @@ import com.google.inject.Provider;
 
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
-import de.itemis.tooling.xturtle.xturtle.TurtleDoc;
 
 /**
  * This class contains custom scoping description.
@@ -37,11 +36,6 @@ public class XturtleScopeProvider extends AbstractDeclarativeScopeProvider {
 	@Inject
 	IResourceScopeCache cache;
 
-	//only the prefixes defined within the model are visible
-	IScope scope_QNameDef_prefix(TurtleDoc doc, EReference ref){
-		return IScope.NULLSCOPE;
-	}
-
 	IScope scope_QNameDef_prefix(DirectiveBlock m, EReference ref){
 		return getNamespacePrefixScope(m,ref);
 	}
@@ -52,7 +46,7 @@ public class XturtleScopeProvider extends AbstractDeclarativeScopeProvider {
 	private IScope getNamespacePrefixScope(final DirectiveBlock b, EReference ref){
 		List<PrefixId> prefixIds = cache.get(b, b.eResource(), new Provider<List<PrefixId>>() {
 			public List<PrefixId> get() {
-				List<PrefixId> list = EcoreUtil2.getAllContentsOfType(b.getDirecives(), PrefixId.class);
+				List<PrefixId> list = EcoreUtil2.getAllContentsOfType(b.getDirectives(), PrefixId.class);
 				Collections.reverse(list);
 
 				Set<String> prefixes=new HashSet<String>();
@@ -70,10 +64,14 @@ public class XturtleScopeProvider extends AbstractDeclarativeScopeProvider {
 				return list;
 			}
 		});
+		//only the prefixes defined within the model are visible
+		IScope outer=b.eContainer()==null
+				?IScope.NULLSCOPE
+				:getScope(b.eContainer(), ref);
 		return Scopes.scopeFor(prefixIds, new Function<PrefixId, QualifiedName>() {
 			public QualifiedName apply(PrefixId def){
 					return QualifiedName.create("",Optional.fromNullable(def.getId()).or(""));
 			}
-		}, getScope(b.eContainer(), ref));
+		}, outer);
 	}
 }

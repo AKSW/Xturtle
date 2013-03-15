@@ -33,6 +33,7 @@ public class TurtleValidationPreferencePage extends FieldEditorPreferencePage  i
 		addField(new ComboFieldEditor(TurtlePreferenceConstants.VALIDATION_NS_MISMATCH_KEY, "URI does not match prefix",otherErrors, getFieldEditorParent()));
 		addField(new ComboFieldEditor(TurtlePreferenceConstants.VALIDATION_UNUSED_PREFIX_KEY, "unused prefix",otherErrors, getFieldEditorParent()));
 		addField(new ComboFieldEditor(TurtlePreferenceConstants.VALIDATION_XSD_TYPE_KEY, "XSD literal types",otherErrors, getFieldEditorParent()));
+		addField(new ComboFieldEditor(TurtlePreferenceConstants.VALIDATION_DUPLICATE_SUBJECT_KEY, "duplicate subject",otherErrors, getFieldEditorParent()));
 	}
 	public void init(IWorkbench workbench) {}
 }

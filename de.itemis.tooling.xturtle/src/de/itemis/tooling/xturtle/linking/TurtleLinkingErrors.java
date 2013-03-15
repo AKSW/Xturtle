@@ -31,7 +31,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 		if(object instanceof ResourceRef){
 			//unlinked prefix
 			if(context.getReference()==XturtlePackage.Literals.QNAME_REF__PREFIX){
-				return new DiagnosticMessage("no @prefix-Definition up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
+				return new DiagnosticMessage("no @prefix-Definition for "+linkText+" up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
 			}
 
 			Severity severity=null;
@@ -45,12 +45,12 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 				}
 			}
 			if(severity!=null){
-				return new DiagnosticMessage("could not find defintion for "+service.getUriString(object), severity, Diagnostic.LINKING_DIAGNOSTIC);
+				return new DiagnosticMessage("could not find definition for "+service.getUriString(object), severity, Diagnostic.LINKING_DIAGNOSTIC);
 			}else{
 				return null;
 			}
 		} else if(object instanceof QNameDef){
-			return new DiagnosticMessage("no @prefix-Definition up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
+			return new DiagnosticMessage("no @prefix-Definition for "+linkText+" up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
 		}
 		return super.getUnresolvedProxyMessage(context);
 	}

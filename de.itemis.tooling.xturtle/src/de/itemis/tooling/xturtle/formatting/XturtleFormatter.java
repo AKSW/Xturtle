@@ -3,7 +3,6 @@
  */
 package de.itemis.tooling.xturtle.formatting;
 
-import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
 
@@ -35,19 +34,26 @@ public class XturtleFormatter extends AbstractDeclarativeFormatter {
 //		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
 //		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
 
-//		c.setLinewrap().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
-		c.setIndentationDecrement().after(grammarAccess.getPredicateObjectListAccess().getObjectsAssignment_2());
-//		c.setIndentationDecrement().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
-		c.setIndentationIncrement().before(grammarAccess.getPredicateObjectListAccess().getVerbAssignment_0());
-		c.setNoSpace().around(grammarAccess.getColonNameAccess().getColonKeyword_0());
-		c.setNoSpace().around(grammarAccess.getQNameDefAccess().getColonKeyword_2());
-		for (Keyword at : grammarAccess.findKeywords("@")) {
-			c.setNoSpace().after(at);
-		}
-		c.setNoSpace().before(grammarAccess.getPrefixIdAccess().getPrefixKeyword_1());
-		c.setNoSpace().before(grammarAccess.getBaseAccess().getBaseKeyword_1());
-		c.setNoSpace().after(grammarAccess.getQNameRefAccess().getPrefixAssignment_1());
-		c.setNoLinewrap().after(grammarAccess.getTriplesAccess().getSemicolonKeyword_3_1());
-		c.setNoSpace().between(grammarAccess.getTriplesAccess().getSubjectAssignment_0(), grammarAccess.getTriplesAccess().getPredObjsAssignment_2());
+		//Directive
+		c.setLinewrap(1).after(grammarAccess.getDirectiveAccess().getFullStopKeyword_1());
+		c.setNoSpace().around(grammarAccess.getPrefixIdAccess().getColonKeyword_1_1());
+		c.setSpace(" ").after(grammarAccess.getPrefixKeywordRule());
+
+		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getFullStopKeyword_1(),grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_0());
+		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getFullStopKeyword_6(),grammarAccess.getDirectiveBlockAccess().getDirectiveblockAssignment_2_2());
+
+		//Triple
+		//TODO line wrap after triple
+		c.setLinewrap(1,2,2).before(grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
+//		c.setIndentationDecrement().after(grammarAccess.getPredicateObjectListAccess().getObjectsAssignment_2());
+////		c.setIndentationDecrement().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
+//		c.setIndentationIncrement().before(grammarAccess.getPredicateObjectListAccess().getVerbAssignment_0());
+//		c.setNoSpace().around(grammarAccess.getColonNameAccess().getColonKeyword_0());
+//		c.setNoSpace().around(grammarAccess.getQNameDefAccess().getColonKeyword_2());
+//
+//		c.setNoSpace().after(grammarAccess.getQNameRefAccess().getPrefixAssignment_1());
+//		c.setNoLinewrap().after(grammarAccess.getTriplesAccess().getSemicolonKeyword_3_1());
+//		c.setNoSpace().between(grammarAccess.getTriplesAccess().getSubjectAssignment_0(), grammarAccess.getTriplesAccess().getPredObjsAssignment_2());
+
 	}
 }

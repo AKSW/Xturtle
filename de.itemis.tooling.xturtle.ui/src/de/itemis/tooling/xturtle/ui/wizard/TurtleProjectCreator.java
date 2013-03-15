@@ -49,8 +49,8 @@ public class TurtleProjectCreator extends AbstractProjectCreator{
 	protected void enhanceProject(final IProject project, final IProgressMonitor monitor) throws CoreException {
 		project.setDefaultCharset(Charsets.UTF_8.name(), monitor);
 		IFile file = project.getFile(FILE_NAME);
-		file.setCharset(Charsets.UTF_8.name(), monitor);
 		file.create(new StringInputStream(TurtleNewFileWizard.initialFileContent), true, monitor);
+		file.setCharset(Charsets.UTF_8.name(), monitor);
 		project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 	}
 	

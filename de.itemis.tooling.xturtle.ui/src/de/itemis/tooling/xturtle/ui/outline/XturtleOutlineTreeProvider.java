@@ -15,17 +15,12 @@ import de.itemis.tooling.xturtle.xturtle.Directive;
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock;
 import de.itemis.tooling.xturtle.xturtle.Directives;
 import de.itemis.tooling.xturtle.xturtle.Triples;
-import de.itemis.tooling.xturtle.xturtle.TurtleDoc;
 
 /**
  * customization of the default outline structure
  * 
  */
 public class XturtleOutlineTreeProvider extends DefaultOutlineTreeProvider {
-	protected boolean _isLeaf(TurtleDoc doc) {
-		return false;
-	}
-
 	protected boolean _isLeaf(DirectiveBlock doc) {
 		return false;
 	}
@@ -41,9 +36,8 @@ public class XturtleOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	@Override
 	protected void _createChildren(DocumentRootNode parentNode,
 			EObject modelElement) {
-		TurtleDoc doc = (TurtleDoc)modelElement;
-		createTriplesNodes(parentNode, doc.getTriples());
-		createDirectiveBlocksNodes(parentNode, doc.getDirectiveblock());
+		DirectiveBlock doc = (DirectiveBlock)modelElement;
+		createDirectiveBlocksNodes(parentNode,doc);
 	}
 
 	private void createTriplesNodes(IOutlineNode parentNode, List<Triples> triples) {
@@ -56,7 +50,7 @@ public class XturtleOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	private void createDirectiveBlocksNodes(IOutlineNode parentNode, DirectiveBlock block){
 		if(block !=null){
-			createDirectivesNode(parentNode, block.getDirecives());
+			createDirectivesNode(parentNode, block.getDirectives());
 		} else{
 			return;
 		}

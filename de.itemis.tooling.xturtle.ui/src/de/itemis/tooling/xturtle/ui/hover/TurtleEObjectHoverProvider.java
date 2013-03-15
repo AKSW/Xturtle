@@ -44,9 +44,9 @@ public class TurtleEObjectHoverProvider extends DefaultEObjectHoverProvider {
 						b.append(simplify(string));
 						b.append("</br>");
 					}
+					b.append("<dl></dl><dl></dl><dl></dl><dl></dl>");
 				}
 			}
-
 		}
 		return b.toString();
 	}
