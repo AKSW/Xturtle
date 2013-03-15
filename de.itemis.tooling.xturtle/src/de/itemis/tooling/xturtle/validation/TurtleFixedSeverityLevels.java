@@ -23,4 +23,7 @@ public class TurtleFixedSeverityLevels implements
 	public Severity getXsdTypeLevel() {
 		return Severity.INFO;
 	}
+	public Severity getDuplicateSubjectLevel() {
+		return Severity.ERROR;
+	}
 }

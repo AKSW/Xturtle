@@ -39,7 +39,6 @@ public class XturtleUIJavaValidator extends XturtleJavaValidator {
 		for (IEObjectDescription triple : triples) {
 			if(myName.equals(triple.getQualifiedName()) && triple.getEObjectURI().isPlatformResource())
 				matchingProject.add(root.getProject(triple.getEObjectURI().segment(1)));
-			
 		}
 		
 		if(def.eResource().getURI().isPlatformResource()){
@@ -50,7 +49,7 @@ public class XturtleUIJavaValidator extends XturtleJavaValidator {
 				Set<IProject> referenced= Sets.newHashSet(referencedProjects);
 				List<String> suggestedImports=Lists.newArrayList();
 				for (IProject iProject : matchingProject) {
-					if(!referenced.contains(iProject)){
+					if(!theProject.equals(iProject) && !referenced.contains(iProject)){
 						suggestedImports.add(iProject.getName());
 					}
 				}

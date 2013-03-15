@@ -11,4 +11,5 @@ public interface TurtleValidationSeverityLevels {
 	Severity getNamespaceMismatchLevel();
 	Severity getUnusedPrefixLevel();
 	Severity getXsdTypeLevel();
+	Severity getDuplicateSubjectLevel();
 }
