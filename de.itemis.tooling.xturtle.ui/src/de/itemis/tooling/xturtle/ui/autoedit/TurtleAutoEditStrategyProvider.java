@@ -1,9 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2013 AKSW Xturtle Project, itemis AG (http://www.itemis.eu).
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.autoedit;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.xtext.ui.editor.autoedit.DefaultAutoEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.model.TerminalsTokenTypeToPartitionMapper;
 
+/**
+ * copied and adapted from {@Link DefaultAutoEditStrategyProvider}
+ * */
 public class TurtleAutoEditStrategyProvider extends
 		DefaultAutoEditStrategyProvider {
 
