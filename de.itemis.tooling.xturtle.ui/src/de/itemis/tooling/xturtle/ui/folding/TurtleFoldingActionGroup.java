@@ -7,13 +7,16 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.folding;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
@@ -58,6 +61,7 @@ class TurtleFoldingActionGroup extends FoldingActionGroup {
 			public void run() {
 				ProjectionAnnotationModel model = viewwer.getProjectionAnnotationModel();
 				Iterator<?> iterator = model.getAnnotationIterator();
+				List<Annotation> toCollapse=new ArrayList<Annotation>();
 				while (iterator.hasNext()){
 					Object next = iterator.next();
 					if(next instanceof ProjectionAnnotation){
@@ -66,10 +70,12 @@ class TurtleFoldingActionGroup extends FoldingActionGroup {
 						//there may indeed be better ways...
 						Position position = model.getPosition(pa);
 						if(position instanceof TypedFoldedRegion && type==((TypedFoldedRegion) position).getType()){
-							model.collapse(pa);
+							pa.markCollapsed();
+							toCollapse.add(pa);
 						}
 					}
 				}
+				model.modifyAnnotations(null, null, toCollapse.toArray(new Annotation[0]));
 			}
 		};
 		collapseStrings.setActionDefinitionId("org.xtext.example.folding.ui.folding.collapseStrings");

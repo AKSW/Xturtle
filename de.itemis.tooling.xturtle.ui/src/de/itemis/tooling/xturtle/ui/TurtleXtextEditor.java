@@ -7,8 +7,10 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.ui;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -19,6 +21,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
@@ -86,6 +89,7 @@ public class TurtleXtextEditor extends XtextEditor{
 			typesToFold.add(XturtlePackage.Literals.BLANK_OBJECTS);
 		}
 		if(!typesToFold.isEmpty()){
+			List<Annotation> changes=new ArrayList<Annotation>(); 
 			Iterator<?> iterator = model.getAnnotationIterator();
 			while (iterator.hasNext()){
 				Object next = iterator.next();
@@ -93,10 +97,12 @@ public class TurtleXtextEditor extends XtextEditor{
 					ProjectionAnnotation pa = (ProjectionAnnotation) next;
 					Position position = model.getPosition(pa);
 					if(position instanceof TypedFoldedRegion &&typesToFold.contains(((TypedFoldedRegion) position).getType())){
-						model.collapse(pa);
+						pa.markCollapsed();
+						changes.add(pa);
 					}
 				}
 			}
+			model.modifyAnnotations(null,null, changes.toArray(new Annotation[0]));
 		}
 	}
 
