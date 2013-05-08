@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/de.itemis.tooling.xturtle.feature_1.0.1.jar" id="de.itemis.tooling.xturtle.feature" version="1.0.1">
+      <category name="Xturtle"/>
+   </feature>
+   <category-def name="Xturtle" label="Xturtle"/>
+</site>
