@@ -1,0 +1,498 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+rdfs:Literal
+    a owl:Class, owl:Thing .
+
+<http://www.w3.org/2001/XMLSchema#positiveInteger>
+    a owl:Class .
+
+<http://www.w3.org/2006/http#>
+    rdfs:comment """A namespace for describing HTTP messages
+   (http://www.w3.org/Protocols/rfc2616/rfc2616.html)"""@en, "This has been obsoleted by http://www.w3.org/2011/http.rdfs" ;
+    rdfs:seeAlso <http://www.w3.org/2011/http.rdfs> .
+
+<http://www.w3.org/2006/http#100>
+    a owl:Thing ;
+    rdfs:label "Continue"@en .
+
+<http://www.w3.org/2006/http#101>
+    a owl:Thing ;
+    rdfs:label "Switching Protocols"@en .
+
+<http://www.w3.org/2006/http#200>
+    a owl:Thing ;
+    rdfs:label "OK"@en .
+
+<http://www.w3.org/2006/http#201>
+    a owl:Thing ;
+    rdfs:label "Created"@en .
+
+<http://www.w3.org/2006/http#202>
+    a owl:Thing ;
+    rdfs:label "Accepted"@en .
+
+<http://www.w3.org/2006/http#203>
+    a owl:Thing ;
+    rdfs:label "Non-Authoritative Information"@en .
+
+<http://www.w3.org/2006/http#204>
+    a owl:Thing ;
+    rdfs:label "No Content"@en .
+
+<http://www.w3.org/2006/http#205>
+    a owl:Thing ;
+    rdfs:label "Reset Content"@en .
+
+<http://www.w3.org/2006/http#206>
+    a owl:Thing ;
+    rdfs:label "Partial Content"@en .
+
+<http://www.w3.org/2006/http#300>
+    a owl:Thing ;
+    rdfs:label "Multiple Choices"@en .
+
+<http://www.w3.org/2006/http#301>
+    a owl:Thing ;
+    rdfs:label "Moved Permanently"@en .
+
+<http://www.w3.org/2006/http#302>
+    a owl:Thing ;
+    rdfs:label "Found"@en .
+
+<http://www.w3.org/2006/http#303>
+    a owl:Thing ;
+    rdfs:label "See Other"@en .
+
+<http://www.w3.org/2006/http#304>
+    a owl:Thing ;
+    rdfs:label "Not Modified"@en .
+
+<http://www.w3.org/2006/http#305>
+    a owl:Thing ;
+    rdfs:label "Use Proxy"@en .
+
+<http://www.w3.org/2006/http#306>
+    a owl:Thing ;
+    rdfs:label "(Unused)"@en .
+
+<http://www.w3.org/2006/http#307>
+    a owl:Thing ;
+    rdfs:label "Temporary Redirect"@en .
+
+<http://www.w3.org/2006/http#400>
+    a owl:Thing ;
+    rdfs:label "Bad Request"@en .
+
+<http://www.w3.org/2006/http#401>
+    a owl:Thing ;
+    rdfs:label "Unauthorized"@en .
+
+<http://www.w3.org/2006/http#402>
+    a owl:Thing ;
+    rdfs:label "Payment Required"@en .
+
+<http://www.w3.org/2006/http#403>
+    a owl:Thing ;
+    rdfs:label "Forbidden"@en .
+
+<http://www.w3.org/2006/http#404>
+    a owl:Thing ;
+    rdfs:label "Not Found"@en .
+
+<http://www.w3.org/2006/http#405>
+    a owl:Thing ;
+    rdfs:label "Method Not Allowed"@en .
+
+<http://www.w3.org/2006/http#406>
+    a owl:Thing ;
+    rdfs:label "Not Acceptable"@en .
+
+<http://www.w3.org/2006/http#407>
+    a owl:Thing ;
+    rdfs:label "Proxy Authentication Required"@en .
+
+<http://www.w3.org/2006/http#408>
+    a owl:Thing ;
+    rdfs:label "Request Timeout"@en .
+
+<http://www.w3.org/2006/http#409>
+    a owl:Thing ;
+    rdfs:label "Conflict"@en .
+
+<http://www.w3.org/2006/http#410>
+    a owl:Thing ;
+    rdfs:label "Gone"@en .
+
+<http://www.w3.org/2006/http#411>
+    a owl:Thing ;
+    rdfs:label "Length Required"@en .
+
+<http://www.w3.org/2006/http#412>
+    a owl:Thing ;
+    rdfs:label "Precondition Failed"@en .
+
+<http://www.w3.org/2006/http#413>
+    a owl:Thing ;
+    rdfs:label "Request Entity Too Large"@en .
+
+<http://www.w3.org/2006/http#414>
+    a owl:Thing ;
+    rdfs:label "Request-URI Too Long"@en .
+
+<http://www.w3.org/2006/http#415>
+    a owl:Thing ;
+    rdfs:label "Unsupported Media Type"@en .
+
+<http://www.w3.org/2006/http#416>
+    a owl:Thing ;
+    rdfs:label "Requested Range Not Satisfiable"@en .
+
+<http://www.w3.org/2006/http#417>
+    a owl:Thing ;
+    rdfs:label "Expectation Failed"@en .
+
+<http://www.w3.org/2006/http#500>
+    a owl:Thing ;
+    rdfs:label "Internal Server Error"@en .
+
+<http://www.w3.org/2006/http#501>
+    a owl:Thing ;
+    rdfs:label "Not Implemented"@en .
+
+<http://www.w3.org/2006/http#502>
+    a owl:Thing ;
+    rdfs:label "Bad Gateway"@en .
+
+<http://www.w3.org/2006/http#503>
+    a owl:Thing ;
+    rdfs:label "Service Unavailable"@en .
+
+<http://www.w3.org/2006/http#504>
+    a owl:Thing ;
+    rdfs:label "Gateway Timeout"@en .
+
+<http://www.w3.org/2006/http#505>
+    a owl:Thing ;
+    rdfs:label "HTTP Version Not Supported"@en .
+
+<http://www.w3.org/2006/http#ConnectRequest>
+    a rdfs:Class ;
+    rdfs:comment "The CONNECT request"@en ;
+    rdfs:label "Connect"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#Connection>
+    a rdfs:Class ;
+    rdfs:comment "An HTTP connection"@en ;
+    rdfs:label "Connection"@en ;
+    rdfs:subClassOf ([
+            a owl:Restriction ;
+            owl:maxCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:minCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:onProperty <http://www.w3.org/2006/http#connectionAuthority>
+        ]
+    ) .
+
+<http://www.w3.org/2006/http#DeleteRequest>
+    a rdfs:Class ;
+    rdfs:comment "The DELETE request"@en ;
+    rdfs:label "Delete"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#GetRequest>
+    a rdfs:Class ;
+    rdfs:comment "The GET request"@en ;
+    rdfs:label "Get"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#HeadRequest>
+    a rdfs:Class ;
+    rdfs:comment "The HEAD request"@en ;
+    rdfs:label "Head"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#HeaderElement>
+    a rdfs:Class ;
+    rdfs:comment "An element of a comma-separated list in a field value"@en ;
+    rdfs:label "Header element"@en ;
+    rdfs:subClassOf ([
+            a owl:Restriction ;
+            owl:maxCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:minCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:onProperty <http://www.w3.org/2006/http#elementName>
+        ]
+        [
+            a owl:Restriction ;
+            owl:maxCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:minCardinality "0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:onProperty <http://www.w3.org/2006/http#elementValue>
+        ]
+    ) .
+
+<http://www.w3.org/2006/http#HeaderName>
+    a owl:Class .
+
+<http://www.w3.org/2006/http#MessageHeader>
+    a rdfs:Class ;
+    rdfs:comment "A message header according to section 4.2 of HTTP 1.1"@en ;
+    rdfs:label "Message header"@en ;
+    rdfs:subClassOf ([
+            a owl:Restriction ;
+            owl:maxCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:minCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:onProperty <http://www.w3.org/2006/http#fieldName>
+        ]
+        [
+            a owl:Restriction ;
+            owl:maxCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:minCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:onProperty <http://www.w3.org/2006/http#fieldValue>
+        ]
+    ) .
+
+<http://www.w3.org/2006/http#NewResponseCode>
+    a rdfs:Class, owl:Thing ;
+    rdfs:comment "New HTTP Response Code. If you want to define new header names, subclass this stub."@en ;
+    rdfs:label "New Response Code"@en .
+
+<http://www.w3.org/2006/http#OptionsRequest>
+    a rdfs:Class ;
+    rdfs:comment "The OPTIONS request"@en ;
+    rdfs:label "Options"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#Param>
+    a rdfs:Class ;
+    rdfs:comment "A parameter for a header element"@en ;
+    rdfs:label "Parameter"@en ;
+    rdfs:subClassOf ([
+            a owl:Restriction ;
+            owl:maxCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:minCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:onProperty <http://www.w3.org/2006/http#paramName>
+        ]
+        [
+            a owl:Restriction ;
+            owl:maxCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:minCardinality "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+            owl:onProperty <http://www.w3.org/2006/http#paramValue>
+        ]
+    ) .
+
+<http://www.w3.org/2006/http#PostRequest>
+    a rdfs:Class ;
+    rdfs:comment "The POST request"@en ;
+    rdfs:label "Post"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#PutRequest>
+    a rdfs:Class ;
+    rdfs:comment "The PUT request"@en ;
+    rdfs:label "Put"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#Request>
+    a rdfs:Class ;
+    rdfs:comment "An HTTP request"@en ;
+    rdfs:label "Request"@en .
+
+<http://www.w3.org/2006/http#RequestURI>
+    a rdfs:Class ;
+    rdfs:comment "The HTTP request URI"@en ;
+    rdfs:label "Request URI"@en ;
+    owl:oneOf (<http://www.w3.org/2006/http#asterisk>
+        rdfs:Literal
+    ) .
+
+<http://www.w3.org/2006/http#Response>
+    a rdfs:Class ;
+    rdfs:comment "The HTTP Response"@en ;
+    rdfs:label "Response"@en .
+
+<http://www.w3.org/2006/http#ResponseCode>
+    a rdfs:Class, owl:Class ;
+    rdfs:comment "The HTTP Response Code"@en ;
+    rdfs:label "Response code"@en ;
+    owl:oneOf (<http://www.w3.org/2006/http#100>
+        <http://www.w3.org/2006/http#101>
+        <http://www.w3.org/2006/http#200>
+        <http://www.w3.org/2006/http#201>
+        <http://www.w3.org/2006/http#202>
+        <http://www.w3.org/2006/http#203>
+        <http://www.w3.org/2006/http#204>
+        <http://www.w3.org/2006/http#205>
+        <http://www.w3.org/2006/http#206>
+        <http://www.w3.org/2006/http#300>
+        <http://www.w3.org/2006/http#301>
+        <http://www.w3.org/2006/http#302>
+        <http://www.w3.org/2006/http#303>
+        <http://www.w3.org/2006/http#304>
+        <http://www.w3.org/2006/http#305>
+        <http://www.w3.org/2006/http#306>
+        <http://www.w3.org/2006/http#307>
+        <http://www.w3.org/2006/http#400>
+        <http://www.w3.org/2006/http#401>
+        <http://www.w3.org/2006/http#402>
+        <http://www.w3.org/2006/http#403>
+        <http://www.w3.org/2006/http#404>
+        <http://www.w3.org/2006/http#405>
+        <http://www.w3.org/2006/http#406>
+        <http://www.w3.org/2006/http#407>
+        <http://www.w3.org/2006/http#408>
+        <http://www.w3.org/2006/http#409>
+        <http://www.w3.org/2006/http#410>
+        <http://www.w3.org/2006/http#411>
+        <http://www.w3.org/2006/http#412>
+        <http://www.w3.org/2006/http#413>
+        <http://www.w3.org/2006/http#414>
+        <http://www.w3.org/2006/http#415>
+        <http://www.w3.org/2006/http#416>
+        <http://www.w3.org/2006/http#417>
+        <http://www.w3.org/2006/http#500>
+        <http://www.w3.org/2006/http#501>
+        <http://www.w3.org/2006/http#502>
+        <http://www.w3.org/2006/http#503>
+        <http://www.w3.org/2006/http#504>
+        <http://www.w3.org/2006/http#505>
+        <http://www.w3.org/2006/http#NewResponseCode>
+    ) .
+
+<http://www.w3.org/2006/http#TraceRequest>
+    a rdfs:Class ;
+    rdfs:comment "The TRACE request"@en ;
+    rdfs:label "Trace"@en ;
+    rdfs:subClassOf <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#abs_path>
+    a rdf:Property ;
+    rdfs:comment "An absolute path used as request URI"@en ;
+    rdfs:label "Absolute path"@en ;
+    rdfs:subPropertyOf <http://www.w3.org/2006/http#requestURI> .
+
+<http://www.w3.org/2006/http#absoluteURI>
+    a rdf:Property ;
+    rdfs:comment "An absolute request URI"@en ;
+    rdfs:label "Absolute request URI"@en ;
+    rdfs:subPropertyOf <http://www.w3.org/2006/http#requestURI> .
+
+<http://www.w3.org/2006/http#asterisk>
+    a owl:Thing ;
+    rdfs:comment "An asterisk used as request URI"@en ;
+    rdfs:label "Asterisk"@en .
+
+<http://www.w3.org/2006/http#authority>
+    a rdf:Property ;
+    rdfs:comment "An authority used as request URI"@en ;
+    rdfs:label "Authority"@en ;
+    rdfs:subPropertyOf <http://www.w3.org/2006/http#requestURI> .
+
+<http://www.w3.org/2006/http#body>
+    a rdf:Property ;
+    rdfs:comment "The HTTP entity body"@en ;
+    rdfs:label "Entity body"@en .
+
+<http://www.w3.org/2006/http#connectionAuthority>
+    a rdf:Property ;
+    rdfs:comment "An HTTP Connection authority"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#Connection> ;
+    rdfs:label "Connection authority"@en .
+
+<http://www.w3.org/2006/http#elementName>
+    a rdf:Property ;
+    rdfs:comment "Has an element name"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#HeaderElement> ;
+    rdfs:label "Element name"@en ;
+    rdfs:range rdfs:Literal .
+
+<http://www.w3.org/2006/http#elementValue>
+    a rdf:Property ;
+    rdfs:comment "Has an element value"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#HeaderElement> ;
+    rdfs:label "Element value"@en ;
+    rdfs:range rdfs:Literal .
+
+<http://www.w3.org/2006/http#fieldName>
+    a rdf:Property ;
+    rdfs:comment "Has a field name"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#MessageHeader> ;
+    rdfs:label "Field name"@en ;
+    rdfs:range [
+        a rdfs:Class ;
+        owl:unionOf (<http://www.w3.org/2006/http#HeaderName>
+            rdfs:Literal
+        )
+    ] .
+
+<http://www.w3.org/2006/http#fieldValue>
+    a rdf:Property ;
+    rdfs:comment "Has a field value"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#MessageHeader> ;
+    rdfs:label "Field value"@en .
+
+<http://www.w3.org/2006/http#header>
+    a rdf:Property ;
+    rdfs:comment "Has a header"@en ;
+    rdfs:label "Header"@en ;
+    rdfs:range <http://www.w3.org/2006/http#MessageHeader> .
+
+<http://www.w3.org/2006/http#param>
+    a rdf:Property ;
+    rdfs:comment "Has a parameter"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#HeaderElement> ;
+    rdfs:label "Parameter"@en ;
+    rdfs:range <http://www.w3.org/2006/http#Param> .
+
+<http://www.w3.org/2006/http#paramName>
+    a rdf:Property ;
+    rdfs:comment "Has a parameter name"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#Param> ;
+    rdfs:label "Parameter name"@en ;
+    rdfs:range rdfs:Literal .
+
+<http://www.w3.org/2006/http#paramValue>
+    a rdf:Property ;
+    rdfs:comment "Has a parameter value"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#Param> ;
+    rdfs:label "Parameter value"@en ;
+    rdfs:range rdfs:Literal .
+
+<http://www.w3.org/2006/http#request>
+    a rdf:Property ;
+    rdfs:comment "Has an HTTP request"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#Connection> ;
+    rdfs:label "Request"@en ;
+    rdfs:range <http://www.w3.org/2006/http#Request> .
+
+<http://www.w3.org/2006/http#requestURI>
+    a rdf:Property ;
+    rdfs:comment "Has an HTTP request URI"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#Request> ;
+    rdfs:label "Request URI"@en ;
+    rdfs:range <http://www.w3.org/2006/http#RequestURI> .
+
+<http://www.w3.org/2006/http#response>
+    a rdf:Property ;
+    rdfs:comment "Has an HTTP response"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#Request> ;
+    rdfs:label "Response"@en ;
+    rdfs:range <http://www.w3.org/2006/http#Response> .
+
+<http://www.w3.org/2006/http#responseCode>
+    a rdf:Property ;
+    rdfs:comment "Has an HTTP response code"@en ;
+    rdfs:domain <http://www.w3.org/2006/http#Response> ;
+    rdfs:label "Response code"@en ;
+    rdfs:range [
+        a owl:Class ;
+        owl:unionOf (<http://www.w3.org/2006/http#ResponseCode>
+            <http://www.w3.org/2001/XMLSchema#positiveInteger>
+        )
+    ] .
+
+<http://www.w3.org/2006/http#version>
+    a rdf:Property ;
+    rdfs:comment "The HTTP version"@en ;
+    rdfs:label "Version"@en .
+

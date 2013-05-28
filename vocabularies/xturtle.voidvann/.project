@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>xturtle.foaf</name>
+	<name>xturtle.voidvann</name>
 	<comment></comment>
 	<projects>
 		<project>xturtle.core</project>
-		<project>xturtle.skos</project>
+		<project>xturtle.foaf</project>
+		<project>xturtle.dc</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
