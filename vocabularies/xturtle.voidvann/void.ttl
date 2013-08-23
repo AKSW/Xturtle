@@ -1,6 +1,5 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -221,12 +220,12 @@ void:vocabulary
     dcterms:modified "2011-03-06"^^xsd:date ;
     dcterms:isPartOf <http://vocab.deri.ie> ;
     dcterms:publisher "http://vocab.deri.ie/void#Digital%20Enterprise%20Research%20Institute%2C%20NUI%20Galway" ;
-    adms:status <http://purl.org/adms/status/UnderDevelopment> ;
+    <http://www.w3.org/ns/adms#status> <http://purl.org/adms/status/UnderDevelopment> ;
     dcterms:title "Vocabulary of Interlinked Datasets (VoID)" ;
     dcterms:type <http://purl.org/adms/assettype/Ontology> ;
     vann:preferredNamespacePrefix "void" ;
     vann:preferredNamespaceUri "http://rdfs.org/ns/void#" ;
-    a owl:Ontology, adms:SemanticAsset ;
+    a owl:Ontology, <http://www.w3.org/ns/adms#SemanticAsset> ;
     foaf:homepage <http://vocab.deri.ie/void.html> .
 
 <http://vocab.deri.ie/void#Department%20of%20Zoology%2C%20University%20of%20Oxford>
@@ -279,13 +278,12 @@ void:vocabulary
 
 <http://vocab.deri.ie/void#rdf>
     dcterms:FileFormat <file:///Users/seebi/aksw.org/vocabularies/void.ttl> ;
-    a adms:SemanticAssetDistribution ;
-    adms:accessURL "http://vocab.deri.ie/void.rdf" ;
-    adms:status <http://purl.org/adms/status/Completed> .
+    a <http://www.w3.org/ns/adms#SemanticAssetDistribution> ;
+    <http://www.w3.org/ns/adms#accessURL> "http://vocab.deri.ie/void.rdf" ;
+    <http://www.w3.org/ns/adms#status> <http://purl.org/adms/status/Completed> .
 
 <http://vocab.deri.ie/void#ttl>
     dcterms:FileFormat <file:///Users/seebi/aksw.org/vocabularies/void.ttl> ;
-    a adms:SemanticAssetDistribution ;
-    adms:accessURL "http://vocab.deri.ie/void.ttl" ;
-    adms:status <http://purl.org/adms/status/Completed> .
-
+    a <http://www.w3.org/ns/adms#SemanticAssetDistribution> ;
+    <http://www.w3.org/ns/adms#accessURL> "http://vocab.deri.ie/void.ttl" ;
+    <http://www.w3.org/ns/adms#status> <http://purl.org/adms/status/Completed> .

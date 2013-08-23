@@ -1,20 +1,8 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-@prefix msg0: <http://web.resource.org/cc/> .
-
-<file:///var/www/vocab.org/www/htdocs/vann/>
-    dct:type <http://purl.org/dc/dcmitype/Text> ;
-    msg0:license <http://creativecommons.org/licenses/by/1.0/> ;
-    a msg0:Work .
-
-<http://creativecommons.org/licenses/by/1.0/>
-    msg0:permits msg0:DerivativeWorks, msg0:Distribution, msg0:Reproduction ;
-    msg0:requires msg0:Attribution, msg0:Notice ;
-    a msg0:License .
 
 <http://iandavis.com/id/me>
     a foaf:Person ;
@@ -26,7 +14,6 @@
     dct:description "This document describes a vocabulary for annotating descriptions of vocabularies with examples and usage notes."@en ;
     dct:identifier "http://purl.org/vocab/vann/vann-vocab-20050401" ;
     dct:isVersionOf <http://purl.org/vocab/vann/> ;
-    dct:replaces vann:vann-vocab-20040305 ;
     dct:rights "Copyright © 2005 Ian Davis" ;
     dct:title "VANN: A vocabulary for annotating vocabulary descriptions"@en ;
     vann:preferredNamespacePrefix "vann" ;
