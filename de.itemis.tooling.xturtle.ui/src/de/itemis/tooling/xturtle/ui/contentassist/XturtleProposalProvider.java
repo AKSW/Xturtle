@@ -122,15 +122,19 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		creator.lookupCrossReference((EObject)model, XturtlePackage.Literals.RESOURCE_REF__REF, acceptor, predicate, factory);
 		for (IEObjectDescription additional : additionalProposals) {
 			String[] labels = additional.getUserData("label").split(",,");
+			String name=additional.getQualifiedName().getLastSegment();
+			String matchString="\"{1,3}"+name+"\"{1,3}";
 			for (String label : labels) {
-				acceptor.accept(
-						createCompletionProposal(
-								":"+additional.getQualifiedName().getLastSegment(), 
-								new StyledString(label),
-								null,
-								100,
-								context.getPrefix(),
-								context.copy().setMatcher(new LabelPrefixMatcher(label)).toContext()));
+				if(!label.matches(matchString)){
+					acceptor.accept(
+							createCompletionProposal(
+									":"+name, 
+									new StyledString(label).append(" - ").append(name),
+									null,
+									100,
+									context.getPrefix(),
+									context.copy().setMatcher(new LabelPrefixMatcher(label)).toContext()));
+				}
 			}
 		}
 //		super.completeQNameRef_Ref(model, assignment, context, acceptor);
