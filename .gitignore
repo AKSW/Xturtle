@@ -8,3 +8,4 @@ xtend-gen/
 *.jar
 *.war
 *.ear
+target
