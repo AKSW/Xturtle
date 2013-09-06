@@ -11,19 +11,19 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho-version>0.17.0</tycho-version>
 	</properties>
-     <pluginRepositories>
+	<pluginRepositories>
 		<pluginRepository>
 			<id>maven.eclipse.org</id>
 			<url>http://maven.eclipse.org/nexus/content/groups/public/</url>
 		</pluginRepository>
-	     <pluginRepository>
-		     <id>xtend</id>
-		     <url>http://build.eclipse.org/common/xtend/maven/</url>
-	     </pluginRepository>
-	     <pluginRepository>
-		     <id>fornax</id>
-		     <url>http://fornax-platform.org/nexus/content/groups/public/</url>
-	     </pluginRepository>
+		<pluginRepository>
+			<id>xtend</id>
+			<url>http://build.eclipse.org/common/xtend/maven/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>fornax</id>
+			<url>http://fornax-platform.org/nexus/content/groups/public/</url>
+		</pluginRepository>
 	</pluginRepositories>
 	<modules>
 		<module>de.itemis.tooling.xturtle</module>
@@ -31,7 +31,7 @@
 		<module>de.itemis.tooling.xturtle.feature</module>
 		<module>de.itemis.tooling.xturtle.updatesite</module>
 	</modules>
-     <build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -42,15 +42,15 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-source-plugin</artifactId>
-                    <version>${tycho-version}</version>
-                    <executions>
-                         <execution>
-                         <id>plugin-source</id>
-                         <goals>
-                              <goal>plugin-source</goal>
-                         </goals>
-                    </execution>
-                  </executions>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -64,10 +64,42 @@
 							<version>1.0.1</version>
 							<classifier>juno</classifier>
 						</artifact>
-				     </target>
-                     <dependency-resolution>
-                          <optionalDependencies>ignore</optionalDependencies>
-                     </dependency-resolution>
+					</target>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+					<dependency-resolution>
+						<optionalDependencies>ignore</optionalDependencies>
+					</dependency-resolution>
 				</configuration>
 			</plugin>
 		</plugins>
