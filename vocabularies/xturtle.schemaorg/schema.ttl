@@ -5,7 +5,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://schema.org/> a owl:Ontology;
-    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://schema.org/".
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://schema.org/" .
 
 schema:AboutPage
     a rdfs:Class ;
