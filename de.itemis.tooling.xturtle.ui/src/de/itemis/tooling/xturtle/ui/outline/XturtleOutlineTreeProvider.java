@@ -13,6 +13,7 @@ package de.itemis.tooling.xturtle.ui.outline;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
@@ -68,7 +69,7 @@ public class XturtleOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	private void createDirectivesNode(IOutlineNode parentNode,
 			Directives direcives) {
 		if(direcives!=null && direcives.getDirective().size()>0){
-			AbstractOutlineNode newParent = new AbstractOutlineNode(parentNode,null,"Directives",false) {};
+			AbstractOutlineNode newParent = new AbstractOutlineNode(parentNode,(Image)null,"Directives",false) {};
 			for (Directive directive : direcives.getDirective()) {
 				super.createEObjectNode(newParent, directive);
 			}

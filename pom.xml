@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.itemis.tooling</groupId>
 	<artifactId>xturtle</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,12 +26,68 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<modules>
+		<module>de.itemis.tooling.xturtle.targetplatform</module>
 		<module>de.itemis.tooling.xturtle</module>
 		<module>de.itemis.tooling.xturtle.ui</module>
 		<module>de.itemis.tooling.xturtle.feature</module>
+		<module>de.itemis.tooling.xturtle.tests</module>
 		<module>de.itemis.tooling.xturtle.updatesite</module>
 	</modules>
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+					<executions>
+						<execution>
+							<id>add-source</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+								<goal>add-test-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>xtend-gen</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.4.1</version>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>xtend-gen</directory>
+								<includes>
+									<include>**</include>
+								</includes>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>2.3.1</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>testCompile</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${basedir}/xtend-gen</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -60,9 +116,9 @@
 					<target>
 						<artifact>
 							<groupId>de.itemis.tooling</groupId>
-							<artifactId>de.itemis.tooling.xturtle</artifactId>
-							<version>1.0.1</version>
-							<classifier>juno</classifier>
+							<artifactId>de.itemis.tooling.xturtle.targetplatform</artifactId>
+							<version>1.0.2-SNAPSHOT</version>
+							<!-- classifier>runtimetargetplatforms/juno</classifier -->
 						</artifact>
 					</target>
 					<environments>

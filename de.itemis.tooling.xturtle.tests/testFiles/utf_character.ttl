@@ -1,0 +1,6 @@
+@prefix pref:<tada>.
+<Berlin> <sameAs> pref:Berlín .
+<Leipzig> <sameAs>	pref:Лейпциг .
+<Leipzig> <sameAs>	pref:Λειψία .
+<Leipzig> <sameAs>	pref:ライプツィヒ .
+<Leipzig> <sameAs>	pref:라이프치히 .
