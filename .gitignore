@@ -2,7 +2,7 @@
 .DS_Store
 plugin.xml_gen
 bin/
-src-gen/
+#src-gen
 xtend-gen/
 # Package Files #
 *.jar
