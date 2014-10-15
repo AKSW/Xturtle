@@ -5,6 +5,7 @@
 	<projects>
 		<project>xturtle.core</project>
 		<project>xturtle.skos</project>
+		<project>xturtle.geo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
