@@ -3,8 +3,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix dct: <http://purl.org/dc/terms/> .
 
 schema:APIReference
     a rdfs:Class ;
@@ -10686,15 +10684,15 @@ schema:yearsInOperation
     rdfs:range schema:QuantitativeValue .
 
 <http://schema.rdfs.org/all>
-    dct:description "This is a conversion of the terms defined at schema.org to RDFS and OWL."@en ;
-    dct:hasFormat <http://schema.rdfs.org/all.json>, <http://schema.rdfs.org/all.nt>, <http://schema.rdfs.org/all.rdf>, <http://schema.rdfs.org/all.ttl>, [
-        dct:hasPart <http://schema.rdfs.org/all-classes.csv>, <http://schema.rdfs.org/all-properties.csv>
+    <http://purl.org/dc/terms/description> "This is a conversion of the terms defined at schema.org to RDFS and OWL."@en ;
+    <http://purl.org/dc/terms/hasFormat> <http://schema.rdfs.org/all.json>, <http://schema.rdfs.org/all.nt>, <http://schema.rdfs.org/all.rdf>, <http://schema.rdfs.org/all.ttl>, [
+        <http://purl.org/dc/terms/hasPart> <http://schema.rdfs.org/all-classes.csv>, <http://schema.rdfs.org/all-properties.csv>
     ] ;
-    dct:license <http://schema.org/docs/terms.html> ;
-    dct:source <http://schema.org/> ;
-    dct:title "The schema.org terms in RDFS+OWL"@en ;
-    dct:valid "2014-04-03"^^xsd:date ;
+    <http://purl.org/dc/terms/license> <http://schema.org/docs/terms.html> ;
+    <http://purl.org/dc/terms/source> <http://schema.org/> ;
+    <http://purl.org/dc/terms/title> "The schema.org terms in RDFS+OWL"@en ;
+    <http://purl.org/dc/terms/valid> "2014-04-03"^^xsd:date ;
     a owl:Ontology ;
     rdfs:seeAlso <http://github.com/mhausenblas/schema-org-rdf>, <http://schema.org/> ;
-    foaf:page <http://schema.rdfs.org/> .
+    <http://xmlns.com/foaf/0.1/:page> <http://schema.rdfs.org/> .
 
