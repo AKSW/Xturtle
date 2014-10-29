@@ -1,0 +1,12 @@
+@prefix schema: <http://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+schema:DateTime a rdfs:Datatype;
+  rdfs:label "DateTime";
+  rdfs:comment "A combination of date and time of day in the form [-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] (see Chapter 5.4 of ISO 8601).";
+  .
+
+schema:Time a rdfs:Datatype;
+  rdfs:label "Time";
+  rdfs:comment "A point in time recurring on multiple days in the form hh:mm:ss[Z|(+|-)hh:mm] (see XML schema for details).";
+  .
