@@ -55,27 +55,10 @@
     </setupTask>
   </setupTask>
   <setupTask
-      xsi:type="setup:VariableTask"
-      id="xturtle.git.clone.variable"
-      name="xturtle.clone.location"
-      value="${installation.location}/git"/>
-  <setupTask
       xsi:type="git:GitCloneTask"
       id="git.clone.xturtle"
-      location="${xturtle.clone.location}"
       remoteURI="https://github.com/AKSW/Xturtle.git">
     <description>Xturtle</description>
-  </setupTask>
-  <setupTask
-      xsi:type="setup:ResourceCreationTask"
-      id="dummy1"
-      excludedTriggers="BOOTSTRAP"
-      disabled="true"
-      predecessor="git.clone.xturtle"
-      content="dummy"
-      targetURL="${xturtle.clone.location|uri}/de.itemis.tooling.xturtle/src-gen/de/itemis/tooling/xturtle/AbstractXturtleRuntimeModule.java"
-      encoding="utf-8">
-    <description>make sure src-gen exists, so that generate Xtext artifacts does not have classpath error</description>
   </setupTask>
   <setupTask
       xsi:type="setup.targlets:TargletTask"
@@ -186,7 +169,7 @@
       <requirement
           name="de.itemis.tooling.xturtle.tests"/>
       <sourceLocator
-          rootFolder="${xturtle.clone.location}"
+          rootFolder="${git.clone.xturtle.location}"
           locateNestedProjects="true"/>
     </targlet>
   </setupTask>
@@ -194,7 +177,7 @@
       xsi:type="projects:ProjectsImportTask"
       id="">
     <sourceLocator
-        rootFolder="${xturtle.clone.location}"/>
+        rootFolder="${git.clone.xturtle.location}"/>
   </setupTask>
   <setupTask
       xsi:type="setup.workingsets:WorkingSetTask">
@@ -220,7 +203,7 @@
         name="Distro">
       <predicate
           xsi:type="workingsets:ExclusionPredicate"
-          excludedWorkingSet="//@setupTasks.7/@workingSets.0 //@setupTasks.7/@workingSets.1"/>
+          excludedWorkingSet="//@setupTasks.5/@workingSets.0 //@setupTasks.5/@workingSets.1"/>
     </workingSet>
   </setupTask>
   <setupTask
