@@ -3,11 +3,9 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    rdfs:comment "This is the RDF Schema for the RDF vocabulary defined in the RDF namespace." ;
-    rdfs:label "The RDF Vocabulary (RDF)" ;
-    a owl:Ontology ;
-    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-    rdfs:seeAlso <http://www.w3.org/2000/01/rdf-schema-more> .
+    rdfs:comment "This is the RDF Schema for the RDF vocabulary terms in the RDF Namespace, defined in RDF 1.1 Concepts." ;
+    rdfs:label "The RDF Concepts Vocabulary (RDF)" ;
+    a owl:Ontology .
 
 rdf:Alt
     a rdfs:Class ;
@@ -23,6 +21,14 @@ rdf:Bag
     rdfs:label "Bag" ;
     rdfs:subClassOf rdfs:Container .
 
+rdf:HTML
+    a rdfs:Datatype ;
+    rdfs:comment "The datatype of RDF literals storing fragments of HTML content" ;
+    rdfs:isDefinedBy <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ;
+    rdfs:label "HTML" ;
+    rdfs:seeAlso <http://www.w3.org/TR/rdf11-concepts/#section-html> ;
+    rdfs:subClassOf rdfs:Literal .
+
 rdf:List
     a rdfs:Class ;
     rdfs:comment "The class of RDF Lists." ;
@@ -32,9 +38,10 @@ rdf:List
 
 rdf:PlainLiteral
     a rdfs:Datatype ;
-    rdfs:comment "The class of plain (i.e. untyped) literal values." ;
-    rdfs:isDefinedBy <http://www.w3.org/TR/rdf-plain-literal/> ;
+    rdfs:comment "The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2" ;
+    rdfs:isDefinedBy <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ;
     rdfs:label "PlainLiteral" ;
+    rdfs:seeAlso <http://www.w3.org/TR/rdf-plain-literal/> ;
     rdfs:subClassOf rdfs:Literal .
 
 rdf:Property
@@ -60,7 +67,7 @@ rdf:Statement
 
 rdf:XMLLiteral
     a rdfs:Datatype ;
-    rdfs:comment "The class of XML literal values." ;
+    rdfs:comment "The datatype of XML literal values." ;
     rdfs:isDefinedBy <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ;
     rdfs:label "XMLLiteral" ;
     rdfs:subClassOf rdfs:Literal .
@@ -72,6 +79,14 @@ rdf:first
     rdfs:isDefinedBy <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ;
     rdfs:label "first" ;
     rdfs:range rdfs:Resource .
+
+rdf:langString
+    a rdfs:Datatype ;
+    rdfs:comment "The datatype of language-tagged string values" ;
+    rdfs:isDefinedBy <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ;
+    rdfs:label "langString" ;
+    rdfs:seeAlso <http://www.w3.org/TR/rdf11-concepts/#section-Graph-Literal> ;
+    rdfs:subClassOf rdfs:Literal .
 
 rdf:nil
     a rdf:List ;
