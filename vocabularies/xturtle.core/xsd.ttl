@@ -134,6 +134,11 @@ xsd:dateTime a rdfs:Datatype;
   rdfs:comment "The �lexical space� of dateTime consists of finite-length sequences of characters of the form: '-'? yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss ('.' s+)? (zzzzzz)? For example, 2002-10-10T12:00:00-05:00 (noon on 10 October 2002, Central Daylight Savings Time as well as Eastern Standard Time in the U.S.) is 2002-10-10T17:00:00Z, five hours later than 2002-10-10T12:00:00Z.";
   rdfs:label "dateTime" .
 
+xsd:dateTimeStamp a rdfs:Datatype;
+  rdfs:isDefinedBy <http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp> ;
+  rdfs:comment """The lexical space of dateTimeStamp consists of strings which are in the ·lexical space· of dateTime and which also match the regular expression '.*(Z|(\+|-)[0-9][0-9]:[0-9][0-9])'""" ;
+  rdfs:label "dataTimeStamp" .
+
 xsd:time a rdfs:Datatype;
   rdfs:isDefinedBy <http://www.w3.org/TR/xmlschema-2/#time>;
   rdfs:comment "The lexical representation for time is the left truncated lexical representation for dateTime: hh:mm:ss.sss with optional following time zone indicator. For example, to indicate 1:20 pm for Eastern Standard Time which is 5 hours behind Coordinated Universal Time (UTC), one would write: 13:20:00-05:00. See also ISO 8601 Date and Time Formats (�D).";
