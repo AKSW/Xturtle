@@ -5,6 +5,8 @@
 	<projects>
 		<project>xturtle.core</project>
 		<project>xturtle.dc</project>
+		<project>xturtle.foaf</project>
+		<project>xturtle.prov</project>
 		<project>xturtle.voidvann</project>
 	</projects>
 	<buildSpec>
