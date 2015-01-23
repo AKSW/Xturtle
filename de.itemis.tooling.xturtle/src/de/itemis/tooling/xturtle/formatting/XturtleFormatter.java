@@ -42,16 +42,21 @@ public class XturtleFormatter extends AbstractDeclarativeFormatter {
 //		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
 
 		//Directive
-		c.setLinewrap(1).after(grammarAccess.getDirectiveAccess().getFullStopKeyword_1());
+		c.setLinewrap(1).after(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1());
 		c.setNoSpace().around(grammarAccess.getPrefixIdAccess().getColonKeyword_1_1());
 		c.setSpace(" ").after(grammarAccess.getPrefixKeywordRule());
 
-		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getFullStopKeyword_1(),grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_0());
-		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getFullStopKeyword_6(),grammarAccess.getDirectiveBlockAccess().getDirectiveblockAssignment_2_2());
+		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_0());
+		c.setLinewrap(2).before(grammarAccess.getTriplesAccess().getSubjectSubjectParserRuleCall_0_0());
+
+		
+		//		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getWSTerminalRuleCall_5(),grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
+//		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_6(),grammarAccess.getDirectiveBlockAccess().getDirectiveblockAssignment_2_2());
 
 		//Triple
 		//TODO line wrap after triple
-		c.setLinewrap(1,2,2).before(grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
+//		c.setLinewrap(1,2,2).before(grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
+//		c.setLinewrap(1,2,2).before(grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
 //		c.setIndentationDecrement().after(grammarAccess.getPredicateObjectListAccess().getObjectsAssignment_2());
 ////		c.setIndentationDecrement().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
 //		c.setIndentationIncrement().before(grammarAccess.getPredicateObjectListAccess().getVerbAssignment_0());

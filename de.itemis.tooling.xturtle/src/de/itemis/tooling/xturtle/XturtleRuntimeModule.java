@@ -39,6 +39,22 @@ import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 public class XturtleRuntimeModule extends de.itemis.tooling.xturtle.AbstractXturtleRuntimeModule {
 
 	@Override
+	public Class<? extends org.eclipse.xtext.parser.antlr.Lexer> bindLexer() {
+		return CustomXturtleLexer.class;
+	}
+
+//	@Override//modified from provideInternalXturtleLexer()
+//	//TODO needed?
+//	public com.google.inject.Provider<CustomXturtleLexer> provideCustomXturtleLexer() {
+//		return org.eclipse.xtext.parser.antlr.LexerProvider.create(CustomXturtleLexer.class);
+//	}
+
+	@Override
+	public void configureRuntimeLexer(com.google.inject.Binder binder) {
+		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.parser.antlr.LexerBindings.RUNTIME)).to(CustomXturtleLexer.class);
+	}
+
+	@Override
 	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
 		return TurtleDataTypeConverters.class;
 	}

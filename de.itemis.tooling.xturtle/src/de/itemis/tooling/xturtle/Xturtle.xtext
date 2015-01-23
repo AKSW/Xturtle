@@ -22,15 +22,15 @@ DirectiveBlock: {DirectiveBlock}
 Directives:{Directives} 
 	directive+=Directive*
 ;
-Directive: (PrefixId|Base)'.';
+Directive: (PrefixId|Base) TRIPELEND;
 PrefixId:PrefixKeyword (id=PrefixName? ':') uri=URI;
 Base:BaseKeyword uri=URI;
 PrefixKeyword hidden():AT'prefix';
 BaseKeyword hidden():AT'base';
 
-Triples hidden(SL_COMMENT): (=>subject=Subject) WS+ predObjs+=PredicateObjectList (WS*=>';' WS* predObjs+=PredicateObjectList)* (WS*';')?WS+ =>'.';
+Triples hidden(SL_COMMENT): (=>subject=Subject) WS predObjs+=PredicateObjectList (WS? =>';' WS?  predObjs+=PredicateObjectList)* (WS? ';')?WS? =>TRIPELEND;
 
-PredicateObjectList: verb=Predicate WS+ objects+=Object (WS*=>','WS* objects+=Object)*;
+PredicateObjectList: verb=Predicate WS objects+=Object (WS? =>','WS?  objects+=Object)*;
 
 Subject:Resource|Blank;
 Object: (ResourceRef|Blank|Literal);
@@ -40,8 +40,8 @@ ResourceRef:QNameRef|UriRef;
 
 Blank:NodeId|BlankObjects|BlankCollection;
 NodeId:'_:' {NodeId} id=Name?;
-BlankObjects:'['{BlankObjects}(WS* predObjs+=PredicateObjectList (WS*';'WS* predObjs+=PredicateObjectList)* (WS*';')?)?WS*']';
-BlankCollection:'(' WS* {BlankCollection} (objects+=Object(WS+ objects+=Object)* WS*)?')';
+BlankObjects:'['{BlankObjects}(WS?  predObjs+=PredicateObjectList (WS? ';'WS?  predObjs+=PredicateObjectList)* (WS? ';')?)?WS? ']';
+BlankCollection:'(' WS?  {BlankCollection} (objects+=Object(WS objects+=Object)* WS? )?')';
 
 
 //ref to prefix URI
@@ -58,11 +58,13 @@ StringLiteral hidden():value=STRING('^^'type=ResourceRef| AT language=Language
 BooleanLiteral:value=('true'|'false');
 
 SignedNumber:('+'|'-')?NUMBER;
-Name:(ID|'a'|'base'|'prefix'|NUMBER)(LOCALESC|ID|'.'|'a'|'base'|'prefix'|NUMBER)*;
+Name hidden(): (ID|'a'|'base'|'prefix'|NUMBER) ('.'? =>(LOCALESC|ID|'a'|'base'|'prefix'|NUMBER))*;
 PrefixName:ID|'a'|'base'|'prefix';
 
 Language:ID;
 ColonName: =>':' Name?;
+
+terminal TRIPELEND:'DEFINEDINCUSTOMLEXER';
 
 terminal NUMBER: DIGITS (!('#'|' '|'\t'|'\r'|'\n'|'"'|"'"|'<'|','|';'))*;//('.'DIGIT*)?(('e'|'E')('+'|'-')?DIGIT+)?;
 terminal ID: START_CHARACTER CHARACTER*;

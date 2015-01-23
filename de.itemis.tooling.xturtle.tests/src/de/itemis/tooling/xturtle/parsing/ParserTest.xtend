@@ -58,6 +58,18 @@ class ParserTest {
 	}
 
 	@Test
+	def void dotInLocalName() {
+		'''
+			@prefix :<tada/>.
+			:a.b :m.017ysq :sdkfh.
+			:a :a :a.b. 
+			:a :a :a.b.	
+			:a :a :a.b.#dgkdhf
+			:a :a :a.b.
+		'''.parse.assertNoErrors
+	}
+
+	@Test
 	def void testLongString2() {
 		'''
 			@prefix :<tada/> .
