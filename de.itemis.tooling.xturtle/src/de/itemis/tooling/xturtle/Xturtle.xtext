@@ -23,49 +23,50 @@ Directives:{Directives}
 	directive+=Directive*
 ;
 Directive: (PrefixId|Base) TRIPELEND;
-PrefixId:PrefixKeyword (id=PrefixName? ':') uri=URI;
+PrefixId:PrefixKeyword (=>id=PrefixName? =>':') =>uri=URI;
 Base:BaseKeyword uri=URI;
 PrefixKeyword hidden():AT'prefix';
 BaseKeyword hidden():AT'base';
 
-Triples hidden(SL_COMMENT): (=>subject=Subject) WS predObjs+=PredicateObjectList (WS? =>';' WS?  predObjs+=PredicateObjectList)* (WS? ';')?WS? =>TRIPELEND;
+Triples: (=>subject=Subject) predObjs+=PredicateObjectList ( =>';'  predObjs+=PredicateObjectList)* (';')? =>TRIPELEND
+;
 
-PredicateObjectList: verb=Predicate WS objects+=Object (WS? =>','WS?  objects+=Object)*;
+PredicateObjectList: verb=Predicate objects+=Object ( =>','  objects+=Object)*;
 
 Subject:Resource|Blank;
 Object: (ResourceRef|Blank|Literal);
-Predicate: (ResourceRef|{TypePredicate}=>'a');
-Resource:QNameDef|UriDef;
-ResourceRef:QNameRef|UriRef;
+Predicate: (ResourceRef|=>({TypePredicate}'a'));
+Resource hidden():QNameDef|UriDef;
+ResourceRef hidden():QNameRef|UriRef;
 
 Blank:NodeId|BlankObjects|BlankCollection;
-NodeId:'_:' {NodeId} id=Name?;
-BlankObjects:'['{BlankObjects}(WS?  predObjs+=PredicateObjectList (WS? ';'WS?  predObjs+=PredicateObjectList)* (WS? ';')?)?WS? ']';
-BlankCollection:'(' WS?  {BlankCollection} (objects+=Object(WS objects+=Object)* WS? )?')';
+NodeId hidden():=>'_:' =>({NodeId} id=Name?);
+BlankObjects:=>'['{BlankObjects}(predObjs+=PredicateObjectList (';' predObjs+=PredicateObjectList)* (';')?)? ']';
+BlankCollection:=>'('{BlankCollection} (objects+=Object (objects+=Object)*)?')';
 
 
 //ref to prefix URI
-QNameDef:{QNameDef}prefix=[PrefixId|PrefixName] ? =>':' id=Name?;
-QNameRef:{QNameRef}prefix=[PrefixId|PrefixName] ? ref=[Resource|ColonName];
-UriDef:uri=URI;
-UriRef:ref=[Resource|URI];
+QNameDef:{QNameDef} =>prefix=[PrefixId|PrefixName] ? =>':' =>id=Name?;
+QNameRef:{QNameRef} =>prefix=[PrefixId|PrefixName] ? =>ref=[Resource|ColonName];
+UriDef:=>uri=URI;
+UriRef:=>ref=[Resource|URI];
 
 
 Literal:NumberLiteral|StringLiteral|BooleanLiteral;
 NumberLiteral:value=SignedNumber;
-StringLiteral hidden():value=STRING('^^'type=ResourceRef| AT language=Language
-)?;
+StringLiteral hidden():value=STRING('^^'type=ResourceRef| AT language=Language)?;
 BooleanLiteral:value=('true'|'false');
 
 SignedNumber:('+'|'-')?NUMBER;
-Name hidden(): (ID|'a'|'base'|'prefix'|NUMBER) ('.'? =>(LOCALESC|ID|'a'|'base'|'prefix'|NUMBER))*;
-PrefixName:ID|'a'|'base'|'prefix';
+Name hidden(): =>(ID|'a'|'base'|'prefix'|NUMBER) =>('.'? (LOCALESC|ID|'a'|'base'|'prefix'|NUMBER))*;
+PrefixName hidden():=>(ID|'a'|'base'|'prefix');
 
 Language:ID;
-ColonName: =>':' Name?;
+ColonName hidden(): =>':' =>Name?;
 
 terminal TRIPELEND:'DEFINEDINCUSTOMLEXER';
 
+//terminal NUMBER: (DIGITS EXPONENT?) | (DIGITS? '.' DIGITS EXPONENT?) | (DIGITS '.' DIGITS? EXPONENT) ;
 terminal NUMBER: DIGITS (!('#'|' '|'\t'|'\r'|'\n'|'"'|"'"|'<'|','|';'))*;//('.'DIGIT*)?(('e'|'E')('+'|'-')?DIGIT+)?;
 terminal ID: START_CHARACTER CHARACTER*;
 terminal LOCALESC:("%" /*HEX HEX*/ |'\\'(('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')))+;
@@ -74,9 +75,10 @@ terminal SL_COMMENT 	: '#' !('\n'|'\r')* ('\r'? '\n')?;
 //TODO allow \> in URI?
 terminal URI: '<'->'>';
 //TODO this covers much, but probably not all cases
+//TODO String terminal in custom lexer (with single quotes as well
 terminal STRING:'"' ( '\\' ('t'|'n'|'r'|'U'|'u'|'"'|'\\') | !('\\'|'"') )* '"' |
 				('"' '"' '"')(
-					(('\\''"'?)*!('\\'|'"')) | 
+					(('\\''"'?)*!('\\'|'"')) |
 					('"' '"'? !'"')
 				)*('\\''"')?('"' '"' '"');
 
@@ -87,5 +89,6 @@ terminal ANY_OTHER: .;
 
 //terminal fragment HEX:('0'..'9')|('a'..'f'|'A'..'F');
 terminal fragment DIGITS:('0'..'9')+;
+terminal fragment EXPONENT:('e'|'E')('+'|'-')?DIGITS;
 terminal fragment START_CHARACTER:('A'..'Z') | "_" | ('a'..'z') | ('\u00C0'..'\u00D6') | ('\u00D8'..'\u00F6') | ('\u00F8'..'\u02FF') | ('\u0370'..'\u037D') | ('\u037F'..'\u1FFF') | ('\u200C'..'\u200D') | ('\u2070'..'\u218F') | ('\u2C00'..'\u2FEF') | ('\u3001'..'\uD7FF') | ('\uF900'..'\uFDCF') | ('\uFDF0'..'\uFFFD');// | ('\u10000'..'\uEFFFF');
 terminal fragment CHARACTER: START_CHARACTER | '-' | DIGITS | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040');
