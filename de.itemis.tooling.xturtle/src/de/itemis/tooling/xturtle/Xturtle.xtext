@@ -28,8 +28,7 @@ Base:BaseKeyword uri=URI;
 PrefixKeyword hidden():AT'prefix';
 BaseKeyword hidden():AT'base';
 
-Triples: (=>subject=Subject) predObjs+=PredicateObjectList ( =>';'  predObjs+=PredicateObjectList)* (';')? =>TRIPELEND
-;
+Triples: (=>subject=Subject) (predObjs+=PredicateObjectList ( =>';'  predObjs+=PredicateObjectList)* (';')?)? =>TRIPELEND;
 
 PredicateObjectList: verb=Predicate objects+=Object ( =>','  objects+=Object)*;
 

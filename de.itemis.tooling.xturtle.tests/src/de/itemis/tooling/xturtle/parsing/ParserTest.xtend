@@ -4,6 +4,7 @@ import com.google.common.io.Files
 import com.google.inject.Inject
 import de.itemis.tooling.xturtle.NoValidationInjectorProvider
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
+import de.itemis.tooling.xturtle.xturtle.XturtlePackage
 import java.io.File
 import java.nio.charset.Charset
 import org.eclipse.xtext.junit4.InjectWith
@@ -27,7 +28,7 @@ class ParserTest {
 			<a> <b> <a> .
 			b:b <a> <b> .
 		'''.parse
-		model.assertNoErrors
+		model.assertNoIssues
 
 //		val builder=SaveOptions::newBuilder
 //		builder.format
@@ -38,7 +39,7 @@ class ParserTest {
 	def void testLongString1() {
 		'''
 			<a> <b> """tada\"""" .
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
 	}
 
 	@Test
@@ -46,7 +47,7 @@ class ParserTest {
 		'''
 			@prefix :<tada/> .
 			:a9 :b9 ( ) .
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
 	}
 
 	@Test
@@ -54,7 +55,7 @@ class ParserTest {
 		'''
 			@prefix :<tada/> .
 			:a%FF :b9 ( ) .
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
 	}
 
 	@Test
@@ -66,7 +67,7 @@ class ParserTest {
 			:a :a :a.b.	
 			:a :a :a.b.#dgkdhf
 			:a :a :a.b.
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
 	}
 
 	@Test
@@ -76,7 +77,7 @@ class ParserTest {
 			:d :e """\tThis \uABCDis\r \U00015678another\n
 			one		
 			""" .
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
 	}
 
 	@Test
@@ -84,7 +85,27 @@ class ParserTest {
 		'''
 			@prefix :<tada/> .
 			:a :b """John said: ""Hello "World!\"""" .
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
+	}
+
+	@Test
+	def void testAxiom() {
+		'''
+			@prefix :<tada/> .
+			:a :a :a.
+			[].
+			[ :a :a ;
+				:a ( :a
+					:a
+				)
+			] .
+			
+		'''.parse.assertNoIssues
+	}
+
+	@Test
+	def void missingSubject() {
+		'''<a>.'''.parse.assertError(XturtlePackage.Literals.TRIPLES, "axiom")
 	}
 
 	@Test
@@ -92,7 +113,7 @@ class ParserTest {
 		'''
 			<http://example.org/foo>
 			<http://example.org/bar> 2.345, 1, 1.0, 1., 1.000000000, 2.3, 2.234000005, 2.2340000005, 2.23400000005, 2.234000000005, 2.2340000000005, 2.23400000000005, 2.234000000000005, 2.2340000000000005, 2.23400000000000005, 2.234000000000000005, 2.2340000000000000005, 2.23400000000000000005, 2.234000000000000000005, 2.2340000000000000000005, 2.23400000000000000000005, 1.2345678901234567890123457890 .
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
 	}
 
 	@Test
@@ -110,7 +131,7 @@ class ParserTest {
 			<p><a name=\"p29826-4\"></a></p>
 			
 			<p id=\"p29826-4\" class=\"auto\">The general workflow implemented by the LIMES framework comprises four steps: Given a source, a target and a threshold, LIMES first computes a set exemplars for the target data source (step 1). This process is concluded by matching each target instance to the exemplar closest to it. In step 2 and 3, the matching is carried out. In the filterig step, the distance between all source instances and target instances is approximated via the exemplars computed previously (step 3). Obvious non-matches are then filtered out. Subsequently, the real distance between the remaining source and target instances are computed (step 3). Finally, the matching instances are are serialized, i.e., written in a user-defined output stream according to a user-specified format, e.g. <a class=\"outerlink\" title=\"Outgoing link (in new window)\" href=\"http://www.w3.org/2001/sw/RDFCore/ntriples/\" target=\"_blank\"><img class=\"contexticon\" src=\"http://aksw.org/themes/aksw2007/icons/world_link.png\" alt=\"\" />NTriples</a> (step 4).</p>""" .
-		'''.parse.assertNoErrors
+		'''.parse.assertNoIssues
 	}
 
 	@Test

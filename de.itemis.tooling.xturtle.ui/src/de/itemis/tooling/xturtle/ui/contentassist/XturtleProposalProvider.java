@@ -35,10 +35,12 @@ import com.google.inject.Inject;
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.services.Prefixes;
 import de.itemis.tooling.xturtle.services.XturtleGrammarAccess;
+import de.itemis.tooling.xturtle.xturtle.BlankObjects;
 import de.itemis.tooling.xturtle.xturtle.Object;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.StringLiteral;
+import de.itemis.tooling.xturtle.xturtle.Triples;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -299,5 +301,14 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 	public void complete_AT(StringLiteral model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		acceptor.accept(createCompletionProposal("@", context));
+	}
+
+	public void complete_TRIPELEND(Triples model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		boolean isAxiom=model.getSubject() instanceof BlankObjects;
+		boolean predicateNonEmpty=!model.getPredObjs().isEmpty();
+		if(isAxiom || predicateNonEmpty){
+			completeKeyword(ga.getNameAccess().getFullStopKeyword_1_0_0(), context, acceptor);
+		}
 	}
 }

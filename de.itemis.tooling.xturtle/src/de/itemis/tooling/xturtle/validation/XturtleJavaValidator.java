@@ -21,18 +21,21 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
 
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.services.Prefixes;
+import de.itemis.tooling.xturtle.xturtle.BlankObjects;
 import de.itemis.tooling.xturtle.xturtle.Directive;
 import de.itemis.tooling.xturtle.xturtle.Directives;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.QNameRef;
 import de.itemis.tooling.xturtle.xturtle.StringLiteral;
+import de.itemis.tooling.xturtle.xturtle.Triples;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
  
 
@@ -45,6 +48,13 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	private TurtleValidationSeverityLevels levels;
 
 	public static final String UNKNOWN_PREFIX="unknownPrefix";
+
+	@Check(CheckType.NORMAL)
+	public void checkAxiomSyntax(Triples triples) {
+		if(!(triples.getSubject() instanceof BlankObjects) && triples.getPredObjs().isEmpty()){
+			error("predicate object list is optional only for blank",XturtlePackage.Literals.TRIPLES__SUBJECT,"axiom");
+		}
+	}
 
 	@Check
 	public void checkEmptyPrefixDefined(QNameDef def) {
