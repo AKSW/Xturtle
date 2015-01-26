@@ -68,7 +68,7 @@ class LexerTests {
 	@Test
 	def void escape() {
 		val rule=LOCALESCRule
-		assertTokens("%",rule)
+		assertTokens("%26",rule)
 		assertTokens("\\.",rule)
 		assertTokens("\\/",rule)
 	}
@@ -81,6 +81,31 @@ class LexerTests {
 	}
 
 	@Test
+	def void number() {
+		val rule=NUMBERRule
+		assertTokens("1",rule)
+		assertTokens("12",rule)
+		assertTokens("123",rule)
+		assertTokens("1123123",rule)
+		assertTokens("1.",rule)
+		assertTokens("1.9",rule)
+		assertTokens(".2",rule)
+		assertTokens(".294723",rule)
+
+		assertTokens("1e13",rule)
+		assertTokens("12e+13",rule)
+		assertTokens("99e-34",rule)
+
+		assertTokens("1.123e13",rule)
+		assertTokens("12.123e+13",rule)
+		assertTokens("99.123e-34",rule)
+
+		assertTokens(".123e13",rule)
+		assertTokens(".123e+13",rule)
+		assertTokens(".123e-34",rule)
+	}
+
+	@Test
 	def void string() {
 		val rule=STRINGRule
 		assertTokens('''"sldfjs"''',rule)
@@ -88,6 +113,8 @@ class LexerTests {
 		"''',rule)
 		assertTokens('''"""dkghd
 			fkg"""''',rule)
+		assertTokens('''"""dkgh"dfk""g"""''',rule)
+		assertTokens('''"""dkgh"dfk\"\""""''',rule)
 	}
 
 //	@Test

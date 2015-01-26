@@ -22,13 +22,19 @@ public class TurtleDataTypeConverters extends DefaultTerminalConverters {
 
 		public String toValue(String string, INode node)
 				throws ValueConverterException {
-			if(string.charAt(0)!='<' || string.charAt(string.length()-1)!='>'){
+			if(string==null){
+				return null;
+			}
+			if(string.length() < 2 || string.charAt(0)!='<' || string.charAt(string.length()-1)!='>'){
 				throw new ValueConverterException("Uri must have <...>-format", node, null);
 			}
 			return string.substring(1, string.length()-1);
 		}
 
 		public String toString(String value) throws ValueConverterException {
+			if(value==null){
+				return null;
+			}
 			return "<"+value+">";
 		}
 		

@@ -39,4 +39,11 @@ class ParserRuleTests {
 		assertParsable("tada.123.eg",rule)
 	}
 
+	@Test
+	def void StringLiteral() {
+		val rule=stringLiteralRule
+		assertParsable('''"tada"@en''',rule)
+		assertParsable('''"""tada"""@en''',rule)
+	}
+
 }

@@ -31,6 +31,7 @@ import com.google.inject.Binder;
 import com.google.inject.Provider;
 import com.google.inject.name.Names;
 
+import de.itemis.tooling.xturtle.CustomXturtleLexer;
 import de.itemis.tooling.xturtle.resource.TurtleIndexUserDataNamesProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleAutoEditStrategyProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleNewLineAutoedit;
@@ -58,6 +59,17 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	public XturtleUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+
+	@Override
+	public void configureHighlightingLexer(com.google.inject.Binder binder) {
+		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(CustomXturtleLexer.class);
+	}
+
+//	@Override
+	//TODO content assist lexer if there are problems with default
+//	public void configureContentAssistLexer(Binder binder) {
+//		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(CustomXturtleLexer.class);
+//	}
 	
 	public Class <? extends AbstractAntlrTokenToAttributeIdMapper> bindTokenMapper(){
 		return TurtleHighlightingMapper.class;

@@ -20,6 +20,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.nodemodel.BidiTreeIterator;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
@@ -52,6 +56,14 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void checkAxiomSyntax(Triples triples) {
 		if(!(triples.getSubject() instanceof BlankObjects) && triples.getPredObjs().isEmpty()){
+			//raise the error only if the subject has no syntax errors
+			ICompositeNode node = NodeModelUtils.getNode(triples.getSubject());
+			BidiTreeIterator<INode> iterator = node.getAsTreeIterable().iterator();
+			while(iterator.hasNext()){
+				if(iterator.next().getSyntaxErrorMessage()!=null){
+					return;
+				}
+			}
 			error("predicate object list is optional only for blank",XturtlePackage.Literals.TRIPLES__SUBJECT,"axiom");
 		}
 	}
