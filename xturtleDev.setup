@@ -16,66 +16,62 @@
     name="Xturtle Develop"
     label="Xturtle Develop">
   <setupTask
-      xsi:type="setup:CompoundTask"
-      name="Xtext">
-    <setupTask
-        xsi:type="setup.p2:P2Task"
-        id="Xtext stuff">
-      <requirement
-          name="org.eclipse.xtext.sdk.feature.group"
-          versionRange="[2.4.0,2.5.0)"/>
-      <requirement
-          name="de.itemis.xtext.antlr.sdk.feature.group"
-          versionRange="2.0.0"/>
-      <requirement
-          name="org.eclipse.xtend.sdk.feature.group"
-          versionRange="[2.4.0,2.5.0)"/>
-      <requirement
-          name="org.eclipse.xtend.m2e.feature.group"
-          versionRange="[2.4.0,2.5.0)"/>
-      <requirement
-          name="org.eclipse.emf.mwe.sdk.feature.group"
-          versionRange="[1.2.1,1.2.2)"/>
-      <requirement
-          name="org.eclipse.emf.mwe2.runtime.sdk.feature.group"
-          versionRange="[2.4.0,2.5.0)"/>
-      <requirement
-          name="org.eclipse.emf.sdk.feature.group"
-          versionRange="[2.8.0,3.0.0)"/>
-      <requirement
-          name="org.eclipse.emf.mwe2.language.sdk.feature.group"
-          versionRange="[2.4.0,2.5.0)"/>
-      <requirement
-          name="org.eclipse.emf.mwe2.launcher.feature.group"
-          versionRange="[2.4.0,2.5.0)"/>
-      <repository
-          url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-      <repository
-          url="http://download.itemis.com/updates/releases/2.1.1"/>
-    </setupTask>
+      xsi:type="setup.p2:P2Task"
+      id="WikiText"
+      label="WikiText">
+    <requirement
+        name="org.eclipse.mylyn.wikitext_feature.feature.group"/>
+    <repository
+        url="http://download.eclipse.org/mylyn/releases/latest"/>
   </setupTask>
   <setupTask
-      xsi:type="setup:VariableTask"
-      id="xturtle.git.clone.variable"
-      name="xturtle.clone.location"
-      value="${installation.location}/git"/>
+      xsi:type="setup.p2:P2Task"
+      id="Xtext stuff"
+      label="Xtext stuff">
+    <requirement
+        name="org.eclipse.xtext.sdk.feature.group"
+        versionRange="[2.4.0,2.5.0)"/>
+    <requirement
+        name="de.itemis.xtext.antlr.sdk.feature.group"
+        versionRange="2.0.0"/>
+    <requirement
+        name="org.eclipse.xtend.sdk.feature.group"
+        versionRange="[2.4.0,2.5.0)"/>
+    <requirement
+        name="org.eclipse.xtend.m2e.feature.group"
+        versionRange="[2.4.0,2.5.0)"/>
+    <requirement
+        name="org.eclipse.emf.mwe.sdk.feature.group"
+        versionRange="[1.2.1,1.2.2)"/>
+    <requirement
+        name="org.eclipse.emf.mwe2.runtime.sdk.feature.group"
+        versionRange="[2.4.0,2.5.0)"/>
+    <requirement
+        name="org.eclipse.emf.sdk.feature.group"
+        versionRange="[2.8.0,3.0.0)"/>
+    <requirement
+        name="org.eclipse.emf.mwe2.language.sdk.feature.group"
+        versionRange="[2.4.0,2.5.0)"/>
+    <requirement
+        name="org.eclipse.emf.mwe2.launcher.feature.group"
+        versionRange="[2.4.0,2.5.0)"/>
+    <repository
+        url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+    <repository
+        url="http://download.itemis.com/updates/releases/2.1.1"/>
+  </setupTask>
   <setupTask
       xsi:type="git:GitCloneTask"
       id="git.clone.xturtle"
-      location="${xturtle.clone.location}"
       remoteURI="https://github.com/AKSW/Xturtle.git">
     <description>Xturtle</description>
   </setupTask>
   <setupTask
-      xsi:type="setup:ResourceCreationTask"
-      id="dummy1"
-      excludedTriggers="BOOTSTRAP"
-      disabled="true"
-      predecessor="git.clone.xturtle"
-      content="dummy"
-      targetURL="${xturtle.clone.location|uri}/de.itemis.tooling.xturtle/src-gen/de/itemis/tooling/xturtle/AbstractXturtleRuntimeModule.java"
-      encoding="utf-8">
-    <description>make sure src-gen exists, so that generate Xtext artifacts does not have classpath error</description>
+      xsi:type="git:GitCloneTask"
+      id="git.clone.xturtlewiki"
+      remoteURI="https://github.com/AKSW/xturtle.wiki.git"
+      checkoutBranch="master">
+    <description>Xturtle Wiki Git</description>
   </setupTask>
   <setupTask
       xsi:type="setup.targlets:TargletTask"
@@ -103,10 +99,19 @@
           name="org.eclipse.jdt.feature.group"/>
       <requirement
           name="org.eclipse.xtext.runtime.feature.group"
-          versionRange="[2.3.0,2.4.0)"/>
+          versionRange="[2.4.0,2.4.1)"/>
       <requirement
           name="org.eclipse.xtext.ui.feature.group"
-          versionRange="[2.3.0,2.4.0)"/>
+          versionRange="[2.4.0,2.4.1)"/>
+      <requirement
+          name="org.eclipse.xtend.lib"
+          versionRange="[2.4.1,2.4.2)"/>
+      <requirement
+          name="org.eclipse.xtext.xbase.lib"
+          versionRange="[2.4.1,2.4.2)"/>
+      <requirement
+          name="org.eclipse.xtext.junit4"
+          versionRange="[2.4.0,2.4.1)"/>
       <repositoryList
           name="Mars">
         <repository
@@ -178,9 +183,10 @@
       <requirement
           name="de.itemis.tooling.xturtle.ui"/>
       <requirement
-          name="de.itemis.tooling.xturtle.tests"/>
+          name="de.itemis.tooling.xturtle.tests"
+          optional="true"/>
       <sourceLocator
-          rootFolder="${xturtle.clone.location}"
+          rootFolder="${git.clone.xturtle.location}"
           locateNestedProjects="true"/>
     </targlet>
   </setupTask>
@@ -188,7 +194,9 @@
       xsi:type="projects:ProjectsImportTask"
       id="">
     <sourceLocator
-        rootFolder="${xturtle.clone.location}"/>
+        rootFolder="${git.clone.xturtle.location}"/>
+    <sourceLocator
+        rootFolder="${git.clone.xturtlewiki.location}"/>
   </setupTask>
   <setupTask
       xsi:type="setup.workingsets:WorkingSetTask">
@@ -226,9 +234,15 @@
   <setupTask
       xsi:type="launching:LaunchTask"
       excludedTriggers="STARTUP"
+      disabled="true"
       launcher="Generate Language Infrastructure (de.itemis.tooling.xturtle)">
     <description></description>
   </setupTask>
+  <setupTask
+      xsi:type="setup:EclipseIniTask"
+      option="-Doomph.redirection.xturtleSetup"
+      value="=https://raw.githubusercontent.com/AKSW/Xturtle/master/xturtleDev.setup->${git.clone.xturtle.location|uri}/xturtleDev.setup"
+      vm="true"/>
   <stream name="master"
       label="master">
     <description>master</description>
