@@ -36,6 +36,27 @@ class ParserTest {
 	}
 
 	@Test
+	def void testPrefixA() {
+		val model='''
+			@prefix a:<tada/> .
+			@prefix b:<tidum/> .
+			b:b b:b b:b .
+			b:b a b:b .
+			a:b a:b a:b .
+			a:b a a:b .
+			a:b a a:b.
+			a:a.b b:b "".
+			a:a.b a "".
+			a:a.a a "".
+			a:b a a:a.
+			a:a.b a a:b.
+			a:a.b a a:a.
+			a:a a a:a .
+		'''.parse
+		model.assertNoIssues
+	}
+
+	@Test
 	def void testLongString1() {
 		'''
 			<a> <b> """tada\"""" .
@@ -59,14 +80,34 @@ class ParserTest {
 	}
 
 	@Test
+	def void leadingDigitLocalName() {
+		'''
+			@prefix :<tada/>.
+			@prefix b:<tidum/>.
+			:123ab :123ab :123ab.
+			:123ab a :123ab.
+			b:123ab b:123ab b:123ab.
+			b:123ab a b:123ab.
+		'''.parse.assertNoIssues
+	}
+
+	@Test
 	def void dotInLocalName() {
 		'''
 			@prefix :<tada/>.
 			:a.b :m.017ysq :sdkfh.
 			:a :a :a.b. 
-			:a :a :a.b.	
+			:a a :a.b.	
 			:a :a :a.b.#dgkdhf
 			:a :a :a.b.
+		'''.parse.assertNoIssues
+	}
+
+	@Test
+	def void blankNodeLabel() {
+		'''
+			_:fsdf a _:fsdf.
+«««			_:a·̀ͯ‿.⁀ a _:a·̀ͯ‿.⁀ .
 		'''.parse.assertNoIssues
 	}
 
@@ -106,6 +147,12 @@ class ParserTest {
 	@Test
 	def void missingSubject() {
 		'''<a>.'''.parse.assertError(XturtlePackage.Literals.TRIPLES, "axiom")
+	}
+
+	@Test
+	def void preventBlankPrefix() {
+		'''@prefix _:<tada/>.
+		'''.parse.assertError(XturtlePackage.Literals.PREFIX_ID, "blank_prefix")
 	}
 
 	@Test

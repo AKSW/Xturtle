@@ -30,6 +30,17 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 	@Inject 
 	TurtleValidationSeverityLevels levels;
 
+
+	private DiagnosticMessage getMissingPrefixDefinitionErrorMessage(String linkText){
+		boolean isBlankLabelPrefix=linkText.length()==1 &&linkText.charAt(0)=='_';
+		if(isBlankLabelPrefix){
+			//no prefix definition for blank label prefix '_' allowed, so it is OK that it is missing
+			return null;
+		}else{
+			return new DiagnosticMessage("no @prefix-Definition for "+linkText+" up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
+		}
+	}
+
 	@Override
 	public DiagnosticMessage getUnresolvedProxyMessage(
 			ILinkingDiagnosticContext context) {
@@ -38,7 +49,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 		if(object instanceof ResourceRef){
 			//unlinked prefix
 			if(context.getReference()==XturtlePackage.Literals.QNAME_REF__PREFIX){
-				return new DiagnosticMessage("no @prefix-Definition for "+linkText+" up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
+				return getMissingPrefixDefinitionErrorMessage(linkText);
 			}
 
 			Severity severity=null;
@@ -57,7 +68,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 				return null;
 			}
 		} else if(object instanceof QNameDef){
-			return new DiagnosticMessage("no @prefix-Definition for "+linkText+" up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
+			return getMissingPrefixDefinitionErrorMessage(linkText);
 		}
 		return super.getUnresolvedProxyMessage(context);
 	}

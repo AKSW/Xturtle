@@ -16,7 +16,8 @@ public class CustomXturtleLexer extends InternalXturtleLexer {
 
 	private boolean overrideTripleEndGeneration() {
 		if (input.LA(1) == '.') {
-			switch (input.LA(2)) {
+			int next=input.LA(2);
+			switch (next) {
 			case -1://EOF
 			case '\n':
 			case ' ':
@@ -145,10 +146,47 @@ public class CustomXturtleLexer extends InternalXturtleLexer {
 		}
 		return isString;
 	}
+	private boolean overrideAasID(){
+		if(input.LA(1)=='a'){
+			int next=input.LA(2);
+			boolean aIsPartOfId=next==':'||next=='.';
+			if(aIsPartOfId){
+				state.type = RULE_ID;
+				state.channel = DEFAULT_TOKEN_CHANNEL;
+				state.failed=false;
+				state.backtracking=0;
+				input.consume();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isUTF16high(int i){
+		//x10000-xeffff
+		return i>65535 &&i<983040;
+	}
+
+	private boolean overrideUTF16(){
+		boolean result=false;
+//		System.out.println(input.LA(1));
+		while(isUTF16high(input.LA(1))){
+			state.type = RULE_ID;
+			state.channel = DEFAULT_TOKEN_CHANNEL;
+			state.failed=false;
+			state.backtracking=0;
+			input.consume();
+			result=true;
+		}
+		return result;
+	}
+	
 	private boolean customOverride(){
 		return overrideTripleEndGeneration() 
 			|| overrideNumberGeneration()
-			|| overrideString();
+			|| overrideString()
+			|| overrideAasID()
+			|| overrideUTF16();
 	}
 	@Override
 	public void mTokens() throws RecognitionException {

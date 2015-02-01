@@ -38,14 +38,14 @@ Predicate: (ResourceRef|=>({TypePredicate}'a'));
 Resource hidden():QNameDef|UriDef;
 ResourceRef hidden():QNameRef|UriRef;
 
-Blank:NodeId|BlankObjects|BlankCollection;
-NodeId hidden():=>'_:' =>({NodeId} id=Name?);
+Blank:/*NodeId|*/BlankObjects|BlankCollection;
+//NodeId hidden():=>'_:' =>({NodeId} id=Name?);
 BlankObjects:=>'['{BlankObjects}(predObjs+=PredicateObjectList ((';')+ predObjs+=PredicateObjectList)* (';')*)? ']';
 BlankCollection:=>'('{BlankCollection} (objects+=Object (objects+=Object)*)?')';
 
 
 //ref to prefix URI
-QNameDef:{QNameDef} =>prefix=[PrefixId|PrefixName] ? =>':' =>id=Name?;
+QNameDef:{QNameDef} =>prefix=[PrefixId|PrefixName] ? id=ColonName;
 QNameRef:{QNameRef} =>prefix=[PrefixId|PrefixName] ? =>ref=[Resource|ColonName];
 UriDef:=>uri=URI;
 UriRef:=>ref=[Resource|URI];
@@ -58,7 +58,7 @@ BooleanLiteral:value=('true'|'false');
 
 SignedNumber:('+'|'-')?NUMBER;
 Name hidden(): =>(LOCALESC|ID|'a'|'base'|'prefix'|NUMBER) =>('.'? (LOCALESC|ID|'a'|'base'|'prefix'|NUMBER))*;
-PrefixName hidden():=>(ID|'a'|'base'|'prefix')=>('.'? (ID|'a'|'base'|'prefix'))*;
+PrefixName hidden():=>(ID|'base'|'prefix')=>('.'? (ID|'base'|'prefix'|NUMBER))*;
 
 Language:ID;
 ColonName hidden(): =>':' =>Name?;
@@ -67,7 +67,8 @@ terminal TRIPELEND:'DEFINEDINCUSTOMLEXER';
 
 //actually we override the Number lexing
 terminal NUMBER: DIGITS (!('#'|' '|'\t'|'\r'|'\n'|'"'|"'"|'<'|','|';'))*;
-terminal ID: START_CHARACTER CHARACTER*;
+//TODO extend ID to CHAR+ and have semantic check that ID does not start with '-', '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040')
+terminal ID: CHAR_U CHAR*;
 terminal LOCALESC:("%" HEX HEX |'\\'(('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')))+;
 terminal SL_COMMENT 	: '#' !('\n'|'\r')* ('\r'? '\n')?;
 
@@ -88,5 +89,6 @@ terminal ANY_OTHER: .;
 
 terminal fragment HEX:('0'..'9')|('a'..'f'|'A'..'F');
 terminal fragment DIGITS:('0'..'9')+;
-terminal fragment START_CHARACTER:('A'..'Z') | "_" | ('a'..'z') | ('\u00C0'..'\u00D6') | ('\u00D8'..'\u00F6') | ('\u00F8'..'\u02FF') | ('\u0370'..'\u037D') | ('\u037F'..'\u1FFF') | ('\u200C'..'\u200D') | ('\u2070'..'\u218F') | ('\u2C00'..'\u2FEF') | ('\u3001'..'\uD7FF') | ('\uF900'..'\uFDCF') | ('\uFDF0'..'\uFFFD');// | ('\u10000'..'\uEFFFF');
-terminal fragment CHARACTER: START_CHARACTER | '-' | DIGITS | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040');
+terminal fragment CHAR_BASE:('A'..'Z') | ('a'..'z') | ('\u00C0'..'\u00D6') | ('\u00D8'..'\u00F6') | ('\u00F8'..'\u02FF') | ('\u0370'..'\u037D') | ('\u037F'..'\u1FFF') | ('\u200C'..'\u200D') | ('\u2070'..'\u218F') | ('\u2C00'..'\u2FEF') | ('\u3001'..'\uD7FF') | ('\uF900'..'\uFDCF') | ('\uFDF0'..'\uFFFD');// | ('\u10000'..'\uEFFFF');
+terminal fragment CHAR_U: CHAR_BASE| '_';
+terminal fragment CHAR: CHAR_U | '-' | DIGITS | '\u00B7' | ('\u0300'..'\u036F') | ('\u203F'..'\u2040');

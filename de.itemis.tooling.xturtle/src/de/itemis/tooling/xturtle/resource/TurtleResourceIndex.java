@@ -73,10 +73,15 @@ class TurtleResourceIndex implements Adapter {
 		return qNameMap.get(object);
 	}
 
-    void initIndex(EObject root){
-    	resetMaps(root.eResource());
+	void initIndex(EObject root){
+		resetMaps(root.eResource());
 		int i=0;
 		addFragmentEntry(i++, root);
+
+		//make sure blank node labels get proper qualified name
+		prefixToUriMap.put("_",root.eResource().getURI().toString()+"#");
+		qNameMap.put(root, QualifiedName.create(prefixToUriMap.get("_")));
+
 		TreeIterator<EObject> iterator = root.eAllContents();
 		while(iterator.hasNext()) {
 			EObject obj = iterator.next();
@@ -102,7 +107,8 @@ class TurtleResourceIndex implements Adapter {
 			String prefix=getPrefixText(obj,XturtlePackage.Literals.QNAME_DEF__PREFIX);
 			String prefixUri = prefixToUriMap.get(prefix);
 			if(prefixUri!=null){
-				qNameMap.put(obj, QualifiedName.create(prefixUri, Optional.fromNullable(((QNameDef) obj).getId()).or("")));
+				String id=((QNameDef) obj).getId();
+				qNameMap.put(obj, QualifiedName.create(prefixUri, id));
 			}
 		} else if(obj instanceof UriDef){
 			QualifiedName qName=resolve(currentBaseUri, ((UriDef) obj).getUri());

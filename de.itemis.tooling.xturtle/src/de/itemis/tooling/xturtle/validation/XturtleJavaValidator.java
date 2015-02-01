@@ -119,6 +119,13 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	}
 
 	@Check
+	public void checkBlankNodePrefix(PrefixId def) {
+		if("_".equals(def.getId())){
+			error("illegal prefix definition", XturtlePackage.Literals.PREFIX_ID__ID, "blank_prefix");
+		}
+	}
+
+	@Check
 	public void checkUnusedPrefix(PrefixId def) {
 		Severity s=levels.getUnusedPrefixLevel();
 		if(s!=null){

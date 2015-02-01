@@ -183,7 +183,8 @@
       <requirement
           name="de.itemis.tooling.xturtle.ui"/>
       <requirement
-          name="de.itemis.tooling.xturtle.tests"/>
+          name="de.itemis.tooling.xturtle.tests"
+          optional="true"/>
       <sourceLocator
           rootFolder="${git.clone.xturtle.location}"
           locateNestedProjects="true"/>

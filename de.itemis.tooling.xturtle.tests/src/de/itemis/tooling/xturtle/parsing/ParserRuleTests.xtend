@@ -30,12 +30,22 @@ class ParserRuleTests {
 	def void prefixName() {
 		val rule=prefixNameRule
 		assertParsable("tada",rule)
+		assertParsable("a·̀ͯ‿",rule)
+//		assertParsable("a·̀ͯ‿.⁀",rule)
+//		assertParsable("AZazÀÖØöø˿Ͱͽ΄῾‌‍⁰↉Ⰰ⿕、ퟻ﨎ﷇﷰ￯𐀀󠇯",rule)
+		assertParsable("tada.123.eg",rule)
 	}
 
 	@Test
 	def void name() {
 		val rule=nameRule
+		assertParsable("a",rule)
+		assertParsable("a.a",rule)
+		assertParsable("a.b",rule)
 		assertParsable("tada",rule)
+		assertParsable("a·̀ͯ‿⁀",rule)
+//		assertParsable("a·̀ͯ‿.⁀",rule)
+//		assertParsable("AZazÀÖØöø˿ͰͽͿ῿‌‍⁰↏Ⰰ⿯、퟿豈﷏ﷰ�𐀀󯿽",rule)
 		assertParsable("tada.123.eg",rule)
 	}
 
