@@ -44,10 +44,10 @@ public class XturtleRuntimeModule extends de.itemis.tooling.xturtle.AbstractXtur
 	}
 
 //	@Override//modified from provideInternalXturtleLexer()
-//	//TODO needed?
-//	public com.google.inject.Provider<CustomXturtleLexer> provideCustomXturtleLexer() {
-//		return org.eclipse.xtext.parser.antlr.LexerProvider.create(CustomXturtleLexer.class);
-//	}
+	//TODO needed?
+	public com.google.inject.Provider<CustomXturtleLexer> provideCustomXturtleLexer() {
+		return org.eclipse.xtext.parser.antlr.LexerProvider.create(CustomXturtleLexer.class);
+	}
 
 	@Override
 	public void configureRuntimeLexer(com.google.inject.Binder binder) {

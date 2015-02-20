@@ -35,6 +35,8 @@ import de.itemis.tooling.xturtle.services.Prefixes;
 import de.itemis.tooling.xturtle.xturtle.BlankObjects;
 import de.itemis.tooling.xturtle.xturtle.Directive;
 import de.itemis.tooling.xturtle.xturtle.Directives;
+import de.itemis.tooling.xturtle.xturtle.Predicate;
+import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.QNameRef;
@@ -122,6 +124,18 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	public void checkBlankNodePrefix(PrefixId def) {
 		if("_".equals(def.getId())){
 			error("illegal prefix definition", XturtlePackage.Literals.PREFIX_ID__ID, "blank_prefix");
+		}
+	}
+
+	@Check
+	public void checkBlankNodeSubject(PredicateObjectList predObj) {
+		Predicate predicate = predObj.getVerb();
+		if(predicate instanceof QNameRef){
+			QNameRef ref = (QNameRef) predicate;
+			boolean isBlankPrefix=ref.getPrefix().getId()==null && ref.getPrefix().getUri()==null;
+			if(isBlankPrefix){
+				error("blank node reference cannot be a subject", predicate, XturtlePackage.Literals.QNAME_REF__PREFIX);
+			}
 		}
 	}
 

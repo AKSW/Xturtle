@@ -35,7 +35,9 @@ import de.itemis.tooling.xturtle.CustomXturtleLexer;
 import de.itemis.tooling.xturtle.resource.TurtleIndexUserDataNamesProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleAutoEditStrategyProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleNewLineAutoedit;
+import de.itemis.tooling.xturtle.ui.contentassist.CustomXturtleContentassistLexer;
 import de.itemis.tooling.xturtle.ui.contentassist.TurtleLiteralsLanguages;
+import de.itemis.tooling.xturtle.ui.contentassist.antlr.internal.InternalXturtleLexer;
 import de.itemis.tooling.xturtle.ui.findrefs.TurtleReferenceFinder;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingActionContributor;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider;
@@ -65,12 +67,30 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(CustomXturtleLexer.class);
 	}
 
-//	@Override
-	//TODO content assist lexer if there are problems with default
-//	public void configureContentAssistLexer(Binder binder) {
-//		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(CustomXturtleLexer.class);
-//	}
-	
+	/**
+	 * Override that injects a wrapper for the external lexer used by the main parser.
+	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment.
+	 * 
+	 * Without this override, a default generated lexer will be used and this lexer will not be correct as
+	 * PP parsing requires an external lexer. The binding reuses the main lexer.
+	 */
+	@Override
+	public void configureContentAssistLexer(com.google.inject.Binder binder) {
+		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(
+			com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(
+			CustomXturtleContentassistLexer.class);
+	}
+
+	/**
+	 * Override that injects a wrapper for the external lexer used by the main parser.
+	 * contributed by org.eclipse.xtext.generator.parser.antlr.ex.ca.ContentAssistParserGeneratorFragment
+	 */
+	@Override
+	public void configureContentAssistLexerProvider(com.google.inject.Binder binder) {
+		binder.bind(InternalXturtleLexer.class).toProvider(
+			org.eclipse.xtext.parser.antlr.LexerProvider.create(CustomXturtleContentassistLexer.class));
+	}
+
 	public Class <? extends AbstractAntlrTokenToAttributeIdMapper> bindTokenMapper(){
 		return TurtleHighlightingMapper.class;
 	}
