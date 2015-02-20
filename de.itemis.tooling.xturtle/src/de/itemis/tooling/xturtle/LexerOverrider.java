@@ -101,7 +101,7 @@ public class LexerOverrider {
 	private boolean isNumberContinuation(int c1, int c2, int c3){
 		if(isDigit(c1)){
 			return true;
-		} else if(c1=='e'|| c2=='E'){
+		} else if(c1=='e'|| c1=='E'){
 			if(isDigit(c2)){
 				return true;
 			}else if(c2=='+'||c2=='-'){
@@ -122,7 +122,7 @@ public class LexerOverrider {
 		if (isDigit(nextChar)) {
 			result = true;
 			consumeDigits(input);
-			if (input.LA(1) == '.' && isNumberContinuation(input.LA(2), input.LA(2), input.LA(2))) {
+			if (input.LA(1) == '.' && isNumberContinuation(input.LA(2), input.LA(3), input.LA(4))) {
 				input.consume();
 				consumeDigits(input);
 			}

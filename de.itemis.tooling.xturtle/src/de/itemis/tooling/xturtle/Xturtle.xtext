@@ -35,8 +35,8 @@ PredicateObjectList: verb=Predicate objects+=Object ( =>','  objects+=Object)*;
 Subject:Resource|Blank;
 Object: (ResourceRef|Blank|Literal);
 Predicate: (ResourceRef|=>({TypePredicate}'a'));
-Resource hidden():QNameDef|UriDef;
-ResourceRef hidden():QNameRef|UriRef;
+Resource:QNameDef|UriDef;
+ResourceRef:QNameRef|UriRef;
 
 Blank:/*NodeId|*/BlankObjects|BlankCollection;
 //NodeId hidden():=>'_:' =>({NodeId} id=Name?);
@@ -45,8 +45,8 @@ BlankCollection:=>'('{BlankCollection} (objects+=Object (objects+=Object)*)?')';
 
 
 //ref to prefix URI
-QNameDef:{QNameDef} =>prefix=[PrefixId|PrefixName] ? id=ColonName;
-QNameRef:{QNameRef} =>prefix=[PrefixId|PrefixName] ? =>ref=[Resource|ColonName];
+QNameDef hidden():{QNameDef} =>prefix=[PrefixId|PrefixName] ? id=ColonName;
+QNameRef hidden():{QNameRef} =>prefix=[PrefixId|PrefixName] ? =>ref=[Resource|ColonName];
 UriDef:=>uri=URI;
 UriRef:=>ref=[Resource|URI];
 
