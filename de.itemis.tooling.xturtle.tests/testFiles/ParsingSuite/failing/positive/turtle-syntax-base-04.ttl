@@ -1,0 +1,4 @@
+base <http://www.w3.org/2013/TurtleTests/>
+<s> <p> <o> .
+
+#we do not plan to support SPARQL-syntax at all

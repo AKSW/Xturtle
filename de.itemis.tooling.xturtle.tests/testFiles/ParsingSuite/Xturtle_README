@@ -1,0 +1,15 @@
+Files in this folder are copies of the Turtle TestSuite (see LICENSE and README).
+Here they are only used for evaluation of the syntax, not IRI resolution!
+They are split into two main groups
+* Test cases correctly handled by Xturtle (passing)
+* Test cases not correctly handled by Xturtle (passing)
+
+Each group is furter devided into
+* files with correct syntax (positive)
+* files with syntax errors (negative)
+
+Going through the failing tests, 
+you can evaluate if the incorrect handling by Xturtle is a problem for you (file an issue).
+
+For failing test cases *a comment* may have been appended indicating why we think
+that failing in this case is not problematic.

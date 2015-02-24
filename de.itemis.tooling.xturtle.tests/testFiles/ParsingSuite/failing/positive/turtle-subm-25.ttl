@@ -1,0 +1,9 @@
+@prefix foo: <http://example.org/foo#>  .
+@prefix foo: <http://example.org/bar#>  .
+
+foo:blah foo:blah foo:blah .
+
+#fails because the same prefix is defined without any triples in between
+#this does not make sense because the first prefix definition is hence never used
+#and can be deleted without any effect
+#adding a triple between the two prefix definitions will cause the test to pass 

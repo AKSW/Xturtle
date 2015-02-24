@@ -1,0 +1,4 @@
+BASE <http://a.example/>
+<s> <http://a.example/p> <http://a.example/o> .
+
+#we do not plan to support SPARQL-syntax at all

@@ -1,0 +1,8 @@
+@prefix p: <http://a.example/>.
+@prefix p: <http://b.example/>.
+p:s <http://a.example/p> <http://a.example/o> .
+
+#fails because the same prefix is defined without any triples in between
+#this does not make sense because the first prefix definition is hence never used
+#and can be deleted without any effect
+#adding a triple between the two prefix definitions will cause the test to pass 

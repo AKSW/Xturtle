@@ -1,0 +1,9 @@
+# Test for : allowed
+@prefix :    <http://example.org/ron> .
+
+[] : [] .
+
+: : : .
+
+#warning due to non-supported prefix uri format - does not end with # or /
+#this issue may be dealt with in later versions

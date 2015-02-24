@@ -1,0 +1,5 @@
+@prefix p: <http://a.example/s>.
+p: <http://a.example/p> <http://a.example/o> .
+
+#warning due to non-supported prefix uri format - does not end with # or /
+#this issue may be dealt with in later versions
