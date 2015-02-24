@@ -1,7 +1,7 @@
 package de.itemis.tooling.xturtle.parsing
 
 import com.google.inject.Inject
-import de.itemis.tooling.xturtle.NoValidationInjectorProvider
+import de.itemis.tooling.xturtle.XturtleInjectorProvider
 import de.itemis.tooling.xturtle.parser.antlr.XturtleParser
 import de.itemis.tooling.xturtle.services.XturtleGrammarAccess
 import java.io.StringReader
@@ -13,7 +13,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(NoValidationInjectorProvider))
+@InjectWith(typeof(XturtleInjectorProvider))
 class ParserRuleTests {
 
 	@Inject XturtleParser parser

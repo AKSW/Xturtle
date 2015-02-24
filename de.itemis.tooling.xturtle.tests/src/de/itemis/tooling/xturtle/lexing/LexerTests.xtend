@@ -1,7 +1,7 @@
 package de.itemis.tooling.xturtle.lexing
 
 import com.google.inject.Inject
-import de.itemis.tooling.xturtle.NoValidationInjectorProvider
+import de.itemis.tooling.xturtle.XturtleInjectorProvider
 import de.itemis.tooling.xturtle.services.XturtleGrammarAccess
 import java.util.List
 import org.antlr.runtime.ANTLRStringStream
@@ -18,7 +18,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(NoValidationInjectorProvider))
+@InjectWith(typeof(XturtleInjectorProvider))
 class LexerTests {
 
 	@Inject Lexer lexer
