@@ -7,7 +7,6 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.resource;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,26 +38,22 @@ import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
 //each Resource(Reference). Otherwise handling the model would become even more messy.
 //this is done via an Adapter stored in the model root which holds maps with all the
 //necessary information
-//TODO clean up this code, extract services
 class TurtleResourceIndex implements Adapter {
 
-	public void notifyChanged(Notification notification) {
-	}
+	public void notifyChanged(Notification notification) {}
 
 	public Notifier getTarget() {
 		return null;
 	}
 
-	public void setTarget(Notifier newTarget) {
-	}
+	public void setTarget(Notifier newTarget) {}
 
 	public boolean isAdapterForType(Object type) {
 		return false;
 	}
 
+	private TurtleUriResolver resolver;
 	private BiMap<EObject,String> fragmentMap;
-	private URI currentBaseUri;
-	private Map<String, String> prefixToUriMap;
 	private Map<EObject,QualifiedName> qNameMap;
 
 	String getFragment(EObject o){
@@ -78,9 +73,10 @@ class TurtleResourceIndex implements Adapter {
 		int i=0;
 		addFragmentEntry(i++, root);
 
-		//make sure blank node labels get proper qualified name
-		prefixToUriMap.put("_",root.eResource().getURI().toString()+"#");
-		qNameMap.put(root, QualifiedName.create(prefixToUriMap.get("_")));
+		//make sure blank node labels get proper qualified name; base is file URI
+		//TODO check if this works
+		QualifiedName blankName=resolver.getPrefixName("_", "#");
+		qNameMap.put(root, blankName);
 
 		TreeIterator<EObject> iterator = root.eAllContents();
 		while(iterator.hasNext()) {
@@ -90,14 +86,6 @@ class TurtleResourceIndex implements Adapter {
 		}
 	}
 
-	private URI getNormalizedUri(String uriString){
-		try {
-			return URI.create(uriString).normalize();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
 	private void addUriAndNameEntries(EObject obj) {
 		if(obj instanceof PrefixId){
 			addPrefixIdEntries((PrefixId) obj);
@@ -105,13 +93,12 @@ class TurtleResourceIndex implements Adapter {
 			addBaseEntries((Base) obj);
 		} else if(obj instanceof QNameDef){
 			String prefix=getPrefixText(obj,XturtlePackage.Literals.QNAME_DEF__PREFIX);
-			String prefixUri = prefixToUriMap.get(prefix);
-			if(prefixUri!=null){
-				String id=((QNameDef) obj).getId();
-				qNameMap.put(obj, QualifiedName.create(prefixUri, id));
+			QualifiedName name=resolver.resolveWithLocalName(prefix, ((QNameDef) obj).getId());
+			if(name!=null){
+				qNameMap.put(obj, name);
 			}
 		} else if(obj instanceof UriDef){
-			QualifiedName qName=resolve(currentBaseUri, ((UriDef) obj).getUri());
+			QualifiedName qName=resolver.resolveWithUri(((UriDef) obj).getUri());
 			if(qName!=null){
 				qNameMap.put(obj, qName);
 			}
@@ -120,9 +107,9 @@ class TurtleResourceIndex implements Adapter {
 			List<INode> refNodes = NodeModelUtils.findNodesForFeature(obj, XturtlePackage.Literals.RESOURCE_REF__REF);
 			String ref=NodeModelUtils.getTokenText(refNodes.get(0));
 			if(ref!=null&& ref.length()>0&& ref.charAt(0)==':'){
-				String nsUri=prefixToUriMap.get(prefix);
-				if(nsUri!=null){
-					qNameMap.put(obj, QualifiedName.create(nsUri, ref.substring(1)));
+				QualifiedName name=resolver.resolveWithLocalName(prefix, ref.substring(1));
+				if(name!=null){
+					qNameMap.put(obj, name);
 				}
 			}
 
@@ -132,7 +119,7 @@ class TurtleResourceIndex implements Adapter {
 			if(refNodes.size()==1){
 				String ref = refNodes.get(0).getText();
 				ref=ref.substring(1, ref.length()-1);
-				qName=resolve(currentBaseUri, ref);
+				qName=resolver.resolveWithUri(ref);
 				qNameMap.put(obj, qName);
 			}
 //			else{
@@ -156,80 +143,29 @@ class TurtleResourceIndex implements Adapter {
 	}
 
 	private void addBaseEntries(Base obj) {
-		URI uri=getNormalizedUri(obj.getUri());
-		if(uri!=null){
-			if(uri.isAbsolute()){
-				currentBaseUri=uri;
-			}else{
-				currentBaseUri=currentBaseUri.resolve(uri).normalize();
-			}
-			qNameMap.put(obj, QualifiedName.create(currentBaseUri.toString()));
+		QualifiedName newBase=resolver.updateAndGetBase(obj.getUri());
+		if(newBase!=null){
+			qNameMap.put(obj, newBase);
 		}
 	}
 
 	private void addPrefixIdEntries(PrefixId obj) {
 		String prefix = Optional.fromNullable(obj.getId()).or("");
 		String uriString=obj.getUri();
-		URI uri=getNormalizedUri(uriString);
-		if(uri!=null){
-			if (uri.isAbsolute()){
-				prefixToUriMap.put(prefix, uriString);
-			}else{
-				prefixToUriMap.put(prefix,currentBaseUri.resolve(uri).normalize().toString());
-			}
-			qNameMap.put(obj, QualifiedName.create(prefixToUriMap.get(prefix)));
+		
+		QualifiedName name=resolver.getPrefixName(prefix, uriString);
+		if(name!=null){
+			qNameMap.put(obj, name);
 		}
-	}
-	//TODO in externe Komponente auslagern, testen
-	private QualifiedName resolve(URI base, String uriAsString) {
-		String namespace;
-		String name;
-		//from baseUri alone
-		if(uriAsString==null || uriAsString.length()==0){
-			String fragment=base.getFragment();
-			String baseAsString=base.toString();
-			if(fragment!=null){
-				name=fragment;
-				namespace=baseAsString.substring(0, baseAsString.lastIndexOf('#')+1);
-			}else{
-				int lastSlash = baseAsString.lastIndexOf('/');
-				name=baseAsString.substring(lastSlash+1);
-				namespace=baseAsString.substring(0,lastSlash+1);
-			}
-		}else{
-			URI uri = getNormalizedUri(uriAsString);
-			if(uri==null){
-				return null;
-			}else if(uri.isAbsolute()){
-				return resolve(uri,null);
-			}else if(base.getFragment()!=null){
-				if(uriAsString.indexOf('/')>=0){
-					namespace="invalid";
-					name="invalid";
-				}else{
-					//we assume that the fragment is empty as nothing else makes sense for the base uri
-					namespace=base.toString();
-					name=uriAsString;
-				}
-			}else{
-				return resolve(base.resolve(uriAsString).normalize(),null);
-			}
-		}
-		return QualifiedName.create(namespace,name);
 	}
 
 	private void resetMaps(Resource resource){
 		fragmentMap=HashBiMap.create();
-		prefixToUriMap=new HashMap<String, String>();
 		qNameMap=new HashMap<EObject, QualifiedName>();
-		StringBuilder b=new StringBuilder("file:///");
-		b.append(resource.getURI().lastSegment());
-		currentBaseUri=URI.create(b.toString());
+		resolver=new TurtleUriResolver(resource.getURI().lastSegment());
 	}
 
 	private void addFragmentEntry(int index, EObject object){
 		fragmentMap.put(object, ""+index);
 	}
-
-
 }

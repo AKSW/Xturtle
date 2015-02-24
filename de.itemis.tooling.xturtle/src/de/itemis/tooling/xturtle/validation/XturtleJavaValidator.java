@@ -33,7 +33,6 @@ import com.google.inject.Inject;
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.services.Prefixes;
 import de.itemis.tooling.xturtle.xturtle.BlankObjects;
-import de.itemis.tooling.xturtle.xturtle.Directive;
 import de.itemis.tooling.xturtle.xturtle.Directives;
 import de.itemis.tooling.xturtle.xturtle.Predicate;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
@@ -81,17 +80,6 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	public void checkEmptyPrefixDefined(QNameRef ref) {
 		if(ref.getPrefix()==null && service.getQualifiedName(ref)==null){
 			error("no @prefix-Definition up to this point", XturtlePackage.Literals.QNAME_REF__PREFIX,"");
-		}
-	}
-
-	@Check
-	public void checkBaseUri(Directive def) {
-		String uri = def.getUri();
-		if(uri.length()>0){
-			char lastCharacter = uri.charAt(uri.length()-1);
-			if(lastCharacter!='#' && lastCharacter!='/'){
-				warning("onlx # and / allowed as last character, otherwise Uri-Resolution will fail", XturtlePackage.Literals.DIRECTIVE__URI);
-			}
 		}
 	}
 
