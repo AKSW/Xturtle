@@ -23,7 +23,7 @@ Directives:{Directives}
 	directive+=Directive*
 ;
 Directive: (PrefixId|Base) TRIPELEND;
-PrefixId:PrefixKeyword (=>id=PrefixName? =>':') =>uri=URI;
+PrefixId:PrefixKeyword (id=PrefixName? ':') uri=URI;
 Base:BaseKeyword uri=URI;
 PrefixKeyword hidden():AT'prefix';
 BaseKeyword hidden():AT'base';
@@ -34,21 +34,20 @@ PredicateObjectList: verb=Predicate objects+=Object ( =>','  objects+=Object)*;
 
 Subject:Resource|Blank;
 Object: (ResourceRef|Blank|Literal);
-Predicate: (ResourceRef|=>({TypePredicate}'a'));
+Predicate: (ResourceRef|({TypePredicate}'a'));
 Resource:QNameDef|UriDef;
 ResourceRef:QNameRef|UriRef;
 
-Blank:/*NodeId|*/BlankObjects|BlankCollection;
-//NodeId hidden():=>'_:' =>({NodeId} id=Name?);
+Blank:BlankObjects|BlankCollection;
 BlankObjects:=>'['{BlankObjects}(predObjs+=PredicateObjectList ((';')+ predObjs+=PredicateObjectList)* (';')*)? ']';
 BlankCollection:=>'('{BlankCollection} (objects+=Object (objects+=Object)*)?')';
 
 
 //ref to prefix URI
-QNameDef hidden():{QNameDef} =>prefix=[PrefixId|PrefixName] ? id=ColonName;
-QNameRef hidden():{QNameRef} =>prefix=[PrefixId|PrefixName] ? =>ref=[Resource|ColonName];
-UriDef:=>uri=URI;
-UriRef:=>ref=[Resource|URI];
+QNameDef hidden():{QNameDef} prefix=[PrefixId|PrefixName] ? id=ColonName;
+QNameRef hidden():{QNameRef} prefix=[PrefixId|PrefixName] ? ref=[Resource|ColonName];
+UriDef:uri=URI;
+UriRef:ref=[Resource|URI];
 
 
 Literal:NumberLiteral|StringLiteral|BooleanLiteral;
@@ -56,12 +55,12 @@ NumberLiteral:value=SignedNumber;
 StringLiteral hidden():value=STRING('^^'type=ResourceRef| AT language=Language)?;
 BooleanLiteral:value=('true'|'false');
 
-SignedNumber:('+'|'-')?NUMBER;
+SignedNumber hidden():('+'|'-')?NUMBER;
 Name hidden(): =>(LOCALESC|ID|'a'|'base'|'prefix'|NUMBER) =>('.'? (LOCALESC|ID|'a'|'base'|'prefix'|NUMBER))*;
 PrefixName hidden():=>(ID|'base'|'prefix')=>('.'? (ID|'base'|'prefix'|NUMBER))*;
 
 Language:ID;
-ColonName hidden(): =>':' =>Name?;
+ColonName hidden(): =>':' Name?;
 
 terminal TRIPELEND:'DEFINEDINCUSTOMLEXER';
 
