@@ -18,9 +18,12 @@
   <setupTask
       xsi:type="setup.p2:P2Task"
       id="WikiText"
-      label="WikiText">
+      label="WikiText etc">
     <requirement
         name="org.eclipse.mylyn.wikitext_feature.feature.group"/>
+    <requirement
+        name="org.eclipse.pde.api.tools.ee.feature.feature.group"
+        optional="true"/>
     <repository
         url="http://download.eclipse.org/mylyn/releases/latest"/>
   </setupTask>
