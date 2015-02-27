@@ -44,8 +44,8 @@ BlankCollection:=>'('{BlankCollection} (objects+=Object (objects+=Object)*)?')';
 
 
 //ref to prefix URI
-QNameDef hidden():{QNameDef} prefix=[PrefixId|PrefixName] ? id=ColonName;
-QNameRef hidden():{QNameRef} prefix=[PrefixId|PrefixName] ? ref=[Resource|ColonName];
+QNameDef:{QNameDef} prefix=[PrefixId|PrefixName] ? id=ColonName;
+QNameRef:{QNameRef} prefix=[PrefixId|PrefixName] ? ref=[Resource|ColonName];
 UriDef:uri=URI;
 UriRef:ref=[Resource|URI];
 

@@ -52,6 +52,7 @@ class ParserTest {
 			a:a.b a a:b.
 			a:a.b a a:a.
 			a:a a a:a .
+			a: a a: .
 		'''.parse
 		model.assertNoIssues
 	}

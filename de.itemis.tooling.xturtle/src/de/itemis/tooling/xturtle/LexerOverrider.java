@@ -66,6 +66,8 @@ public class LexerOverrider {
 			case ' ':
 			case '\t':
 			case '\r':
+			case '@':
+			case '<':
 			case '#':
 				input.consume();
 				stateOK(state, tripleEndRule);

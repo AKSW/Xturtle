@@ -35,37 +35,66 @@ public class XturtleFormatter extends AbstractDeclarativeFormatter {
 	//use my own lexer
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
+		c.setAutoLinewrap(200);
 		c.setLinewrap(0, 1, 2).before(grammarAccess.getSL_COMMENTRule());
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
-//		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
 
-		//Directive
-		c.setLinewrap(1).after(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1());
+		//line wrap between direcives
+		c.setLinewrap(1).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getPrefixIdAccess().getPrefixKeywordParserRuleCall_0());
+		c.setLinewrap(1).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getBaseAccess().getBaseKeywordParserRuleCall_0());
+		//spaces in prefix definition
 		c.setNoSpace().around(grammarAccess.getPrefixIdAccess().getColonKeyword_1_1());
 		c.setSpace(" ").after(grammarAccess.getPrefixKeywordRule());
 
-		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_0());
-		c.setLinewrap(2).before(grammarAccess.getTriplesAccess().getSubjectSubjectParserRuleCall_0_0());
+		//line wraps between directive and triple
+		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getUriDefRule());
+		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getQNameDefRule());
+		//linw wraps between triple and directive
+		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getPrefixIdAccess().getPrefixKeywordParserRuleCall_0());
+		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getBaseAccess().getBaseKeywordParserRuleCall_0());
 
-		
-		//		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getWSTerminalRuleCall_5(),grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
-//		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_6(),grammarAccess.getDirectiveBlockAccess().getDirectiveblockAssignment_2_2());
+		//line wraps between triples
+		c.setLinewrap(1,2,2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getUriDefRule());
+		c.setLinewrap(1,2,2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getQNameDefRule());
 
-		//Triple
-		//TODO line wrap after triple
-//		c.setLinewrap(1,2,2).before(grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
-//		c.setLinewrap(1,2,2).before(grammarAccess.getDirectiveBlockAccess().getTriplesAssignment_2_1());
-//		c.setIndentationDecrement().after(grammarAccess.getPredicateObjectListAccess().getObjectsAssignment_2());
-////		c.setIndentationDecrement().after(grammarAccess.getStatementAccess().getFullStopKeyword_1());
-//		c.setIndentationIncrement().before(grammarAccess.getPredicateObjectListAccess().getVerbAssignment_0());
-//		c.setNoSpace().around(grammarAccess.getColonNameAccess().getColonKeyword_0());
-//		c.setNoSpace().around(grammarAccess.getQNameDefAccess().getColonKeyword_2());
-//
-//		c.setNoSpace().after(grammarAccess.getQNameRefAccess().getPrefixAssignment_1());
-//		c.setNoLinewrap().after(grammarAccess.getTriplesAccess().getSemicolonKeyword_3_1());
-//		c.setNoSpace().between(grammarAccess.getTriplesAccess().getSubjectAssignment_0(), grammarAccess.getTriplesAccess().getPredObjsAssignment_2());
+		//line wraps in predicate object list of triple
+		c.setLinewrap(0,0,1).after(grammarAccess.getQNameDefRule());
+		c.setLinewrap(0,0,1).after(grammarAccess.getUriDefRule());
+		c.setIndentationIncrement().after(grammarAccess.getQNameDefRule());
+		c.setIndentationIncrement().after(grammarAccess.getUriDefRule());
+		c.setIndentationDecrement().after(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2());
+		c.setLinewrap(1).before(grammarAccess.getTriplesAccess().getPredObjsAssignment_1_1_1());
+
+		//no space before , and ;
+		c.setNoSpace().before(grammarAccess.getTriplesAccess().getSemicolonKeyword_1_1_0_0());
+		c.setNoSpace().before(grammarAccess.getTriplesAccess().getSemicolonKeyword_1_2());
+		c.setNoSpace().before(grammarAccess.getBlankObjectsAccess().getSemicolonKeyword_2_1_0());
+		c.setNoSpace().before(grammarAccess.getBlankObjectsAccess().getSemicolonKeyword_2_2());
+		c.setNoSpace().before(grammarAccess.getPredicateObjectListAccess().getCommaKeyword_2_0());
+
+		//WS in QName
+		c.setNoSpace().between(grammarAccess.getQNameRefAccess().getPrefixAssignment_1(), grammarAccess.getQNameRefAccess().getRefAssignment_2());
+		c.setNoSpace().between(grammarAccess.getQNameDefAccess().getPrefixAssignment_1(), grammarAccess.getQNameDefAccess().getIdAssignment_2());
+
+		//WS in String literals
+		c.setNoSpace().around(grammarAccess.getStringLiteralAccess().getCircumflexAccentCircumflexAccentKeyword_1_0_0());
+		c.setNoSpace().around(grammarAccess.getStringLiteralAccess().getATTerminalRuleCall_1_1_0());
+
+		//blank objects
+		c.setNoSpace().between(grammarAccess.getBlankObjectsAccess().getLeftSquareBracketKeyword_0(), grammarAccess.getBlankObjectsAccess().getRightSquareBracketKeyword_3());
+		c.setIndentationIncrement().after(grammarAccess.getBlankObjectsAccess().getLeftSquareBracketKeyword_0());
+		c.setIndentationDecrement().before(grammarAccess.getBlankObjectsAccess().getRightSquareBracketKeyword_3());
+		c.setLinewrap(0,0,1).after(grammarAccess.getBlankObjectsAccess().getLeftSquareBracketKeyword_0());
+		c.setLinewrap(0,0,1).before(grammarAccess.getBlankObjectsAccess().getRightSquareBracketKeyword_3());
+		c.setLinewrap(0,1,1).after(grammarAccess.getBlankObjectsAccess().getSemicolonKeyword_2_1_0());
+		c.setLinewrap(0,1,1).after(grammarAccess.getBlankObjectsAccess().getSemicolonKeyword_2_2());
+
+		//blank objects
+		c.setNoSpace().between(grammarAccess.getBlankCollectionAccess().getLeftParenthesisKeyword_0(), grammarAccess.getBlankCollectionAccess().getRightParenthesisKeyword_3());
+		c.setIndentationIncrement().after(grammarAccess.getBlankCollectionAccess().getLeftParenthesisKeyword_0());
+		c.setIndentationDecrement().before(grammarAccess.getBlankCollectionAccess().getRightParenthesisKeyword_3());
+		c.setLinewrap(0,0,1).before(grammarAccess.getBlankCollectionAccess().getObjectsAssignment_2_0());
+		c.setLinewrap(0,0,1).before(grammarAccess.getBlankCollectionAccess().getObjectsAssignment_2_1());
+		c.setLinewrap(0,0,1).before(grammarAccess.getBlankCollectionAccess().getRightParenthesisKeyword_3());
 
 	}
 }

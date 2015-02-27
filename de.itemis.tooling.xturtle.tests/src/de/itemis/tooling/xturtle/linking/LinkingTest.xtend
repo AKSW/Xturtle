@@ -1,10 +1,12 @@
 package de.itemis.tooling.xturtle.linking
 
 import com.google.inject.Inject
-import de.itemis.tooling.xturtle.XturtleInjectorProvider
+import de.itemis.tooling.xturtle.NoValidationInjectorProvider
 import de.itemis.tooling.xturtle.resource.TurtleResourceService
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
+import de.itemis.tooling.xturtle.xturtle.PrefixId
 import de.itemis.tooling.xturtle.xturtle.QNameRef
+import de.itemis.tooling.xturtle.xturtle.Resource
 import de.itemis.tooling.xturtle.xturtle.Triples
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.junit4.InjectWith
@@ -15,11 +17,9 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import de.itemis.tooling.xturtle.xturtle.Resource
-import de.itemis.tooling.xturtle.xturtle.PrefixId
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(XturtleInjectorProvider))
+@InjectWith(typeof(NoValidationInjectorProvider))
 class LinkingTest {
 
 	@Inject extension ParseHelper<DirectiveBlock>
@@ -40,6 +40,30 @@ class LinkingTest {
 		assertName(triple.predObjs.get(0).verb, "http://www.nittka.de/alex/is/","somethingLike")
 		assertName(triple.predObjs.get(0).objects.get(0), "http://www.nittka.de/familyName/","Nittka")
 	}
+
+	@Test
+	def void testNameCombinations() {
+		val model='''
+			@prefix :<tada#> .
+			@prefix b:<tidum#> .
+			@prefix b.a:<blubbs#> .
+			: : :.
+			:a :a :a.
+			:a.b :a.b :a.b.
+			b: b: b:.
+			b:a b:a b:a.
+			b:a.b b:a.b b:a.b.
+			b.a: b.a: b.a:.
+			b.a:a b.a:a b.a:a.
+			b.a:a.b b.a:a.b b.a:a.b.
+		'''.parse
+		model.assertNoIssues
+		val triples=model.eAllContents.filter(Triples).toList;
+		(0..8).forEach[
+			assertAllLinkToSubject(triples.get(it))
+		]
+	}
+
 
 	@Test
 	def void testRedefinePrefix() {
