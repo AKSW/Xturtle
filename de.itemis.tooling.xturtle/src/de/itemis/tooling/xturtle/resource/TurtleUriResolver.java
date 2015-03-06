@@ -25,6 +25,10 @@ public class TurtleUriResolver {
 	}
 
 	private static URI getNormalizedUri(String uriString){
+		if(uriString.contains("\\u") || uriString.contains("\\U")){
+			//way to go replace escaped by (UTF16.valueOf(Integer.valueOf("10FFFF",16))
+			throw new UnsupportedOperationException("utf escaping is not yet supported");
+		}
 		try {
 			return URI.create(uriString).normalize();
 		} catch (Exception e) {
@@ -50,7 +54,8 @@ public class TurtleUriResolver {
 	public QualifiedName resolveWithLocalName(String prefix, String localName){
 		PrefixURI prefixUri = prefixToUriMap.get(prefix);
 		if(prefixUri!=null){
-			return getName(prefixUri.resolve(localName));
+			URI newUri=prefixUri.resolveLocal(localName);
+			return getName(newUri);
 		}else{
 			return null;
 		}
@@ -83,26 +88,44 @@ public class TurtleUriResolver {
 		private URI prefixUri;
 		boolean hasFragment;
 		String uriWithoutFragment;
+		String uriWithoutLastSegment;
 		public PrefixURI(URI prefixUri) {
 			this.prefixUri=prefixUri;
 			String fragment=prefixUri.getRawFragment();
+			String uri=getURIString();
 			if(fragment!=null){
 				hasFragment=true;
-				String uri=getURIString();
 				int index=uri.indexOf("#"+fragment);
 				if(index<0){
 					throw new IllegalStateException("unable to find fragment in "+uri);
 				}else{
 					uriWithoutFragment=uri.substring(0, index+1);
 				}
+			}else{
+				uriWithoutLastSegment=uri.substring(0, uri.lastIndexOf('/')+1);
+			}
+		}
+
+		URI resolveLocal(String localName){
+			String lnameToUse=localName;
+			if(lnameToUse.indexOf('\\')>=0){
+				lnameToUse=lnameToUse.replace('\\', '/');
+			}
+			if(hasFragment){
+				return URI.create(uriWithoutFragment+lnameToUse);
+			}else{
+				return URI.create(uriWithoutLastSegment+lnameToUse);
 			}
 		}
 
 		public URI resolve(String uriString){
 			URI uri;
-			if(Strings.isNullOrEmpty(uriString) || (uri=getNormalizedUri(uriString))==null ){
+			if(Strings.isNullOrEmpty(uriString)){
 				return prefixUri;
-			}else if(uri.isAbsolute()){
+			} else if((uri=getNormalizedUri(uriString))==null){
+				//TODO what to do here
+				throw new IllegalArgumentException("could not resolve with URI string "+uriString);
+			} else if(uri.isAbsolute()){
 				return uri;
 			}else if(hasFragment){
 				String uriAsString=uri.toString();

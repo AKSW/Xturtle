@@ -20,6 +20,8 @@ public class LexerOverrider {
 	private int idRule;
 	private static final int DEFAULT_TOKEN_CHANNEL = BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
 
+	private boolean colonAsId=false;
+
 	private RuntimeException getException(String rule, Throwable cause) {
 		throw new RuntimeException(
 				"cannot determine the index of rule " + rule, cause);
@@ -53,7 +55,10 @@ public class LexerOverrider {
 		state.channel = DEFAULT_TOKEN_CHANNEL;
 		state.failed = false;
 		state.backtracking = 0;
+	}
 
+	private void resetColonId(){
+		colonAsId=false;
 	}
 
 	private boolean overrideTripleEndGeneration(CharStream input,
@@ -71,6 +76,7 @@ public class LexerOverrider {
 			case '#':
 				input.consume();
 				stateOK(state, tripleEndRule);
+				resetColonId();
 				return true;
 			default:
 				break;
@@ -233,10 +239,40 @@ public class LexerOverrider {
 		return isUTF16;
 	}
 
+	private void checkResetColonId(CharStream input){
+		switch (input.LA(1)) {
+		case -1:// EOF
+		case '\n':
+		case ' ':
+		case '\t':
+		case '\r':
+		case '#':
+			resetColonId();
+		default:
+			break;
+		}
+	}
+
+	private boolean overrideColonAsID(CharStream input, RecognizerSharedState state) {
+		if (input.LA(1) == ':') {
+			if(colonAsId){
+				input.consume();
+				stateOK(state, idRule);
+				return true;
+			}else{
+				colonAsId=true;
+			}
+		}
+		return false;
+	}
+
 	public boolean override(CharStream input, RecognizerSharedState state) {
+		checkResetColonId(input);
 		return overrideTripleEndGeneration(input, state)
 				|| overrideNumberGeneration(input, state)
-				|| overrideString(input, state) || overrideAasID(input, state)
+				|| overrideString(input, state)
+				|| overrideColonAsID(input, state)
+				|| overrideAasID(input, state)
 				|| overrideUTF16(input, state);
 	}
 }

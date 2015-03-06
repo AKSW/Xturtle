@@ -105,6 +105,17 @@ class ParserTest {
 	}
 
 	@Test
+	def void colonInLocalName() {
+		'''
+			@prefix :<tada/>.
+			:a:a a <b>.
+			::a a <b>.
+			:a: a <b>.
+			:: a ::.
+		'''.parse.assertNoIssues
+	}
+
+	@Test
 	def void blankNodeLabel() {
 		'''
 			_:fsdf a _:fsdf.

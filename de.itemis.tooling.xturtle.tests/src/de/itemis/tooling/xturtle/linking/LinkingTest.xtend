@@ -56,10 +56,19 @@ class LinkingTest {
 			b.a: b.a: b.a:.
 			b.a:a b.a:a b.a:a.
 			b.a:a.b b.a:a.b b.a:a.b.
+			:: :: ::.
+			::: ::: :::.
+			::.: ::.: ::.:.
+			::a: ::a: ::a:.
+			:a: :a: :a:.
+			::a ::a ::a.
+			:::a :::a :::a.
+			:a:a.b :a:a.b :a:a.b.
+			:a:a.b: :a:a.b: :a:a.b:.
 		'''.parse
 		model.assertNoIssues
 		val triples=model.eAllContents.filter(typeof(Triples)).toList;
-		(0..8).forEach[
+		(0..triples.size-1).forEach[
 			assertAllLinkToSubject(triples.get(it))
 		]
 	}
@@ -104,8 +113,10 @@ class LinkingTest {
 	def assertAllLinkToSubject(Triples triple){
 		val subject=triple.subject
 		val refs=triple.eAllContents.filter(typeof(QNameRef)).toList
+		val subjectName=service.getQualifiedName(subject)
 		Assert::assertEquals(2, refs.size)
 		refs.forEach[reference|
+			Assert::assertEquals(subjectName, service.getQualifiedName(reference.ref))
 			Assert::assertSame(subject, reference.ref)
 		]
 	}
