@@ -137,7 +137,9 @@ public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
 			boolean doAdd=true;
 			if(languages.isPresent()){
 				String language = stringLiteral.getLanguage();
-				doAdd=languages.get().contains(language);
+				if(language!=null){
+					doAdd=languages.get().contains(language.substring(1));
+				}
 			}
 			if(doAdd){
 				result.add(stringLiteral.getValue());

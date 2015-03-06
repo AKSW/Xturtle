@@ -23,10 +23,8 @@ Directives:{Directives}
 	directive+=Directive*
 ;
 Directive: (PrefixId|Base) TRIPELEND;
-PrefixId:PrefixKeyword (id=PrefixName? ':') uri=URI;
-Base:BaseKeyword uri=URI;
-PrefixKeyword hidden():AT'prefix';
-BaseKeyword hidden():AT'base';
+PrefixId:'@prefix' (id=PrefixName? ':') uri=URI;
+Base:'@base' uri=URI;
 
 Triples: (=>subject=Subject) (predObjs+=PredicateObjectList ( =>(';')+  predObjs+=PredicateObjectList)* (';')*)? =>TRIPELEND;
 
@@ -52,17 +50,18 @@ UriRef:ref=[Resource|URI];
 
 Literal:NumberLiteral|StringLiteral|BooleanLiteral;
 NumberLiteral:value=SignedNumber;
-StringLiteral hidden():value=STRING('^^'type=ResourceRef| AT language=Language)?;
+StringLiteral hidden():value=STRING('^^'type=ResourceRef| language=LANGUAGE)?;
 BooleanLiteral:value=('true'|'false');
 
 SignedNumber hidden():('+'|'-')?NUMBER;
-Name hidden(): =>(LOCALESC|ID|'a'|'base'|'prefix'|NUMBER) =>('.'? (LOCALESC|ID|'a'|'base'|'prefix'|NUMBER))*;
-PrefixName hidden():=>(ID|'base'|'prefix')=>('.'? (ID|'base'|'prefix'|NUMBER))*;
+Name hidden(): =>(LOCALESC|ID|'a'|NUMBER) =>('.'? (LOCALESC|ID|'a'|NUMBER))*;
+PrefixName hidden():=>ID=>('.'? (ID|NUMBER))*;
 
-Language:ID;
 ColonName hidden(): =>':' Name?;
 
 terminal TRIPELEND:'DEFINEDINCUSTOMLEXER';
+//'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
+terminal LANGUAGE:'@'(('A'..'Z') | ('a'..'z'))+('-'(('A'..'Z') | ('a'..'z')|('0'..'9'))+)*;
 
 //actually we override the Number lexing
 terminal NUMBER: DIGITS (!('#'|' '|'\t'|'\r'|'\n'|'"'|"'"|'<'|','|';'))*;
@@ -73,16 +72,10 @@ terminal SL_COMMENT 	: '#' !('\n'|'\r')* ('\r'? '\n')?;
 
 //TODO allow \> in URI?
 terminal URI: '<'->'>';
-//TODO this covers much, but probably not all cases
-//TODO String terminal in custom lexer (with single quotes as well
-terminal STRING:'"' ( '\\' ('t'|'n'|'r'|'U'|'u'|'"'|'\\') | !('\\'|'"') )* '"' |
-				('"' '"' '"')(
-					(('\\''"'?)*!('\\'|'"')) |
-					('"' '"'? !'"')
-				)*('\\''"')?('"' '"' '"');
+//actually we override the String lexing
+terminal STRING:'"'->'"';
 
 terminal WS: (' '|'\t'|'\r'|'\n')+;
-terminal AT:'@';
 
 terminal ANY_OTHER: .;
 

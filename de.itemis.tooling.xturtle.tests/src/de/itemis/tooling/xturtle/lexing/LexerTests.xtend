@@ -54,12 +54,6 @@ class LexerTests {
 	}
 
 	@Test
-	def void nr() {
-		val rule=NUMBERRule
-		assertTokens("123",rule)
-	}
-
-	@Test
 	def void uri() {
 		val rule=URIRule
 		assertTokens("<adashdk/alkda>",rule)
@@ -118,10 +112,26 @@ class LexerTests {
 		assertTokens('''"""dkgh"dfk\"\""""''',rule)
 	}
 
-//	@Test
+	@Test
+	def void languages() {
+		val rule=LANGUAGERule
+		assertTokens("@b",rule)
+		assertTokens("@ba",rule)
+		assertTokens("@bas",rule)
+		assertTokens("@p",rule)
+		assertTokens("@pr",rule)
+		assertTokens("@pre",rule)
+		assertTokens("@pref",rule)
+		assertTokens("@prefi",rule)
+
+		assertTokens("@de",rule)
+		assertTokens("@de-de",rule)
+		assertTokens("@de-94a-d3-6",rule)
+	}
+
+//	@Test //TODO
 //	def void keywords() {
 //		assertTokens("@",ATRule)
 //		assertTokens(":",ATRule)
 //	}
-
 }

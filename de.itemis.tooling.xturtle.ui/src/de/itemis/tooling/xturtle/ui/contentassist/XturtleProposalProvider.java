@@ -19,9 +19,10 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -40,6 +41,7 @@ import de.itemis.tooling.xturtle.xturtle.Object;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.StringLiteral;
+import de.itemis.tooling.xturtle.xturtle.Subject;
 import de.itemis.tooling.xturtle.xturtle.Triples;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
 /**
@@ -82,7 +84,12 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 	protected String getDisplayString(EObject element,
 			String qualifiedNameAsString, String shortName) {
 		if(element instanceof PrefixId){
-			return ((PrefixId) element).getId()+" - "+((PrefixId) element).getUri();
+			String id=((PrefixId) element).getId();
+			String displayprefix="";
+			if(id!=null){
+				displayprefix=id+" - ";
+			}
+			return displayprefix+((PrefixId) element).getUri();
 		}
 		return super.getDisplayString(element, qualifiedNameAsString, shortName);
 	}
@@ -169,24 +176,8 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 	@Override
 	public void completePrefixId_Uri(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		String id=null;
 		if(model instanceof PrefixId){
-			id=((PrefixId)model).getId();
-		}else{
-			//for some strange reason, NodeModelUtils will always return TurtleDoc as the
-			//semantic element attached to any node, even if there is an assignment within PrefixId
-			//As we know that we are within the PrefixId node, we look for the (only) ID node which
-			//which contains the prefix
-			INode node=context.getLastCompleteNode();
-			do {
-				if(node.getGrammarElement()==ga.getIDRule()){
-					id=node.getText();
-					break;
-				}
-				node=node.getPreviousSibling();
-			} while (node.getGrammarElement()==null || node.getGrammarElement()!=ga.getATRule());
-		}
-		if(id!=null){
+			String id=((PrefixId)model).getId();
 			List<String> uri=prefixes.getUris(id);
 			if(uri!=null){
 				acceptor.accept(createCompletionProposal("<"+uri.get(0)+">", context));
@@ -202,14 +193,6 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 			String proposal = prefix;//+":<"+prefixes.getUri(prefix)+">";
 			acceptor.accept(createCompletionProposal(proposal,proposal+" - "+prefixes.getUris(prefix).get(0),null, context));
 		}
-	}
-
-	//as @ and base/prefix are separate keywords, combine them here
-	@Override
-	public void complete_Directive(EObject model, RuleCall ruleCall,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		acceptor.accept(createCompletionProposal("@base ", context));
-		acceptor.accept(createCompletionProposal("@prefix ", context));
 	}
 
 	private class ColonAddingAcceptor implements ICompletionProposalAcceptor{
@@ -294,21 +277,51 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 			Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
 		for (String language : languages.getLanguagesToPropose()) {
-			acceptor.accept(createCompletionProposal(language, context));
+			acceptor.accept(createCompletionProposal("@"+language, context));
 		}
-	}
-
-	public void complete_AT(StringLiteral model, RuleCall ruleCall,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		acceptor.accept(createCompletionProposal("@", context));
 	}
 
 	public void complete_TRIPELEND(Triples model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		boolean isAxiom=model.getSubject() instanceof BlankObjects;
 		boolean predicateNonEmpty=!model.getPredObjs().isEmpty();
-		if(isAxiom || predicateNonEmpty){
-			completeKeyword(ga.getNameAccess().getFullStopKeyword_1_0_0(), context, acceptor);
+		boolean doPropose=false;
+		if(isAxiom){
+			doPropose=true;
+		}else if(predicateNonEmpty){
+			EObject semanticNode = NodeModelUtils.findActualSemanticObjectFor(context.getLastCompleteNode());
+			if(!(semanticNode instanceof Subject)){
+				doPropose=true;
+			}
+		}
+		if(doPropose){
+			super.completeKeyword(ga.getNameAccess().getFullStopKeyword_1_0_0(), context, acceptor);
+		}
+	}
+
+	@Override
+	public void completeKeyword(Keyword keyword,
+			ContentAssistContext contentAssistContext,
+			ICompletionProposalAcceptor acceptor) {
+		char firstCharacter=keyword.getValue().charAt(0);
+		if(firstCharacter!='.'){
+			boolean wsBeforeKeywordRequired;
+			switch (firstCharacter){
+			case ',':
+			case ':':
+			case ';':wsBeforeKeywordRequired=false;
+			break;
+			default: wsBeforeKeywordRequired=true;
+			}
+
+			int offset = contentAssistContext.getOffset();
+			int lastNodeEndOffset=contentAssistContext.getLastCompleteNode().getTotalEndOffset();
+			boolean startOfDocument=offset-contentAssistContext.getPrefix().length()==0;
+			boolean wsAfterLastCompleteNode=startOfDocument || offset>lastNodeEndOffset;
+
+			if(!wsBeforeKeywordRequired || wsAfterLastCompleteNode){
+				super.completeKeyword(keyword, contentAssistContext, acceptor);
+			}
 		}
 	}
 }

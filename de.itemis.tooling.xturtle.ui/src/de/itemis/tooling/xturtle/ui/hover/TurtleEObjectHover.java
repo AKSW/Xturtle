@@ -14,7 +14,6 @@ import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
-import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover;
 import org.eclipse.xtext.util.Pair;
@@ -27,8 +26,8 @@ public class TurtleEObjectHover extends DispatchingEObjectTextHover {
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
-	@Inject
-	private ILocationInFileProvider locationInFileProvider;
+//	@Inject
+//	private ILocationInFileProvider locationInFileProvider;
 
 	@Override
 	protected Pair<EObject, IRegion> getXtextElementAt(XtextResource resource,
@@ -43,10 +42,13 @@ public class TurtleEObjectHover extends DispatchingEObjectTextHover {
 						ICompositeNode node = NodeModelUtils.getNode(o);
 						IRegion region = new Region(node.getOffset(),node.getLength());
 						if (TextUtilities.overlaps(region, new Region(offset, 0)))
-							return Tuples.create(o, region);
+							temp = Tuples.create(o, region);
 					}
 				}
 			}
+		}else{
+			//in case of hovering the local name of a QnameDef the second call had the offset of the prefix, so only the prefix information was shown 
+			temp =Tuples.create(temp.getFirst(), (IRegion)new Region(offset,0));
 		}
 		return temp;
 	}
