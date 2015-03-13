@@ -7,39 +7,66 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.findrefs;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.EObjectDescription;
+import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceServiceProvider.Registry;
 import org.eclipse.xtext.ui.editor.findrefs.DefaultReferenceFinder;
+import org.eclipse.xtext.util.IAcceptor;
 
 import com.google.inject.Inject;
 
+import de.itemis.tooling.xturtle.resource.TurtleReferenceDescription;
+import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.xturtle.ResourceRef;
-import de.itemis.tooling.xturtle.xturtle.Triples;
 
 @SuppressWarnings("restriction")
 public class TurtleReferenceFinder extends DefaultReferenceFinder {
+
+	@Inject
+	TurtleResourceService service;
 
 	@Inject
 	public TurtleReferenceFinder(IResourceDescriptions indexData,
 			Registry serviceProviderRegistry) {
 		super(indexData, serviceProviderRegistry);
 	}
-	
+
+	//TODO test
 	@Override
-	protected URI findClosestExportedContainerURI(EObject element,
+	protected void findLocalReferencesFromElement(Set<URI> targetURISet,
+			EObject sourceCandidate,
+			org.eclipse.emf.ecore.resource.Resource localResource,
+			IAcceptor<IReferenceDescription> acceptor,
+			URI currentExportedContainerURI,
 			Map<EObject, URI> exportedElementsMap) {
-		if(element instanceof ResourceRef){
-			Triples triples = EcoreUtil2.getContainerOfType(element, Triples.class);
-			//the subject is not exactly the container of a reference, but it represents the triple
-			return super.findClosestExportedContainerURI(triples.getSubject(), exportedElementsMap);
-		}else{
-			return super.findClosestExportedContainerURI(element, exportedElementsMap);
+
+		Iterator<URI> it = targetURISet.iterator();
+		while(it.hasNext()){
+			URI next=it.next();
+			EObject obj = service.getObject(localResource, next.fragment());
+			QualifiedName name = service.getQualifiedName(obj);
+
+			if(sourceCandidate instanceof ResourceRef){
+				QualifiedName sourceName = service.getQualifiedName(sourceCandidate);
+				if(name.equals(sourceName)){
+					acceptor.accept(new TurtleReferenceDescription(sourceCandidate,EObjectDescription.create("", obj),currentExportedContainerURI));
+				}
+			}else{
+				EList<EObject> contents = sourceCandidate.eContents();
+				for (EObject obj2 : contents) {
+					findLocalReferencesFromElement(targetURISet, obj2, localResource, acceptor, currentExportedContainerURI, exportedElementsMap);
+				}
+			}
 		}
 	}
-
+	//see TurtleIndexingStrategy
 }
