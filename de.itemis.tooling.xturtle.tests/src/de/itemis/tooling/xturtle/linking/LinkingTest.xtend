@@ -2,6 +2,7 @@ package de.itemis.tooling.xturtle.linking
 
 import com.google.inject.Inject
 import de.itemis.tooling.xturtle.NoValidationInjectorProvider
+import de.itemis.tooling.xturtle.TurtleParseHelper
 import de.itemis.tooling.xturtle.resource.TurtleResourceService
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
 import de.itemis.tooling.xturtle.xturtle.PrefixId
@@ -11,7 +12,6 @@ import de.itemis.tooling.xturtle.xturtle.Triples
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.junit.Assert
@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 @InjectWith(typeof(NoValidationInjectorProvider))
 class LinkingTest {
 
-	@Inject extension ParseHelper<DirectiveBlock>
+	@Inject extension TurtleParseHelper<DirectiveBlock>
 	@Inject extension ValidationTestHelper
 	@Inject IQualifiedNameProvider namer
 	@Inject 

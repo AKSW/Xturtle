@@ -162,7 +162,7 @@ class TurtleResourceIndex implements Adapter {
 	private void resetMaps(Resource resource){
 		fragmentMap=HashBiMap.create();
 		qNameMap=new HashMap<EObject, QualifiedName>();
-		resolver=new TurtleUriResolver(resource.getURI().lastSegment());
+		resolver=new TurtleUriResolver(resource.getURI());
 	}
 
 	private void addFragmentEntry(int index, EObject object){

@@ -3,13 +3,13 @@ package de.itemis.tooling.xturtle.parsing
 import com.google.common.io.Files
 import com.google.inject.Inject
 import de.itemis.tooling.xturtle.NoValidationInjectorProvider
+import de.itemis.tooling.xturtle.TurtleParseHelper
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage
 import java.io.File
 import java.nio.charset.Charset
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 @InjectWith(typeof(NoValidationInjectorProvider))
 class ParserTest {
 
-	@Inject extension ParseHelper<DirectiveBlock>
+	@Inject extension TurtleParseHelper<DirectiveBlock>
 	@Inject extension ValidationTestHelper
 
 	@Test

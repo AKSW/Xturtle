@@ -1,14 +1,13 @@
 package de.itemis.tooling.xturtle.resource
 
-import org.junit.Test
-import java.net.URI
+import org.eclipse.emf.common.util.URI
 import org.junit.Assert
-import de.itemis.tooling.xturtle.resource.TurtleUriResolver$PrefixURI
+import org.junit.Test
 
 //http://jsfiddle.net/ecmanaut/RHdnZ/ allows online URI resolution
 class ResolveUriTest {
 
-	var PrefixURI uri
+	var TurtleUriResolver.PrefixURI uri
 
 //these examples taken from http://www.ietf.org/rfc/rfc3986.txt section 5.4
 //examples commented out are not successfully resolved
@@ -63,7 +62,7 @@ class ResolveUriTest {
 
 	@Test
 	def void rfc3986() {
-		uri=new PrefixURI(URI::create("http://a/b/c/d;p?q"))
+		uri=new TurtleUriResolver.PrefixURI(URI::createURI("http://a/b/c/d;p?q"))
 		examples.split("\n").forEach[
 			val split=it.replaceAll("\"","").split(" = ")
 			val rel=split.get(0).trim
@@ -73,28 +72,26 @@ class ResolveUriTest {
 	}
 
 	@Test
-	def void testEmptyFragment(){
-		uri=new PrefixURI(URI::create("http://a/b/c#"))
-		checkResolution("", "http://a/b/c#")
-		checkResolution("a", "http://a/b/c#a")
-		checkResolution("#a", "http://a/b/c#a")
-		checkResolution("x#a", "http://a/b/x#a")
-		checkResolution("file://blubs.ttl", "file://blubs.ttl")
+	def void testlocalNameAgainstEmptyFragment(){
+		uri=new TurtleUriResolver.PrefixURI(URI::createURI("http://a/b/c#"))
+		checkLocalName("", "http://a/b/c#")
+		checkLocalName("a", "http://a/b/c#a")
+		checkLocalName("#a", "http://a/b/c##a")
+		checkLocalName("x#a", "http://a/b/c#x#a")
 	}
 
 	@Test
-	def void testNonEmptyFragment(){
-		uri=new PrefixURI(URI::create("http://a/b/c#x"))
-		checkResolution("", "http://a/b/c#x")
-		checkResolution("a", "http://a/b/c#a")
-		checkResolution("#a", "http://a/b/c#a")
-		checkResolution("x#a", "http://a/b/x#a")
-		checkResolution("file://blubs.ttl", "file://blubs.ttl")
+	def void testLocalNameAgainstNonEmptyFragment(){
+		uri=new TurtleUriResolver.PrefixURI(URI::createURI("http://a/b/c#x"))
+		checkLocalName("", "http://a/b/c#x")
+		checkLocalName("a", "http://a/b/c#xa")
+		checkLocalName("#a", "http://a/b/c#x#a")
+		checkLocalName("x#a", "http://a/b/c#xx#a")
 	}
 
 	@Test
 	def void testSlash(){
-		uri=new PrefixURI(URI::create("http://a/b/c/"))
+		uri=new TurtleUriResolver.PrefixURI(URI::createURI("http://a/b/c/"))
 		checkResolution("", "http://a/b/c/")
 		checkResolution("a", "http://a/b/c/a")
 		checkResolution("../x", "http://a/b/x")
@@ -102,6 +99,11 @@ class ResolveUriTest {
 		checkResolution("#a", "http://a/b/c/#a")
 		checkResolution("x#a", "http://a/b/c/x#a")
 		checkResolution("file://blubs.ttl", "file://blubs.ttl")
+	}
+
+	def private void checkLocalName(String uri2ResolveAgainstBase, String expectedResolutionResult){
+		val URI resolved=uri.resolveLocal(uri2ResolveAgainstBase)
+		Assert::assertEquals('''error for rel uri: «uri2ResolveAgainstBase»''',expectedResolutionResult, resolved.toString)
 	}
 
 	def private void checkResolution(String uri2ResolveAgainstBase, String expectedResolutionResult){

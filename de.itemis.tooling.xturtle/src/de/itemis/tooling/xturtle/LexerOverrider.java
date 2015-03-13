@@ -244,6 +244,9 @@ public class LexerOverrider {
 		case -1:// EOF
 		case '\n':
 		case ' ':
+		case ',':
+		case ';':
+		case '[':
 		case '\t':
 		case '\r':
 		case '#':

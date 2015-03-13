@@ -3,23 +3,23 @@ package de.itemis.tooling.xturtle.parsing
 import com.google.common.io.Files
 import com.google.inject.Inject
 import de.itemis.tooling.xturtle.NoValidationInjectorProvider
+import de.itemis.tooling.xturtle.TurtleParseHelper
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
 import java.io.File
 import java.nio.charset.Charset
+import org.eclipse.xtext.diagnostics.Severity
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Assert
-import org.eclipse.xtext.diagnostics.Severity
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(NoValidationInjectorProvider))
 class ParsingSuiteTest {
 
-	@Inject extension ParseHelper<DirectiveBlock>
+	@Inject extension TurtleParseHelper<DirectiveBlock>
 	@Inject extension ValidationTestHelper
 
 	@Test
@@ -27,7 +27,11 @@ class ParsingSuiteTest {
 		val folder=new File("testFiles/ParsingSuite/passing/positive")
 		val files =folder.listFiles
 		files.forEach[
-			Files::toString(it, Charset::forName("UTF-8")).parse.assertNoIssues
+			try{
+				Files::toString(it, Charset::forName("UTF-8")).parse.assertNoIssues
+			}catch(Throwable e){
+				throw new RuntimeException("failed for file "+it.name,e)
+			}
 		] 
 	}
 
