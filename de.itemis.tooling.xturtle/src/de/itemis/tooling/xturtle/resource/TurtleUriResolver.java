@@ -15,7 +15,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 
 import com.google.common.base.Strings;
 
-class TurtleUriResolver {
+public class TurtleUriResolver {
 
 	private PrefixURI currentBaseUri;
 	private Map<String, PrefixURI> prefixToUriMap=new HashMap<String, PrefixURI>();
@@ -56,7 +56,7 @@ class TurtleUriResolver {
 		}
 	}
 
-	static final QualifiedName getName(URI uri){
+	public static final QualifiedName getName(URI uri){
 		String namespace;
 		String name;
 
@@ -78,7 +78,7 @@ class TurtleUriResolver {
 		return QualifiedName.create(namespace,name);
 	}
 
-	static final class PrefixURI{
+	public static final class PrefixURI{
 
 		private URI prefixUri;
 		boolean hasFragment;
@@ -98,7 +98,7 @@ class TurtleUriResolver {
 			}
 		}
 
-		URI resolve(String uriString){
+		public URI resolve(String uriString){
 			URI uri;
 			if(Strings.isNullOrEmpty(uriString) || (uri=getNormalizedUri(uriString))==null ){
 				return prefixUri;

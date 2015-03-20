@@ -3,7 +3,7 @@ package de.itemis.tooling.xturtle.resource
 import org.junit.Test
 import java.net.URI
 import org.junit.Assert
-import de.itemis.tooling.xturtle.resource.TurtleUriResolver.PrefixURI
+import de.itemis.tooling.xturtle.resource.TurtleUriResolver$PrefixURI
 
 //http://jsfiddle.net/ecmanaut/RHdnZ/ allows online URI resolution
 class ResolveUriTest {
@@ -63,7 +63,7 @@ class ResolveUriTest {
 
 	@Test
 	def void rfc3986() {
-		uri=new PrefixURI(URI.create("http://a/b/c/d;p?q"))
+		uri=new PrefixURI(URI::create("http://a/b/c/d;p?q"))
 		examples.split("\n").forEach[
 			val split=it.replaceAll("\"","").split(" = ")
 			val rel=split.get(0).trim
@@ -74,7 +74,7 @@ class ResolveUriTest {
 
 	@Test
 	def void testEmptyFragment(){
-		uri=new PrefixURI(URI.create("http://a/b/c#"))
+		uri=new PrefixURI(URI::create("http://a/b/c#"))
 		checkResolution("", "http://a/b/c#")
 		checkResolution("a", "http://a/b/c#a")
 		checkResolution("#a", "http://a/b/c#a")
@@ -84,7 +84,7 @@ class ResolveUriTest {
 
 	@Test
 	def void testNonEmptyFragment(){
-		uri=new PrefixURI(URI.create("http://a/b/c#x"))
+		uri=new PrefixURI(URI::create("http://a/b/c#x"))
 		checkResolution("", "http://a/b/c#x")
 		checkResolution("a", "http://a/b/c#a")
 		checkResolution("#a", "http://a/b/c#a")
@@ -94,7 +94,7 @@ class ResolveUriTest {
 
 	@Test
 	def void testSlash(){
-		uri=new PrefixURI(URI.create("http://a/b/c/"))
+		uri=new PrefixURI(URI::create("http://a/b/c/"))
 		checkResolution("", "http://a/b/c/")
 		checkResolution("a", "http://a/b/c/a")
 		checkResolution("../x", "http://a/b/x")
@@ -106,6 +106,6 @@ class ResolveUriTest {
 
 	def private void checkResolution(String uri2ResolveAgainstBase, String expectedResolutionResult){
 		val URI resolved=uri.resolve(uri2ResolveAgainstBase)
-		Assert.assertEquals('''error for rel uri: «uri2ResolveAgainstBase»''',expectedResolutionResult, resolved.toString)
+		Assert::assertEquals('''error for rel uri: «uri2ResolveAgainstBase»''',expectedResolutionResult, resolved.toString)
 	}
 }

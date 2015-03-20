@@ -14,8 +14,6 @@ import org.eclipse.emf.ecore.xml.type.impl.XMLTypeFactoryImpl
 import org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil
 import org.eclipse.xtext.naming.QualifiedName
 
-import static de.itemis.tooling.xturtle.validation.XsdTypeValidator.*
-
 class XsdTypeValidator {
 	
 	static val fac=XMLTypeFactoryImpl::eINSTANCE

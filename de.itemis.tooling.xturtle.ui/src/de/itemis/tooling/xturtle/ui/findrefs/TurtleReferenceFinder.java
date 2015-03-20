@@ -8,12 +8,12 @@
 package de.itemis.tooling.xturtle.ui.findrefs;
 
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
@@ -22,6 +22,7 @@ import org.eclipse.xtext.resource.IResourceServiceProvider.Registry;
 import org.eclipse.xtext.ui.editor.findrefs.DefaultReferenceFinder;
 import org.eclipse.xtext.util.IAcceptor;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleReferenceDescription;
@@ -40,14 +41,21 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 		super(indexData, serviceProviderRegistry);
 	}
 
-	//TODO test
 	@Override
+	protected void findLocalReferencesInResource(final Iterable<URI> targetURIs, Resource resource,
+			final IAcceptor<IReferenceDescription> acceptor) {
+		Set<URI> targetURISet = ImmutableSet.copyOf(targetURIs);
+//		Map<EObject, URI> exportedElementsMap = createExportedElementsMap(resource);
+		for(EObject content: resource.getContents()) {
+			findLocalReferencesFromElement(targetURISet, content, resource, acceptor, resource.getURI());
+		}
+	}
+
 	protected void findLocalReferencesFromElement(Set<URI> targetURISet,
 			EObject sourceCandidate,
 			org.eclipse.emf.ecore.resource.Resource localResource,
 			IAcceptor<IReferenceDescription> acceptor,
-			URI currentExportedContainerURI,
-			Map<EObject, URI> exportedElementsMap) {
+			URI currentExportedContainerURI) {
 
 		Iterator<URI> it = targetURISet.iterator();
 		while(it.hasNext()){
@@ -63,7 +71,7 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 			}else{
 				EList<EObject> contents = sourceCandidate.eContents();
 				for (EObject obj2 : contents) {
-					findLocalReferencesFromElement(targetURISet, obj2, localResource, acceptor, currentExportedContainerURI, exportedElementsMap);
+					findLocalReferencesFromElement(targetURISet, obj2, localResource, acceptor, currentExportedContainerURI);
 				}
 			}
 		}

@@ -37,9 +37,9 @@ class ParsingSuiteTest {
 		val files =folder.listFiles
 		files.forEach[
 			val issues=Files::toString(it, Charset::forName("UTF-8")).parse.validate
-			Assert.assertFalse(it.name, issues.empty)
-			val errors=issues.filter[it.severity==Severity.ERROR]
-			Assert.assertFalse(it.name, errors.empty)
+			Assert::assertFalse(it.name, issues.empty)
+			val errors=issues.filter[it.severity==Severity::ERROR]
+			Assert::assertFalse(it.name, errors.empty)
 		] 
 	}
 }

@@ -135,7 +135,7 @@ public class TurtleContentAssistTest extends AbstractContentAssistProcessorTest 
 	@Override
 	protected ISetup doGetSetup() {
 		return new ISetup() {
-			@Override
+//			@Override
 			public Injector createInjectorAndDoEMFRegistration() {
 				return new XturtleUiInjectorProvider().getInjector();
 			}

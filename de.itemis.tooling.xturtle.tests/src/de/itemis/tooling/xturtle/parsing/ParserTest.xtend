@@ -147,13 +147,14 @@ class ParserTest {
 
 	@Test
 	def void missingSubject() {
-		'''<a>.'''.parse.assertError(XturtlePackage.Literals.TRIPLES, "axiom")
+		'''<a>.'''.parse.assertError(XturtlePackage$Literals::TRIPLES, "axiom")
 	}
 
 	@Test
 	def void preventBlankPrefix() {
 		'''@prefix _:<tada/>.
-		'''.parse.assertError(XturtlePackage.Literals.PREFIX_ID, "blank_prefix")
+		'''.parse.assertError(XturtlePackage$Literals::PREFIX_ID, "blank_prefix"
+		)
 	}
 
 	@Test

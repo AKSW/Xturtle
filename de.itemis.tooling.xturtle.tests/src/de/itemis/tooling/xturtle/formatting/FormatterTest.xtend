@@ -268,12 +268,12 @@ class FormatterTest {
 		if(printoutFormatted){
 			println(formatted)
 		}
-		Assert.assertEquals(modelString.toString, formatted)
+		Assert::assertEquals(modelString.toString, formatted)
 	}
 
 	def String format(EObject model) {
 		val parseResult = (model.eResource as XtextResource).parseResult
-		formatter.format(parseResult.rootNode, 0, Integer.MAX_VALUE).formattedText
+		formatter.format(parseResult.rootNode, 0, Integer::MAX_VALUE).formattedText
 	}
 
 }

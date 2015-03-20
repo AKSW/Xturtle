@@ -58,7 +58,7 @@ class LinkingTest {
 			b.a:a.b b.a:a.b b.a:a.b.
 		'''.parse
 		model.assertNoIssues
-		val triples=model.eAllContents.filter(Triples).toList;
+		val triples=model.eAllContents.filter(typeof(Triples)).toList;
 		(0..8).forEach[
 			assertAllLinkToSubject(triples.get(it))
 		]
@@ -76,16 +76,16 @@ class LinkingTest {
 		'''.parse
 		model.assertNoIssues
 
-		val triples=model.eAllContents.filter(Triples).toList
-		Assert.assertEquals(2, triples.size)
+		val triples=model.eAllContents.filter(typeof(Triples)).toList
+		Assert::assertEquals(2, triples.size)
 		assertName(triples.get(0).subject, "http://example.de/tada#","a")
 		assertName(triples.get(1).subject, "http://example.de/tidum/","b")
 
 		assertAllLinkToSubject(triples.get(0))
 		assertAllLinkToSubject(triples.get(1))
 
-		val prefixDefs=model.eAllContents.filter(PrefixId).toList
-		Assert.assertEquals(2, prefixDefs.size)
+		val prefixDefs=model.eAllContents.filter(typeof(PrefixId)).toList
+		Assert::assertEquals(2, prefixDefs.size)
 		assertName(prefixDefs.get(0), "http://example.de/tada#")
 		assertName(prefixDefs.get(1), "http://example.de/tidum/")
 	}
@@ -93,20 +93,20 @@ class LinkingTest {
 	def void assertName(EObject obj, String... nameElements){
 		val name=service.getQualifiedName(obj) 
 		if(obj instanceof Resource){
-			Assert.assertEquals(name, namer.getFullyQualifiedName(obj))
+			Assert::assertEquals(name, namer.getFullyQualifiedName(obj))
 		}
-		Assert.assertEquals(nameElements.size, name.segmentCount)
+		Assert::assertEquals(nameElements.size, name.segmentCount)
 		(1..nameElements.size).forEach[
-			Assert.assertEquals(nameElements.get(it-1), name.segments.get(it-1))
+			Assert::assertEquals(nameElements.get(it-1), name.segments.get(it-1))
 		]
 	}
 
 	def assertAllLinkToSubject(Triples triple){
 		val subject=triple.subject
-		val refs=triple.eAllContents.filter(QNameRef).toList
-		Assert.assertEquals(2, refs.size)
-		refs.forEach[
-			Assert.assertSame(subject, it.ref)
+		val refs=triple.eAllContents.filter(typeof(QNameRef)).toList
+		Assert::assertEquals(2, refs.size)
+		refs.forEach[reference|
+			Assert::assertSame(subject, reference.ref)
 		]
 	}
 

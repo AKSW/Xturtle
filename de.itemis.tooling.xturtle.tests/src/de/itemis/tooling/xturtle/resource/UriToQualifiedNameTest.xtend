@@ -8,11 +8,11 @@ import org.eclipse.xtext.naming.QualifiedName
 class UriToQualifiedNameTest {
 
 	def void assertQname(String uriString, String... expectedElements){
-		val URI uri=URI.create(uriString)
-		val qName=TurtleUriResolver.getName(uri)
-		Assert.assertEquals(expectedElements.size, qName.segmentCount)
+		val URI uri=URI::create(uriString)
+		val qName=TurtleUriResolver::getName(uri)
+		Assert::assertEquals(expectedElements.size, qName.segmentCount)
 		(1..qName.segmentCount).forEach[
-			Assert.assertEquals('''segment «it» for «uriString»''', expectedElements.get(it-1), qName.segments.get(it-1))
+			Assert::assertEquals('''segment «it» for «uriString»''', expectedElements.get(it-1), qName.segments.get(it-1))
 		]
 	}
 
@@ -27,9 +27,9 @@ class UriToQualifiedNameTest {
 	def void testBlankQName(){
 		val TurtleUriResolver resolver=new TurtleUriResolver("testfile.ttl")
 		val blankPrefixQname=resolver.getPrefixName("_","#")
-		val expectedBaseQName=QualifiedName.create("file://testfile.ttl#")
-		Assert.assertEquals(expectedBaseQName, blankPrefixQname)
+		val expectedBaseQName=QualifiedName::create("file://testfile.ttl#")
+		Assert::assertEquals(expectedBaseQName, blankPrefixQname)
 		val blankQName=resolver.resolveWithLocalName("_","tidum")
-		Assert.assertEquals(expectedBaseQName.append("tidum"), blankQName)
+		Assert::assertEquals(expectedBaseQName.append("tidum"), blankQName)
 	}
 }

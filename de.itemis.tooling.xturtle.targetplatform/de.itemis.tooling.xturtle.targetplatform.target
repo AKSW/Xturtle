@@ -4,13 +4,15 @@
 <target name="juno" sequenceNumber="7">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.platform.sdk" version="4.2.1.M20120914-1800"/>
-<unit id="org.eclipse.equinox.sdk.feature.group" version="3.8.0.v20120522-1841-7M7fA78g5_y-g-jtHxcd5k8q8lFR"/>
-<repository location="http://download.eclipse.org/eclipse/updates/4.2"/>
+<unit id="org.eclipse.platform.sdk" version="4.2.2.M20130204-1200"/>
+<unit id="org.eclipse.equinox.sdk.feature.group" version="3.8.0.v20121212-203907-7M7fA78g4_y-gDvtH0ZcFvhMPDZJ"/>
+<!--repository location="http://download.eclipse.org/eclipse/updates/4.2"/-->
+<repository location="http://download.eclipse.org/releases/juno/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.xtext.sdk.feature.group" version="2.3.1.v201208210947"/>
-<repository location="http://download.eclipse.org/releases/juno"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.1.v201304180855"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/head/R201304180855/"/>
+<!--repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/-->
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="de.itemis.xtext.antlr.feature.feature.group" version="2.1.1.v201405091103"/>
