@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^$ http://xturtle.nittka.de/
+Redirect ^$ http://xturtle.nittka.de/snapshot/
