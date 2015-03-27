@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^$ http://xturtle.nittka.de/snapshot
+RewriteRule ^$ http://xturtle.nittka.de/snapshot/site.xml
