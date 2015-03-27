@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^$ http://aksw.org/Projects/Xturtle.html
