@@ -18,9 +18,12 @@
   <setupTask
       xsi:type="setup.p2:P2Task"
       id="WikiText"
-      label="WikiText">
+      label="WikiText etc">
     <requirement
         name="org.eclipse.mylyn.wikitext_feature.feature.group"/>
+    <requirement
+        name="org.eclipse.pde.api.tools.ee.feature.feature.group"
+        optional="true"/>
     <repository
         url="http://download.eclipse.org/mylyn/releases/latest"/>
   </setupTask>
@@ -63,7 +66,23 @@
   <setupTask
       xsi:type="git:GitCloneTask"
       id="git.clone.xturtle"
-      remoteURI="https://github.com/AKSW/Xturtle.git">
+      remoteURI="AKSW/Xturtle"
+      pushURI="">
+    <annotation
+        source="http://www.eclipse.org/oomph/setup/InducedChoices">
+      <detail
+          key="inherit">
+        <value>github.remoteURIs</value>
+      </detail>
+      <detail
+          key="label">
+        <value>${scope.project.label} GitHub repository protocol</value>
+      </detail>
+      <detail
+          key="target">
+        <value>remoteURI</value>
+      </detail>
+    </annotation>
     <description>Xturtle</description>
   </setupTask>
   <setupTask
