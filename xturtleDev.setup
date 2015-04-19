@@ -66,7 +66,8 @@
   <setupTask
       xsi:type="git:GitCloneTask"
       id="git.clone.xturtle"
-      remoteURI="AKSW/Xturtle.git">
+      remoteURI="AKSW/Xturtle"
+      pushURI="">
     <annotation
         source="http://www.eclipse.org/oomph/setup/InducedChoices">
       <detail
