@@ -25,7 +25,7 @@ class UriToQualifiedNameTest {
 
 	@Test
 	def void testBlankQName(){
-		val TurtleUriResolver resolver=new TurtleUriResolver(URI.createURI("file://testfile.ttl"))
+		val TurtleUriResolver resolver=new TurtleUriResolver(URI::createURI("file://testfile.ttl"))
 		val blankPrefixQname=resolver.getPrefixName("_","#")
 		val expectedBaseQName=QualifiedName::create("file://testfile.ttl#")
 		Assert::assertEquals(expectedBaseQName, blankPrefixQname)

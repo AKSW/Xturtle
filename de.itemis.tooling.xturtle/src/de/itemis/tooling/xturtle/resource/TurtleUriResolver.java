@@ -87,7 +87,7 @@ public class TurtleUriResolver {
 			uriAsString=prefixUri.toString();
 		}
 
-		URI resolveLocal(String localName){
+		public URI resolveLocal(String localName){
 			return URI.createURI(uriAsString+localName);
 		}
 
