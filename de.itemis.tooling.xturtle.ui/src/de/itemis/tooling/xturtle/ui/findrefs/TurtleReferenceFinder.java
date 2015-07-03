@@ -28,6 +28,8 @@ import com.google.inject.Inject;
 import de.itemis.tooling.xturtle.resource.TurtleReferenceDescription;
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.xturtle.ResourceRef;
+import de.itemis.tooling.xturtle.xturtle.Subject;
+import de.itemis.tooling.xturtle.xturtle.Triples;
 
 @SuppressWarnings("restriction")
 public class TurtleReferenceFinder extends DefaultReferenceFinder {
@@ -56,7 +58,7 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 			org.eclipse.emf.ecore.resource.Resource localResource,
 			IAcceptor<IReferenceDescription> acceptor,
 			URI currentExportedContainerURI) {
-
+		URI exportedContainerURI=currentExportedContainerURI;
 		Iterator<URI> it = targetURISet.iterator();
 		while(it.hasNext()){
 			URI next=it.next();
@@ -66,12 +68,15 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 			if(sourceCandidate instanceof ResourceRef){
 				QualifiedName sourceName = service.getQualifiedName(sourceCandidate);
 				if(name.equals(sourceName)){
-					acceptor.accept(new TurtleReferenceDescription(sourceCandidate,EObjectDescription.create("", obj),currentExportedContainerURI));
+					acceptor.accept(new TurtleReferenceDescription(sourceCandidate,EObjectDescription.create("", obj),exportedContainerURI));
 				}
 			}else{
 				EList<EObject> contents = sourceCandidate.eContents();
 				for (EObject obj2 : contents) {
-					findLocalReferencesFromElement(targetURISet, obj2, localResource, acceptor, currentExportedContainerURI);
+					if(obj2 instanceof Subject){
+						exportedContainerURI=localResource.getURI().appendFragment(service.getFragment(obj2));
+					}
+					findLocalReferencesFromElement(targetURISet, obj2, localResource, acceptor, exportedContainerURI);
 				}
 			}
 		}
