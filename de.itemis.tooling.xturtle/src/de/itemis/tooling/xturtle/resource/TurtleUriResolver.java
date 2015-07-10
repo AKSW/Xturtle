@@ -81,8 +81,10 @@ public class TurtleUriResolver {
 
 		private URI prefixUri;
 		private String uriAsString;
+		boolean baseIsUrn=false;
 
 		public PrefixURI(URI prefixUri) {
+			baseIsUrn="urn".equals(prefixUri.scheme());
 			this.prefixUri=prefixUri;
 			uriAsString=prefixUri.toString();
 		}
@@ -96,7 +98,12 @@ public class TurtleUriResolver {
 				return prefixUri;
 			}
 			try {
-				return URI.createURI(uriString).resolve(prefixUri);
+				URI uri = URI.createURI(uriString);
+				if(!uri.isRelative() || baseIsUrn){
+					return uri;
+				}else{
+					return uri.resolve(prefixUri);
+				}
 			} catch (IllegalArgumentException e) {
 				throw new IllegalArgumentException("could not resolve '"+uriString+"' with respect to base uri "+prefixUri ,e);
 			}

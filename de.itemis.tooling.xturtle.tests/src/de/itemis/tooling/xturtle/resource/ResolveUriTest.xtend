@@ -4,6 +4,7 @@ import org.eclipse.emf.common.util.URI
 import org.junit.Assert
 import org.junit.Test
 import de.itemis.tooling.xturtle.resource.TurtleUriResolver$PrefixURI
+import org.eclipse.core.runtime.URIUtil
 
 //http://jsfiddle.net/ecmanaut/RHdnZ/ allows online URI resolution
 class ResolveUriTest {
@@ -99,6 +100,9 @@ class ResolveUriTest {
 		checkResolution("x/y", "http://a/b/c/x/y")
 		checkResolution("#a", "http://a/b/c/#a")
 		checkResolution("x#a", "http://a/b/c/x#a")
+		checkResolution("bla#fsd:fdf", "http://a/b/c/bla#fsd:fdf")
+		checkResolution("bla/fsd:fdf", "http://a/b/c/bla/fsd:fdf")
+		checkResolution("fsd:fdf", "http://a/b/c/fsd:fdf")
 		checkResolution("file://blubs.ttl", "file://blubs.ttl")
 	}
 
@@ -110,5 +114,13 @@ class ResolveUriTest {
 	def private void checkResolution(String uri2ResolveAgainstBase, String expectedResolutionResult){
 		val URI resolved=uri.resolve(uri2ResolveAgainstBase)
 		Assert::assertEquals('''error for rel uri: «uri2ResolveAgainstBase»''',expectedResolutionResult, resolved.toString)
+	}
+
+	@Test
+	def void testURN(){
+		uri= new PrefixURI(URI::createURI("urn:fiddle:ontology#"))
+		val urn="urn:fiddle:ontology"
+		checkResolution(urn, urn)
+		checkResolution("x","x")
 	}
 }
