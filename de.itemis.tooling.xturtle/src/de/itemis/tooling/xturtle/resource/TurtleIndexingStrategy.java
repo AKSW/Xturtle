@@ -8,10 +8,12 @@
 package de.itemis.tooling.xturtle.resource;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -29,7 +31,12 @@ import org.eclipse.xtext.util.IAcceptor;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
 
 import de.itemis.tooling.xturtle.xturtle.Predicate;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
@@ -148,6 +155,26 @@ public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
 		return result;
 	}
 
+	private Cache<org.eclipse.emf.ecore.resource.Resource, Multimap<QualifiedName, IEObjectDescription>> cache=CacheBuilder.
+			newBuilder().expireAfterAccess(2, TimeUnit.SECONDS)
+			.maximumSize(3)
+			.build(new CacheLoader<org.eclipse.emf.ecore.resource.Resource, Multimap<QualifiedName, IEObjectDescription>>() {
+
+				@Override
+				public Multimap<QualifiedName, IEObjectDescription> load(org.eclipse.emf.ecore.resource.Resource resource)
+						throws Exception {
+					IResourceDescriptions index = resourceDescriptionsProvider.getResourceDescriptions(resource.getResourceSet());
+					Multimap<QualifiedName, IEObjectDescription> result=HashMultimap.create();
+					Iterable<IEObjectDescription> candidates = index.getExportedObjectsByType(XturtlePackage.Literals.RESOURCE);
+					for (IEObjectDescription desc : candidates) {
+						QualifiedName name = desc.getName();
+						Collection<IEObjectDescription> list = result.get(name);
+						list.add(desc);
+					}
+					return result;
+				}
+			});
+
 	@Override
 	public boolean createReferenceDescriptions(final EObject from,
 			URI exportedContainerURI, IAcceptor<IReferenceDescription> acceptor) {
@@ -158,10 +185,11 @@ public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
 				URI fromUri=from.eResource().getURI();
 				URI containerUri = getExportedSubjectUri(from);
 				QualifiedName name = getQualifiedNameProvider().getFullyQualifiedName(ref);
-				IResourceDescriptions index = resourceDescriptionsProvider.getResourceDescriptions(from.eResource().getResourceSet());
-				Iterable<IEObjectDescription> matches = index.getExportedObjectsByType(XturtlePackage.Literals.RESOURCE);//, name, false);
-				for (IEObjectDescription desc : matches) {
-					if(desc.getQualifiedName().equals(name) &&!fromUri.equals(desc.getEObjectURI().trimFragment())){
+
+				Multimap<QualifiedName, IEObjectDescription> map = cache.getUnchecked(from.eResource());
+				Collection<IEObjectDescription> candidates = map.get(name);
+				for (IEObjectDescription desc : candidates) {
+					if(!fromUri.equals(desc.getEObjectURI().trimFragment())){
 						acceptor.accept(new TurtleReferenceDescription(from,desc,containerUri));
 					}
 				}
@@ -169,7 +197,6 @@ public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
 			return false;
 		}
 		return super.createReferenceDescriptions(from, exportedContainerURI, acceptor);
-//		return false;
 	}
 
 	//Technically, the subject of the triple is not a container of the reference,
