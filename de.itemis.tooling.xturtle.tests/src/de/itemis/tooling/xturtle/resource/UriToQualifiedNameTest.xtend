@@ -20,7 +20,11 @@ class UriToQualifiedNameTest {
 	def void testNames() {
 		assertQname("http://a/b/c#", "http://a/b/c#","")
 		assertQname("http://a/b/c#a", "http://a/b/c#","a")
+		assertQname("http://a/b/c/", "http://a/b/c/","")
 		assertQname("http://a/b/c", "http://a/b/","c")
+		assertQname("http://a/b", "http://a/","b")
+		assertQname("http://a", "http://a","")
+		assertQname("http://a/", "http://a/","")
 	}
 
 	@Test

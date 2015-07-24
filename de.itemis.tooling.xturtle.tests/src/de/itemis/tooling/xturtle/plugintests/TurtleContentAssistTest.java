@@ -1,13 +1,16 @@
 package de.itemis.tooling.xturtle.plugintests;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.junit4.ui.AbstractContentAssistProcessorTest;
 import org.eclipse.xtext.junit4.ui.ContentAssistProcessorTestBuilder;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipse.xtext.util.Strings;
@@ -25,10 +28,17 @@ import de.itemis.tooling.xturtle.XturtleUiInjectorProvider;
 public class TurtleContentAssistTest extends AbstractContentAssistProcessorTest {
 
 	private static final int NL_LENGHT=Strings.newLine().length();
+	private static int counter=1;
 	int preInfixOffset;
 	@BeforeClass
 	public static void useSI(){
 		useStaticInjector=false;
+	}
+
+	@Override
+	protected XtextResource doGetResource(InputStream in, URI uri)
+			throws Exception {
+		return super.doGetResource(in, URI.createURI("file://testmodel"+(counter++)+".ttl"));
 	}
 
 	@Test

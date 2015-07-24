@@ -4,7 +4,6 @@ import org.eclipse.emf.common.util.URI
 import org.junit.Assert
 import org.junit.Test
 import de.itemis.tooling.xturtle.resource.TurtleUriResolver$PrefixURI
-import org.eclipse.core.runtime.URIUtil
 
 //http://jsfiddle.net/ecmanaut/RHdnZ/ allows online URI resolution
 class ResolveUriTest {
@@ -80,6 +79,7 @@ class ResolveUriTest {
 		checkLocalName("a", "http://a/b/c#a")
 		checkLocalName("#a", "http://a/b/c##a")
 		checkLocalName("x#a", "http://a/b/c#x#a")
+		checkLocalName("x:a", "http://a/b/c#x:a")
 	}
 
 	@Test
@@ -89,6 +89,7 @@ class ResolveUriTest {
 		checkLocalName("a", "http://a/b/c#xa")
 		checkLocalName("#a", "http://a/b/c#x#a")
 		checkLocalName("x#a", "http://a/b/c#xx#a")
+		checkLocalName("x:a", "http://a/b/c#xx:a")
 	}
 
 	@Test
@@ -102,8 +103,10 @@ class ResolveUriTest {
 		checkResolution("x#a", "http://a/b/c/x#a")
 		checkResolution("bla#fsd:fdf", "http://a/b/c/bla#fsd:fdf")
 		checkResolution("bla/fsd:fdf", "http://a/b/c/bla/fsd:fdf")
-		checkResolution("fsd:fdf", "http://a/b/c/fsd:fdf")
 		checkResolution("file://blubs.ttl", "file://blubs.ttl")
+
+		//both java and emf URI resolve fsf:fdf as absolute URIs due to scheme fsd
+		checkResolution("fsd:fdf", "fsd:fdf")
 	}
 
 	def private void checkLocalName(String uri2ResolveAgainstBase, String expectedResolutionResult){

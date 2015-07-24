@@ -40,6 +40,7 @@ import de.itemis.tooling.xturtle.xturtle.BlankObjects;
 import de.itemis.tooling.xturtle.xturtle.Object;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
+import de.itemis.tooling.xturtle.xturtle.QNameRef;
 import de.itemis.tooling.xturtle.xturtle.StringLiteral;
 import de.itemis.tooling.xturtle.xturtle.Subject;
 import de.itemis.tooling.xturtle.xturtle.Triples;
@@ -101,6 +102,10 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		if(prefix==null || prefix.length()==0 || prefix.charAt(0)!=':'){
 			return;
 		}
+		if(((QNameRef)model).getPrefix().eIsProxy()){
+			return;
+		}
+		final String prefixURI=service.getUriString(((QNameRef)model).getPrefix());
 		final ContentAssistContext newContext=context.copy().setMatcher(subStringMatcher).toContext();
 		//the following seems to be the case if code completion is invoked on an empty prefix
 		//in this case getting the previous model returns the actual node to be completed!?
@@ -124,7 +129,9 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		};
 		Function<IEObjectDescription, ICompletionProposal> factory = new Function<IEObjectDescription, ICompletionProposal>() {
 			public ICompletionProposal apply(IEObjectDescription desc){
-				return createCompletionProposal(":"+desc.getQualifiedName().getLastSegment(), newContext);
+				String fullName=desc.getQualifiedName().toString("");
+				String proposeName=fullName.substring(prefixURI.length());
+				return createCompletionProposal(":"+proposeName, newContext);
 			}
 		};
 		

@@ -71,7 +71,10 @@ public class TurtleUriResolver {
 				namespace=uri.toString();
 			}else{
 				name=segments.get(segments.size()-1);
-				namespace=uri.trimSegments(1).toString()+"/";
+				namespace=uri.trimSegments(1).toString();
+			}
+			if(segments.size()>1){
+				namespace=namespace+"/";
 			}
 		}
 		return QualifiedName.create(namespace,name);
