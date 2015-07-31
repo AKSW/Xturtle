@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:Project
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
+    name="Xturtle Editor"
+    label="Xturtle Editor">
+  <setupTask
+      xsi:type="setup.p2:P2Task"
+      id="Xturtle dependencies"
+      label="">
+    <requirement
+        name="org.eclipse.xtext.redist.feature.group"/>
+    <requirement
+        name="de.itemis.tooling.xturtle.feature.feature.group"/>
+    <repository
+        url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+  </setupTask>
+  <setupTask
+      xsi:type="setup:ResourceCopyTask"
+      sourceURL="https://github.com/AKSW/Xturtle/archive/master.zip"
+      targetURL="${workspace.location|uri}/master.zip"/>
+  <stream name="release"
+      label="Release">
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="Xturtle release updatesite"
+        label="">
+      <repository
+          url="https://raw.githubusercontent.com/AKSW/Xturtle/develop/de.itemis.tooling.xturtle.updatesite/site.xml"/>
+    </setupTask>
+    <description>installs the latest released version</description>
+  </stream>
+  <stream name="snapshot"
+      label="Snapshot">
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="Xturtle snapshot update site"
+        label="">
+      <repository
+          url="http://xturtle.nittka.de/snapshot/"/>
+    </setupTask>
+    <description>installs the latest snapshot version</description>
+  </stream>
+  <description>Xturtle Editor für Eclipse</description>
+</setup:Project>
