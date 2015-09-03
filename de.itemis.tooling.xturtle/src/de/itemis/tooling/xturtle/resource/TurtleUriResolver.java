@@ -102,8 +102,14 @@ public class TurtleUriResolver {
 			}
 			try {
 				URI uri = URI.createURI(uriString);
-				if(!uri.isRelative() || baseIsUrn){
+				if(!uri.isRelative()){
 					return uri;
+				} else if(baseIsUrn){
+					if(uriString.charAt(0)=='#'){
+						return URI.createURI(prefixUri.trimFragment().toString()+uriString);
+					}else{
+						return URI.createURI("urn:"+uriString);
+					}
 				}else{
 					return uri.resolve(prefixUri);
 				}

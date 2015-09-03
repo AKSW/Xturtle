@@ -73,7 +73,7 @@ class ResolveUriTest {
 	}
 
 	@Test
-	def void testlocalNameAgainstEmptyFragment(){
+	def void testLocalNameAgainstEmptyFragment(){
 		uri=new PrefixURI(URI::createURI("http://a/b/c#"))
 		checkLocalName("", "http://a/b/c#")
 		checkLocalName("a", "http://a/b/c#a")
@@ -93,13 +93,93 @@ class ResolveUriTest {
 	}
 
 	@Test
-	def void testSlash(){
+	def void testLocalNameAgainstNoFragment(){
+		uri=new PrefixURI(URI::createURI("http://a/b/c"))
+		checkLocalName("", "http://a/b/c")
+		checkLocalName("a", "http://a/b/ca")
+		checkLocalName("#a", "http://a/b/c#a")
+		checkLocalName("x#a", "http://a/b/cx#a")
+		checkLocalName("x:a", "http://a/b/cx:a")
+	}
+
+	@Test
+	def void testNoSegments(){
+		uri=new PrefixURI(URI::createURI("http://www.example.de"))
+		checkResolution("", "http://www.example.de")
+		checkResolution("/", "http://www.example.de/")
+		checkResolution("#", "http://www.example.de#")
+		checkResolution("a", "http://www.example.de/a")
+		checkResolution("#a", "http://www.example.de#a")
+		checkResolution("a#", "http://www.example.de/a#")
+		checkResolution("/a", "http://www.example.de/a")
+		checkResolution("a/", "http://www.example.de/a/")
+	}
+
+	@Test
+	def void testShortEmptySegment(){
+		uri=new PrefixURI(URI::createURI("http://www.example.de/"))
+		checkResolution("", "http://www.example.de/")
+		checkResolution("/", "http://www.example.de/")
+		checkResolution("#", "http://www.example.de/#")
+		checkResolution("a", "http://www.example.de/a")
+		checkResolution("#a", "http://www.example.de/#a")
+		checkResolution("a#", "http://www.example.de/a#")
+		checkResolution("/a", "http://www.example.de/a")
+		checkResolution("a/", "http://www.example.de/a/")
+	}
+
+	@Test
+	def void testNoSegmentsFragment(){
+		uri=new PrefixURI(URI::createURI("http://www.example.de#"))
+		checkResolution("", "http://www.example.de#")
+		checkResolution("/", "http://www.example.de/")
+		checkResolution("#", "http://www.example.de#")
+		checkResolution("a", "http://www.example.de/a")
+		checkResolution("#a", "http://www.example.de#a")
+		checkResolution("a#", "http://www.example.de/a#")
+		checkResolution("/a", "http://www.example.de/a")
+		checkResolution("a/", "http://www.example.de/a/")
+	}
+
+	@Test
+	def void testNonEmptySegment(){
+		uri=new PrefixURI(URI::createURI("http://www.example.de/x"))
+		checkResolution("", "http://www.example.de/x")
+		checkResolution("/", "http://www.example.de/")
+		checkResolution("#", "http://www.example.de/x#")
+		checkResolution("a", "http://www.example.de/a")
+		checkResolution("#a", "http://www.example.de/x#a")
+		checkResolution("a#", "http://www.example.de/a#")
+		checkResolution("/a", "http://www.example.de/a")
+		checkResolution("a/", "http://www.example.de/a/")
+	}
+
+	@Test
+	def void testNonEmptyFragment(){
+		uri=new PrefixURI(URI::createURI("http://www.example.de/x#tada"))
+		checkResolution("", "http://www.example.de/x#tada")
+		checkResolution("/", "http://www.example.de/")
+		checkResolution("#", "http://www.example.de/x#")
+		checkResolution("a", "http://www.example.de/a")
+		checkResolution("#a", "http://www.example.de/x#a")
+		checkResolution("a#", "http://www.example.de/a#")
+		checkResolution("/a", "http://www.example.de/a")
+		checkResolution("a/", "http://www.example.de/a/")
+	}
+
+	@Test
+	def void testLongEmptySegment(){
 		uri=new PrefixURI(URI::createURI("http://a/b/c/"))
 		checkResolution("", "http://a/b/c/")
+		checkResolution("/", "http://a/")
+		checkResolution("#", "http://a/b/c/#")
 		checkResolution("a", "http://a/b/c/a")
+		checkResolution("#a", "http://a/b/c/#a")
+		checkResolution("a#", "http://a/b/c/a#")
+		checkResolution("/a", "http://a/a")
+		checkResolution("a/", "http://a/b/c/a/")
 		checkResolution("../x", "http://a/b/x")
 		checkResolution("x/y", "http://a/b/c/x/y")
-		checkResolution("#a", "http://a/b/c/#a")
 		checkResolution("x#a", "http://a/b/c/x#a")
 		checkResolution("bla#fsd:fdf", "http://a/b/c/bla#fsd:fdf")
 		checkResolution("bla/fsd:fdf", "http://a/b/c/bla/fsd:fdf")
@@ -121,9 +201,15 @@ class ResolveUriTest {
 
 	@Test
 	def void testURN(){
-		uri= new PrefixURI(URI::createURI("urn:fiddle:ontology#"))
-		val urn="urn:fiddle:ontology"
-		checkResolution(urn, urn)
-		checkResolution("x","x")
+		#["","#","#sfdf"].forEach[
+			uri= new PrefixURI(URI::createURI("urn:fiddle:ontology"+it))
+			val urn="urn:fiddle:ontology"
+			checkResolution(urn, urn)
+			checkResolution("x","urn:x")
+			checkResolution("/x","urn:/x")
+			checkResolution("#x","urn:fiddle:ontology#x")
+			checkResolution("x:tada","x:tada")
+			checkResolution("x/tada","urn:x/tada")
+		]
 	}
 }
