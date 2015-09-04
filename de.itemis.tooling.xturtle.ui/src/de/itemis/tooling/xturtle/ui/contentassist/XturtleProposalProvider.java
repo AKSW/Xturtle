@@ -95,6 +95,18 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		return super.getDisplayString(element, qualifiedNameAsString, shortName);
 	}
 
+	private PrefixId getPrefixId(ContentAssistContext context, EObject model, String caPrefix){
+		EObject model2=model;
+
+		if(model2 instanceof QNameRef){
+			PrefixId referencedPrefix = ((QNameRef)model2).getPrefix();
+			if(referencedPrefix!=null && !referencedPrefix.eIsProxy()){
+				return referencedPrefix;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void completeQNameRef_Ref(EObject model, Assignment assignment,
 			final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -102,16 +114,17 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		if(prefix==null || prefix.length()==0 || prefix.charAt(0)!=':'){
 			return;
 		}
-		if(((QNameRef)model).getPrefix().eIsProxy()){
-			return;
-		}
-		final String prefixURI=service.getUriString(((QNameRef)model).getPrefix());
-		final ContentAssistContext newContext=context.copy().setMatcher(subStringMatcher).toContext();
 		//the following seems to be the case if code completion is invoked on an empty prefix
 		//in this case getting the previous model returns the actual node to be completed!?
 		if(model instanceof PredicateObjectList){
 			model=context.getPreviousModel();
 		}
+		PrefixId referencedPrefix=getPrefixId(context, model, prefix);
+		if(referencedPrefix==null){
+			return;
+		}
+		final String prefixURI=service.getUriString(referencedPrefix);
+		final ContentAssistContext newContext=context.copy().setMatcher(subStringMatcher).toContext();
 		final QualifiedName currentQName = service.getQualifiedName(model);
 		final List<IEObjectDescription> additionalProposals=new ArrayList<IEObjectDescription>();
 		ReferenceProposalCreator creator = getCrossReferenceProposalCreator();

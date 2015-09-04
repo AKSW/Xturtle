@@ -70,8 +70,11 @@ public class TurtleSemanticHighlighter implements
 	}
 
 	private void highlightPrefix(EObject defOrRef, EStructuralFeature prefixFeature, IHighlightedPositionAcceptor acceptor){
-		INode node = NodeModelUtils.findNodesForFeature(defOrRef, prefixFeature).get(0);
-		acceptor.addPosition(node.getOffset(), node.getLength(), TurtleHighlightingConfig.PREFIX_ID);
+		List<INode> nodes = NodeModelUtils.findNodesForFeature(defOrRef, prefixFeature);
+		if(!nodes.isEmpty()){
+			INode node = nodes.get(0);
+			acceptor.addPosition(node.getOffset(), node.getLength(), TurtleHighlightingConfig.PREFIX_ID);
+		}
 	}
 
 	private void highlightLocalName(EObject defOrRef, EStructuralFeature localNameFeature, IHighlightedPositionAcceptor acceptor){

@@ -55,6 +55,7 @@ class TurtleResourceIndex implements Adapter {
 	private TurtleUriResolver resolver;
 	private BiMap<EObject,String> fragmentMap;
 	private Map<EObject,QualifiedName> qNameMap;
+	private PrefixId currentEmptyPrefix=null;
 
 	String getFragment(EObject o){
 		return fragmentMap.get(o);
@@ -110,6 +111,10 @@ class TurtleResourceIndex implements Adapter {
 				QualifiedName name=resolver.resolveWithLocalName(prefix, ref.substring(1));
 				if(name!=null){
 					qNameMap.put(obj, name);
+					//empty prefix linking hack
+					if(prefix.length()==0){
+						((QNameRef)obj).setPrefix(currentEmptyPrefix);
+					}
 				}
 			}
 
@@ -150,6 +155,9 @@ class TurtleResourceIndex implements Adapter {
 	}
 
 	private void addPrefixIdEntries(PrefixId obj) {
+		if(obj.getId()==null){
+			currentEmptyPrefix=obj;
+		}
 		String prefix = Optional.fromNullable(obj.getId()).or("");
 		String uriString=obj.getUri();
 		
