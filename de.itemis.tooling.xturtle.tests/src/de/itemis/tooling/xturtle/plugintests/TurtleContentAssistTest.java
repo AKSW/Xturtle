@@ -16,7 +16,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipse.xtext.util.Strings;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Injector;
@@ -24,7 +23,6 @@ import com.google.inject.Injector;
 import de.itemis.tooling.xturtle.XturtleUiInjectorProvider;
 
 @SuppressWarnings("restriction")
-@Ignore("plugin test")
 public class TurtleContentAssistTest extends AbstractContentAssistProcessorTest {
 
 	private static final int NL_LENGHT=Strings.newLine().length();

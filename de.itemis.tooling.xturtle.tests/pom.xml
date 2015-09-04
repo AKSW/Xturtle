@@ -28,11 +28,46 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
-				<configuration>
-					<useUIHarness>false</useUIHarness>
-					<useUIThread>false</useUIThread>
-					<argLine>-Dfile.encoding=UTF-8</argLine>
-				</configuration>
+				<executions>
+					<execution>
+						<id>default-test</id>
+						<phase>none</phase>
+						<goals><goal>test</goal></goals>
+					</execution>
+					<execution>
+						<id>Xturtle-Tests</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<useUIHarness>false</useUIHarness>
+							<useUIThread>false</useUIThread>
+							<argLine>-Dfile.encoding=UTF-8</argLine>
+							<excludes>
+								<exclude>**/plugintests/**/*.java</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Xturtle-UI-Tests</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<useUIHarness>true</useUIHarness>
+							<useUIThread>true</useUIThread>
+							<argLine>-Dfile.encoding=UTF-8 ${ui.test.vmargs}</argLine>
+							<product>org.eclipse.e4.ide.application.product</product>
+							<application>org.eclipse.ui.ide.workbench</application>
+							<includes>
+								<include>**/plugintests/**/*.java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
