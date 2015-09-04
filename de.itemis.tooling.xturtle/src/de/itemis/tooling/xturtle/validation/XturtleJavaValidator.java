@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -22,6 +23,7 @@ import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
@@ -66,6 +68,35 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 				}
 			}
 			error("predicate object list is optional only for blank",XturtlePackage.Literals.TRIPLES__SUBJECT,"axiom");
+		}
+	}
+
+	private boolean containsWhitespace(EObject o){
+		Iterable<ILeafNode> leaves = NodeModelUtils.findActualNodeFor(o).getLeafNodes();
+		boolean hiddenOK=true;
+		for (ILeafNode leaf : leaves) {
+			if(leaf.isHidden()){
+				if(!hiddenOK){
+					return true;
+				}
+			}else{
+				hiddenOK=false;
+			}
+		}
+		return false;
+	}
+
+	@Check(CheckType.EXPENSIVE)
+	public void checkNoWhitespaceInQName(QNameRef qnameRef) {
+		if(containsWhitespace(qnameRef)){
+			error("qname must not contain whitespaces or comments",XturtlePackage.Literals.RESOURCE_REF__REF,"qnameWS");
+		}
+	}
+
+	@Check(CheckType.EXPENSIVE)
+	public void checkNoWhitespaceInQName(QNameDef qnameRef) {
+		if(containsWhitespace(qnameRef)){
+			error("qname must not contain whitespaces or comments",XturtlePackage.Literals.QNAME_DEF__ID,"qnameWS");
 		}
 	}
 

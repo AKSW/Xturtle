@@ -178,6 +178,26 @@ class ParserTest {
 	}
 
 	@Test
+	def void preventWhiteSpaceInQnameDef() {
+		#[" ","	","\n", "#tada\n"].forEach[hiddenToken|
+			'''
+				@prefix bla:<tada/>.
+				bla«hiddenToken»:tada <> <>.
+			'''.parse.assertError(XturtlePackage$Literals::QNAME_DEF,"qnameWS")
+		]
+	}
+
+	@Test
+	def void preventWhiteSpaceInQnameRef() {
+		#[" ","	","\n", "#tada\n"].forEach[hiddenToken|
+			'''
+				@prefix bla:<tada/>.
+				bla:tada bla«hiddenToken»:tada <>.
+			'''.parse.assertError(XturtlePackage$Literals::QNAME_REF,"qnameWS")
+		]
+	}
+
+	@Test
 	def void testLongString4() {
 
 		'''
