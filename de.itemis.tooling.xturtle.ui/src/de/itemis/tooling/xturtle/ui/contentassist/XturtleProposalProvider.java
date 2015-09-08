@@ -30,6 +30,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 
@@ -85,12 +86,9 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 	protected String getDisplayString(EObject element,
 			String qualifiedNameAsString, String shortName) {
 		if(element instanceof PrefixId){
-			String id=((PrefixId) element).getId();
-			String displayprefix="";
-			if(id!=null){
-				displayprefix=id+" - ";
-			}
-			return displayprefix+((PrefixId) element).getUri();
+			StringBuilder result=new StringBuilder(Optional.fromNullable(((PrefixId) element).getId()).or(""));
+			result.append(": - ").append(((PrefixId) element).getUri());
+			return result.toString();
 		}
 		return super.getDisplayString(element, qualifiedNameAsString, shortName);
 	}
@@ -125,19 +123,20 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 		}
 		final String prefixURI=service.getUriString(referencedPrefix);
 		final ContentAssistContext newContext=context.copy().setMatcher(subStringMatcher).toContext();
-		final QualifiedName currentQName = service.getQualifiedName(model);
+//		final QualifiedName currentQName = service.getQualifiedName(model);
 		final List<IEObjectDescription> additionalProposals=new ArrayList<IEObjectDescription>();
 		ReferenceProposalCreator creator = getCrossReferenceProposalCreator();
 		Predicate<IEObjectDescription>predicate=new Predicate<IEObjectDescription>() {
 			public boolean apply(IEObjectDescription object){
-				boolean nsMatches=object.getQualifiedName().getFirstSegment().equals(currentQName.getFirstSegment());
-				if(nsMatches){
+//				boolean nsMatches=object.getQualifiedName().getFirstSegment().equals(currentQName.getFirstSegment());
+				boolean prefixMatches=object.getQualifiedName().toString("").startsWith(prefixURI);
+				if(prefixMatches){
 					String label=object.getUserData("label");
 					if(label!=null){
 						additionalProposals.add(object);
 					}
 				}
-				return nsMatches;
+				return prefixMatches;
 			}
 		};
 		Function<IEObjectDescription, ICompletionProposal> factory = new Function<IEObjectDescription, ICompletionProposal>() {
@@ -147,20 +146,23 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 				return createCompletionProposal(":"+proposeName, newContext);
 			}
 		};
-		
+
 		creator.lookupCrossReference((EObject)model, XturtlePackage.Literals.RESOURCE_REF__REF, acceptor, predicate, factory);
+		int additionalProposalPriority=getPriorityHelper().getDefaultPriority()-1;
 		for (IEObjectDescription additional : additionalProposals) {
+			String fullName=additional.getQualifiedName().toString("");
+			String proposeName=fullName.substring(prefixURI.length());
 			String[] labels = additional.getUserData("label").split(",,");
-			String name=additional.getQualifiedName().getLastSegment();
-			String matchString="\"{1,3}"+name+"\"{1,3}";
+			String matchString="\"{1,3}"+proposeName+"\"{1,3}";
 			for (String label : labels) {
-				if(!label.matches(matchString)){
+				boolean labelAndPropsalIdentical=label.matches(matchString);
+				if(!labelAndPropsalIdentical){
 					acceptor.accept(
 							createCompletionProposal(
-									":"+name, 
-									new StyledString(label).append(" - ").append(name),
+									":"+proposeName, 
+									new StyledString(label).append(" - ").append(proposeName),
 									null,
-									100,
+									additionalProposalPriority,
 									context.getPrefix(),
 									context.copy().setMatcher(new LabelPrefixMatcher(label)).toContext()));
 				}

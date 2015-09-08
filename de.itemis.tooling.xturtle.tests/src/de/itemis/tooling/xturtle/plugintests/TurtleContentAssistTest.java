@@ -51,12 +51,18 @@ public class TurtleContentAssistTest extends AbstractContentAssistProcessorTest 
 
 	@Test
 	public void emptyPrefixProposal() throws Exception{
-		newBuilder().assertProposal("@prefix");
-
 		newBuilder().appendNl("@prefix :</tada>.")
 		.assertProposal(":").apply().append("a ")
 		.assertProposal(":").apply()
 		.assertProposal(":a");
+	}
+
+	@Test
+	public void prefixWithNonemptyFragment() throws Exception{
+		newBuilder().appendNl("@prefix :<http://www.example.de/tidum#ta>.")
+		.appendNl("<http://www.example.de/tidum#tada> ")
+		.assertProposal(":").apply()
+		.assertProposal(":da");
 	}
 
 	@Test
