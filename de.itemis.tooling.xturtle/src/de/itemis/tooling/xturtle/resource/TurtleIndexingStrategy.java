@@ -31,9 +31,9 @@ import org.eclipse.xtext.util.IAcceptor;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
@@ -155,7 +155,7 @@ public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
 		return result;
 	}
 
-	private Cache<org.eclipse.emf.ecore.resource.Resource, Multimap<QualifiedName, IEObjectDescription>> cache=CacheBuilder.
+	private LoadingCache<org.eclipse.emf.ecore.resource.Resource, Multimap<QualifiedName, IEObjectDescription>> cache=CacheBuilder.
 			newBuilder().expireAfterAccess(2, TimeUnit.SECONDS)
 			.maximumSize(3)
 			.build(new CacheLoader<org.eclipse.emf.ecore.resource.Resource, Multimap<QualifiedName, IEObjectDescription>>() {

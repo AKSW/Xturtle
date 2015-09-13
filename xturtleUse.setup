@@ -12,7 +12,8 @@
       id="Xturtle dependencies"
       label="">
     <requirement
-        name="org.eclipse.xtext.redist.feature.group"/>
+        name="org.eclipse.xtext.redist.feature.group"
+        versionRange="2.6.0"/>
     <requirement
         name="de.itemis.tooling.xturtle.feature.feature.group"/>
     <repository
@@ -40,7 +41,7 @@
         id="Xturtle snapshot update site"
         label="">
       <repository
-          url="http://xturtle.nittka.de/snapshot/"/>
+          url="http://xturtle.nittka.de/snapshot/site.xml"/>
     </setupTask>
     <description>installs the latest snapshot version</description>
   </stream>

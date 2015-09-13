@@ -9,8 +9,8 @@
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tycho-version>0.21.0</tycho-version>
-		<xtend-maven-version>2.4.1</xtend-maven-version>
+		<tycho-version>0.22.0</tycho-version>
+		<xtend-maven-version>2.6.2</xtend-maven-version>
 	</properties>
 	<!-- consider adding 
 	https://oss.sonatype.org/content/groups/public/
@@ -158,9 +158,9 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
-					<dependency-resolution>
+					<!--dependency-resolution>
 						<optionalDependencies>ignore</optionalDependencies>
-					</dependency-resolution>
+					</dependency-resolution-->
 				</configuration>
 			</plugin>
 		</plugins>

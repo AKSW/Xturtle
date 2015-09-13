@@ -33,31 +33,10 @@
       label="Xtext stuff">
     <requirement
         name="org.eclipse.xtext.sdk.feature.group"
-        versionRange="[2.4.0,2.5.0)"/>
+        versionRange="[2.6.0,2.7.0)"/>
     <requirement
         name="de.itemis.xtext.antlr.sdk.feature.group"
         versionRange="2.0.0"/>
-    <requirement
-        name="org.eclipse.xtend.sdk.feature.group"
-        versionRange="[2.4.0,2.5.0)"/>
-    <requirement
-        name="org.eclipse.xtend.m2e.feature.group"
-        versionRange="[2.4.0,2.5.0)"/>
-    <requirement
-        name="org.eclipse.emf.mwe.sdk.feature.group"
-        versionRange="[1.2.1,1.2.2)"/>
-    <requirement
-        name="org.eclipse.emf.mwe2.runtime.sdk.feature.group"
-        versionRange="[2.4.0,2.5.0)"/>
-    <requirement
-        name="org.eclipse.emf.sdk.feature.group"
-        versionRange="[2.8.0,3.0.0)"/>
-    <requirement
-        name="org.eclipse.emf.mwe2.language.sdk.feature.group"
-        versionRange="[2.4.0,2.5.0)"/>
-    <requirement
-        name="org.eclipse.emf.mwe2.launcher.feature.group"
-        versionRange="[2.4.0,2.5.0)"/>
     <repository
         url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
     <repository
@@ -118,19 +97,19 @@
           name="org.eclipse.jdt.feature.group"/>
       <requirement
           name="org.eclipse.xtext.runtime.feature.group"
-          versionRange="[2.4.0,2.4.1)"/>
+          versionRange="[2.6.0,2.7.0)"/>
       <requirement
           name="org.eclipse.xtext.ui.feature.group"
-          versionRange="[2.4.0,2.4.1)"/>
+          versionRange="[2.6.0,2.7.0)"/>
       <requirement
           name="org.eclipse.xtend.lib"
-          versionRange="[2.4.1,2.4.2)"/>
+          versionRange="[2.6.0,2.7.0)"/>
       <requirement
           name="org.eclipse.xtext.xbase.lib"
-          versionRange="[2.4.1,2.4.2)"/>
+          versionRange="[2.6.0,2.7.0)"/>
       <requirement
           name="org.eclipse.xtext.junit4"
-          versionRange="[2.4.0,2.4.1)"/>
+          versionRange="[2.6.0,2.7.0)"/>
       <repositoryList
           name="Mars">
         <repository
