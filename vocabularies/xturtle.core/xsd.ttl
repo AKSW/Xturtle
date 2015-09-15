@@ -1,11 +1,17 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix  owl: <http://www.w3.org/2002/07/owl#> .
+
+
 
 <> rdfs:label "XSD Namespace Document";
   <http://purl.org/vocab/vann/preferredNamespaceUri> "http://www.w3.org/2001/XMLSchema#";
   <http://purl.org/dc/elements/1.1/creator> <http://sebastian.tramp.name>;
   rdfs:comment """This file is a missing RDF description of the XML Schema datatypes used in RDF/OWL.
     Please refer to http://www.w3.org/TR/owl-ref/#rdf-datatype for a list of valid datatypes.""" .
+
+xsd:pattern a owl:DatatypeProperty;
+  rdfs:label "patterns" .
 
 xsd:string a rdfs:Datatype;
   rdfs:isDefinedBy <http://www.w3.org/TR/xmlschema-2/#string>;
@@ -174,6 +180,10 @@ xsd:gMonth a rdfs:Datatype;
   rdfs:comment "The lexical representation for gMonth is the left and right truncated lexical representation for date: --MM. An optional following time zone qualifier is allowed as for date. No preceding sign is allowed. No other formats are allowed. See also ISO 8601 Date and Time Formats (�D).";
   rdfs:label "gMonth" .
 
+xsd:duration a rdfs:Datatype;
+  rdfs:isDefinedBy <http://www.w3.org/TR/xmlschema-2/#duration>;
+  rdfs:comment "The lexical representation for duration is the [ISO 8601] extended format PnYn MnDTnH nMnS, where nY represents the number of years, nM the number of months, nD the number of days, 'T' is the date/time separator, nH the number of hours, nM the number of minutes and nS the number of seconds. The number of seconds can include decimal digits to arbitrary precision.";
+  rdfs:label "duration" .
 
 xsd:hexBinary a rdfs:Datatype;
   rdfs:isDefinedBy <http://www.w3.org/TR/xmlschema-2/#hexBinary>;
