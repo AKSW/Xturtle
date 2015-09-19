@@ -30,7 +30,7 @@
         id="Xturtle release updatesite"
         label="">
       <repository
-          url="https://raw.githubusercontent.com/AKSW/Xturtle/develop/de.itemis.tooling.xturtle.updatesite/site.xml"/>
+          url="http://xturtle.aksw.org/site.xml"/>
     </setupTask>
     <description>installs the latest released version</description>
   </stream>
