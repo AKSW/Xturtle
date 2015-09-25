@@ -42,7 +42,9 @@ public class TurtleEObjectHover extends DispatchingEObjectTextHover {
 						ICompositeNode node = NodeModelUtils.getNode(o);
 						IRegion region = new Region(node.getOffset(),node.getLength());
 						if (TextUtilities.overlaps(region, new Region(offset, 0)))
-							temp = Tuples.create(o, region);
+//							temp = Tuples.create(o, region);
+							//changed according to QnameDef-Case - in case of hovering local name, the second call had only the prefix offset
+							temp = Tuples.create(o, (IRegion)new Region(offset, 0));
 					}
 				}
 			}

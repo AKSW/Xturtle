@@ -198,6 +198,21 @@ class ParserTest {
 	}
 
 	@Test
+	def void preventListPropertySubjetURI() {
+		'''
+			<http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <> <>.
+		'''.parse.assertError(XturtlePackage$Literals::RESOURCE,null)
+	}
+
+	@Test
+	def void preventListPropertySubjetQName() {
+		'''
+			@prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+			rdf:li <> <>.
+		'''.parse.assertError(XturtlePackage$Literals::RESOURCE,null)
+	}
+
+	@Test
 	def void testLongString4() {
 
 		'''

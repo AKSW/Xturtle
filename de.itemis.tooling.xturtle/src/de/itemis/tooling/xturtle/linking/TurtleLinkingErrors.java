@@ -1,10 +1,10 @@
-/*******************************************************************************
- * Copyright (c) 2013 AKSW Xturtle Project, itemis AG (http://www.itemis.eu).
+/*********************************************************************************
+ * Copyright (c) 2013-2015 AKSW Xturtle Project, itemis AG (http://www.itemis.eu).
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- ******************************************************************************/
+ *********************************************************************************/
 package de.itemis.tooling.xturtle.linking;
 
 import org.eclipse.emf.ecore.EObject;
@@ -16,6 +16,7 @@ import org.eclipse.xtext.linking.impl.LinkingDiagnosticMessageProvider;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
+import de.itemis.tooling.xturtle.validation.TurtleLinkingErrorExceptions;
 import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 import de.itemis.tooling.xturtle.validation.XturtleJavaValidator;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
@@ -29,6 +30,8 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 	TurtleResourceService service;
 	@Inject 
 	TurtleValidationSeverityLevels levels;
+	@Inject
+	TurtleLinkingErrorExceptions exceptions;
 
 
 	private DiagnosticMessage getMissingPrefixDefinitionErrorMessage(String linkText){
@@ -53,7 +56,9 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 			}
 
 			Severity severity=null;
-			if(object instanceof UriRef){
+			if(isNoLinkingError(object)){
+				return null;
+			}else if(object instanceof UriRef){
 				severity= levels.getUnresolvedUriRefLevel();
 			} else if(object instanceof QNameRef){
 				//if the prefix is unknown the qualified name will be null
@@ -71,5 +76,15 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 			return getMissingPrefixDefinitionErrorMessage(linkText);
 		}
 		return super.getUnresolvedProxyMessage(context);
+	}
+
+	private boolean isNoLinkingError(EObject object) {
+		if(object instanceof ResourceRef){
+			String uri = service.getUriString(object);
+			if(exceptions.matchesRdfListProperty(uri)){
+				return true;
+			}
+		}
+		return false;
 	}
 }

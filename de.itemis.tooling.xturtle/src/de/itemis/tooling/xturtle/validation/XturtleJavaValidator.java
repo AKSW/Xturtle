@@ -1,10 +1,10 @@
-/*******************************************************************************
- * Copyright (c) 2013 AKSW Xturtle Project, itemis AG (http://www.itemis.eu).
+/*********************************************************************************
+ * Copyright (c) 2013-2015 AKSW Xturtle Project, itemis AG (http://www.itemis.eu).
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- ******************************************************************************/
+ *********************************************************************************/
 package de.itemis.tooling.xturtle.validation;
 
 import java.util.Collection;
@@ -41,8 +41,10 @@ import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.QNameRef;
+import de.itemis.tooling.xturtle.xturtle.Resource;
 import de.itemis.tooling.xturtle.xturtle.StringLiteral;
 import de.itemis.tooling.xturtle.xturtle.Triples;
+import de.itemis.tooling.xturtle.xturtle.UriDef;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
  
 
@@ -53,6 +55,8 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	private TurtleResourceService service;
 	@Inject
 	private TurtleValidationSeverityLevels levels;
+	@Inject
+	private TurtleLinkingErrorExceptions linkingErrorExceptions;
 
 	public static final String UNKNOWN_PREFIX="unknownPrefix";
 
@@ -200,6 +204,15 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 			if(errorMessage.isPresent()){
 				createError(level, errorMessage.get(), XturtlePackage.Literals.LITERAL__VALUE);
 			}
+		}
+	}
+
+	@Check
+	public void preventRdfListPropertySubject(Resource subject){
+		String subjectUri = service.getUriString(subject);
+		if(linkingErrorExceptions.matchesRdfListProperty(subjectUri)){
+			EStructuralFeature feature=(subject instanceof UriDef)?XturtlePackage.Literals.URI_DEF__URI:XturtlePackage.Literals.QNAME_DEF__ID;
+			error("rdf list property not allowed as subject", feature);
 		}
 	}
 
