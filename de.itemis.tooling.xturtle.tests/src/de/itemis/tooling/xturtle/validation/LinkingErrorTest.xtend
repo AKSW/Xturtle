@@ -40,6 +40,16 @@ class LinkingErrorTest {
 	}
 
 	@Test
+	def void qnameLinkingErrorIgnore() {
+		val model='''
+			@prefix dbpedia:<http://dbpedia.org/resource/> .
+			<1> dbpedia:bar <3> .
+		'''.parse
+		//assert that there no linking errors for configured URI prefixes
+		model.assertNoIssues
+	}
+
+	@Test
 	def void listPropertiesNoLinkingError() {
 		val model='''
 			@prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

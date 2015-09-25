@@ -45,6 +45,7 @@ import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHover;
 import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHoverProvider;
 import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleHyperlinkHelper;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedLiteralsLanguages;
+import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedNoLinkingValidationUriPrefixes;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedUserDataNamesProvider;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedValidationSeverityLevels;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingConfig;
@@ -52,6 +53,8 @@ import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingMapper;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleSemanticHighlighter;
 import de.itemis.tooling.xturtle.ui.templates.TurtleTemplateContextTypeRegistry;
 import de.itemis.tooling.xturtle.ui.validation.XturtleUIJavaValidator;
+import de.itemis.tooling.xturtle.validation.TurtleFixedSeverityLevels;
+import de.itemis.tooling.xturtle.validation.TurtleNoLinkingValidationUriPrefixes;
 import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 
 /**
@@ -174,6 +177,10 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 
 	public Class<? extends TurtleValidationSeverityLevels> bindSeverityLevels() {
 		return TurtlePreferenceBasedValidationSeverityLevels.class;
+	}
+
+	public Class<? extends TurtleNoLinkingValidationUriPrefixes> bindIgnoreLinkingUriPrefixes() {
+		return TurtlePreferenceBasedNoLinkingValidationUriPrefixes.class;
 	}
 
 	public Class<? extends TurtleLiteralsLanguages> bindCALanguages() {

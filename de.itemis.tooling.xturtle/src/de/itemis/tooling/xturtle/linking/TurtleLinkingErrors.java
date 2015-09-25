@@ -81,7 +81,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 	private boolean isNoLinkingError(EObject object) {
 		if(object instanceof ResourceRef){
 			String uri = service.getUriString(object);
-			if(exceptions.matchesRdfListProperty(uri)){
+			if(exceptions.ignoreLinkingError(uri)){
 				return true;
 			}
 		}

@@ -53,6 +53,7 @@ public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_UNUSED_PREFIX_KEY, "info");
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_XSD_TYPE_KEY, "info");
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_DUPLICATE_SUBJECT_KEY, "info");
+		store.setDefault(TurtlePreferenceConstants.VALIDATION_NO_LINKINGERROR_URIPREFIX, getListPreference("http://dbpedia.org/resource/"));
 
 		//content assist
 		store.setDefault(TurtlePreferenceConstants.CA_LANGUAGES_KEY, 

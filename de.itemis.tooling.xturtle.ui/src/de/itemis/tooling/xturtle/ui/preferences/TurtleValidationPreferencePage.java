@@ -41,6 +41,10 @@ public class TurtleValidationPreferencePage extends FieldEditorPreferencePage  i
 		addField(new ComboFieldEditor(TurtlePreferenceConstants.VALIDATION_UNUSED_PREFIX_KEY, "unused prefix",otherErrors, getFieldEditorParent()));
 		addField(new ComboFieldEditor(TurtlePreferenceConstants.VALIDATION_XSD_TYPE_KEY, "XSD literal types",otherErrors, getFieldEditorParent()));
 		addField(new ComboFieldEditor(TurtlePreferenceConstants.VALIDATION_DUPLICATE_SUBJECT_KEY, "duplicate subject",otherErrors, getFieldEditorParent()));
+		TurtleListEditor listEditor=new TurtleListEditor(TurtlePreferenceConstants.VALIDATION_NO_LINKINGERROR_URIPREFIX,"no linking validation for URI with prefix", getFieldEditorParent());
+		listEditor.setNewInputData("URI", "Enter the URI", "http://");
+		addField(listEditor);
+		
 	}
 	public void init(IWorkbench workbench) {}
 }

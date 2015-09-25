@@ -9,7 +9,12 @@ package de.itemis.tooling.xturtle.validation;
 
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+
 public class TurtleLinkingErrorExceptions {
+
+	@Inject
+	private TurtleNoLinkingValidationUriPrefixes ignoreLinkingErrorPrefixes;
 
 	private Pattern pattern=Pattern.compile("http://www.w3.org/1999/02/22-rdf-syntax-ns#(li|_\\d*)");
 
@@ -19,5 +24,20 @@ public class TurtleLinkingErrorExceptions {
 		}else{
 			return pattern.matcher(uri).matches();
 		}
+	}
+
+	public boolean ignoreLinkingError(String uri){
+		if(uri!=null&&uri.length()>0){
+			if(matchesRdfListProperty(uri)){
+				return true;
+			}else{
+				for (String prefix : ignoreLinkingErrorPrefixes.getPrefixes()) {
+					if(uri.startsWith(prefix)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

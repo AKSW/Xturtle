@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2015 AKSW Xturtle Project, itemis AG (http://www.itemis.eu).
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.preferences;
 
 import java.util.Arrays;
@@ -46,7 +53,7 @@ class TurtleListEditor extends ListEditor {
 
 	private String getSelectedItem(){
 		int index= getList().getSelectionIndex();
-		if(index>0){
+		if(index>=0){
 			return getList().getItems()[index];
 		} else{
 			return null;
