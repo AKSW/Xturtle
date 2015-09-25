@@ -22,6 +22,7 @@ import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper;
+import org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
@@ -44,6 +45,7 @@ import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider;
 import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHover;
 import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHoverProvider;
 import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleHyperlinkHelper;
+import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleOpenDeclarationHandler;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedLiteralsLanguages;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedNoLinkingValidationUriPrefixes;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedUserDataNamesProvider;
@@ -101,7 +103,11 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	public Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() {
 		return TurtleHyperlinkHelper.class;
 	}
-	
+
+	public Class<? extends OpenDeclarationHandler> bindOpenDeclarationHandler() {
+		return TurtleOpenDeclarationHandler.class;
+	}
+
 	public Class<? extends IHighlightingConfiguration> bindHighlightingConfig(){
 		return TurtleHighlightingConfig.class;
 	}
