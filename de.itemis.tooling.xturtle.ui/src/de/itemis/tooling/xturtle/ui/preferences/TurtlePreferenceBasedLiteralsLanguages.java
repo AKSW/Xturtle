@@ -40,7 +40,7 @@ public class TurtlePreferenceBasedLiteralsLanguages implements
 	}
 
 	private void initValues() {
-		languages=ImmutableList.copyOf(prefernces.getString(TurtlePreferenceConstants.CA_LANGUAGES_KEY).split(",,"));
+		languages=ImmutableList.copyOf(prefernces.getString(TurtlePreferenceConstants.CA_LANGUAGES_KEY).split("\n"));
 	}
 
 

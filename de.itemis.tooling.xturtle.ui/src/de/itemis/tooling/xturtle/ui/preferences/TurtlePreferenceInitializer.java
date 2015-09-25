@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import com.google.common.base.Joiner;
+
 /**
  * Class used to initialize default preference values.
  */
@@ -53,61 +55,42 @@ public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(TurtlePreferenceConstants.VALIDATION_DUPLICATE_SUBJECT_KEY, "info");
 
 		//content assist
-		store.setDefault(TurtlePreferenceConstants.CA_LANGUAGES_KEY, "en,,zh,,hi,,es,,fr,,ar,,ru,,pt,,bn,,de,,ja,,ko");
+		store.setDefault(TurtlePreferenceConstants.CA_LANGUAGES_KEY, 
+				getListPreference("en","zh","hi","es","fr","ar","ru","pt","bn","de","ja","ko"));
 	}
 
 	private String getDefaultDescriptionUris() {
-		StringBuilder b = new StringBuilder();
-		b.append("http://www.w3.org/2004/02/skos/core#definition");
-		b.append("\n");
-		b.append("http://www.w3.org/2000/01/rdf-schema#comment");
-		b.append("\n");
-		b.append("http://purl.org/dc/terms/description");
-		b.append("\n");
-		b.append("http://purl.org/dc/elements/1.1/description");
-		b.append("\n");
-		b.append("http://www.w3.org/2004/02/skos/core#note");
-		b.append("\n");
-		b.append("http://www.w3.org/2004/02/skos/core#editorialNote");
-		b.append("\n");
-		return b.toString();
+		return getListPreference(
+		"http://www.w3.org/2004/02/skos/core#definition",
+		"http://www.w3.org/2000/01/rdf-schema#comment",
+		"http://purl.org/dc/terms/description",
+		"http://purl.org/dc/elements/1.1/description",
+		"http://www.w3.org/2004/02/skos/core#note",
+		"http://www.w3.org/2004/02/skos/core#editorialNote");
 	}
 
 	private String getDefaultLabelUris() {
-		StringBuilder b = new StringBuilder();
-		b.append("http://www.w3.org/2004/02/skos/core#prefLabel");
-		b.append("\n");
-		b.append("http://purl.org/dc/elements/1.1/title");
-		b.append("\n");
-		b.append("http://purl.org/dc/terms/title");
-		b.append("\n");
-		b.append("http://swrc.ontoware.org/ontology#title");
-		b.append("\n");
-		b.append("http://xmlns.com/foaf/0.1/name");
-		b.append("\n");
-		b.append("http://usefulinc.com/ns/doap#name");
-		b.append("\n");
-		b.append("http://rdfs.org/sioc/ns#name");
-		b.append("\n");
-		b.append("http://www.holygoat.co.uk/owl/redwood/0.1/tags/name");
-		b.append("\n");
-		b.append("http://linkedgeodata.org/vocabulary#name");
-		b.append("\n");
-		b.append("http://www.geonames.org/ontology#name");
-		b.append("\n");
-		b.append("http://www.geneontology.org/dtds/go.dtd#name");
-		b.append("\n");
-		b.append("http://www.w3.org/2000/01/rdf-schema#label");
-		b.append("\n");
-		b.append("http://xmlns.com/foaf/0.1/accountName");
-		b.append("\n");
-		b.append("http://xmlns.com/foaf/0.1/nick");
-		b.append("\n");
-		b.append("http://xmlns.com/foaf/0.1/surname");
-		b.append("\n");
-		b.append("http://www.w3.org/2004/02/skos/core#altLabel");
-		b.append("\n");
-		return b.toString();
+		return getListPreference(
+		"http://www.w3.org/2004/02/skos/core#prefLabel",
+		"http://purl.org/dc/elements/1.1/title",
+		"http://purl.org/dc/terms/title",
+		"http://swrc.ontoware.org/ontology#title",
+		"http://xmlns.com/foaf/0.1/name",
+		"http://usefulinc.com/ns/doap#name",
+		"http://rdfs.org/sioc/ns#name",
+		"http://www.holygoat.co.uk/owl/redwood/0.1/tags/name",
+		"http://linkedgeodata.org/vocabulary#name",
+		"http://www.geonames.org/ontology#name",
+		"http://www.geneontology.org/dtds/go.dtd#name",
+		"http://www.w3.org/2000/01/rdf-schema#label",
+		"http://xmlns.com/foaf/0.1/accountName",
+		"http://xmlns.com/foaf/0.1/nick",
+		"http://xmlns.com/foaf/0.1/surname",
+		"http://www.w3.org/2004/02/skos/core#altLabel");
+	}
+
+	private String getListPreference(String... elements){
+		return Joiner.on('\n').join(elements);
 	}
 
 }

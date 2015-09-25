@@ -73,6 +73,12 @@ public class TurtleContentAssistTest extends AbstractContentAssistProcessorTest 
 		.assertProposal("<http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
 	}
 
+	@Test
+	public void languageProposals() throws Exception{
+		newBuilder().appendNl("<> a \"foo\"").assertProposal("@en");
+		newBuilder().appendNl("<> a \"foo\"").assertProposal("@de");
+	}
+
 	//infixlines start at offset 38
 	private ContentAssistProcessorTestBuilder getBuilder(String ... infixLines)throws Exception{
 		String line1="@prefix x:</tada>.";
