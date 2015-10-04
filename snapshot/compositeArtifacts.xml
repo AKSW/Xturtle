@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?compositeArtifactRepository version='1.0.0'?>
+<repository name='Xturtle Snapshot Update Site' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1323486257091'/>
+  </properties>
+  <children size='1'>
+    <child location='http://xturtle.nittka.de/snapshot/site.xml'/>
+  </children>
+</repository>
