@@ -2,7 +2,7 @@
 <feature
       id="de.itemis.tooling.xturtle.feature"
       label="Xturtle feature"
-      version="1.0.2.qualifier"
+      version="1.1.0"
       provider-name="itemis AG 4+1">
 
    <description url="https://github.com/AKSW/Xturtle">
@@ -135,14 +135,14 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="de.itemis.tooling.xturtle"
          download-size="0"
          install-size="0"
-         version="1.0.2.qualifier"
+         version="1.1.0"
          unpack="false"/>
 
    <plugin
          id="de.itemis.tooling.xturtle.ui"
          download-size="0"
          install-size="0"
-         version="1.0.2.qualifier"
+         version="1.1.0"
          unpack="false"/>
 
 </feature>
