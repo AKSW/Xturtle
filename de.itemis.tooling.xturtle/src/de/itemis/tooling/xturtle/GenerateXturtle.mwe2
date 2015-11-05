@@ -4,9 +4,10 @@ import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
-var grammarURI = "classpath:/de/itemis/tooling/xturtle/Xturtle.xtext"
+//var grammarURI = "classpath:/de/itemis/tooling/xturtle/Xturtle.xtext"
 var file.extensions = "ttl"
 var projectName = "de.itemis.tooling.xturtle"
+var grammarURI = "platform:/resource/${projectName}/src/de/itemis/tooling/xturtle/Xturtle.xtext"
 var runtimeProject = "../${projectName}"
 
 Workflow {
