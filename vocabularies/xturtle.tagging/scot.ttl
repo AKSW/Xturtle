@@ -7,7 +7,6 @@
 @prefix tags: <http://www.holygoat.co.uk/owl/redwood/0.1/tags/> .
 @prefix scot: <http://rdfs.org/scot/ns#> .
 @prefix sioc: <http://rdfs.org/sioc/ns#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
 
 <http://rdfs.org/scot/ns#>
