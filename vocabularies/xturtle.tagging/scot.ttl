@@ -127,7 +127,7 @@ scot:cooccurs_in
     rdfs:isDefinedBy <http://rdfs.org/scot/ns#> ;
     rdfs:label "cooccurs in"@en ;
     rdfs:range scot:Cooccurrence ;
-    owl:inverseOf scot:cooccured_with ;
+    owl:inverseOf scot:cooccurs_with ;
     vs:term_status "testing" .
 
 scot:cooccurs_with
