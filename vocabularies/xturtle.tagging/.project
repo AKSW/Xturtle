@@ -6,6 +6,7 @@
 		<project>xturtle.core</project>
 		<project>xturtle.dc</project>
 		<project>xturtle.foaf</project>
+		<project>xturtle.sioc</project>
 		<project>xturtle.skos</project>
 		<project>xturtle.voidvann</project>
 	</projects>
