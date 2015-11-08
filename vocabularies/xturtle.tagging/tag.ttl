@@ -124,5 +124,5 @@
     :comment "Indicates that the subject has been tagged with the object tag. This does not assert by who, when, or why the tagging occurred. For that information, use a reified Tagging resource."@en ;
     :label "tagged with tag"@en ;
     :range <http://www.holygoat.co.uk/owl/redwood/0.1/tags/Tag> ;
-    :subPropertyOf skos:subject .
+    :subPropertyOf dct:subject .
 
