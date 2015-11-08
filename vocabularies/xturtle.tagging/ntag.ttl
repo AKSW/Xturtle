@@ -1,16 +1,12 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
-@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix cc: <http://creativecommons.org/ns#> .
 
 <http://ns.inria.fr/nicetag/2010/09/09/voc>
-    cc:attributionURL <http://ns.inria.fr/nicetag/> ;
-    cc:licence <http://creativecommons.org/licenses/by-sa/3.0/> ;
+    <http://creativecommons.org/ns#attributionURL> <http://ns.inria.fr/nicetag/> ;
+    <http://creativecommons.org/ns#licence> <http://creativecommons.org/licenses/by-sa/3.0/> ;
     dc:description "NiceTag Ontology is an ontology which describes as generally as possible tags or rather tag actions understood as a speech acts occurring on the Web"@en, "NiceTag es una ontología que describe de la manera mas general posible las etiquetas, o mejor las acciones de etiquetado, como actos de habla en la Web"@es, "NiceTag est une ontologie décrivant le plus généralement possible les tags ou plutôt les actes de taguer comme des actes de langage survenant sur le Web"@fr, "NiceTag is een ontologie die zo algemeen mogelijk tags beschrijft, of meer precies de handeling van het taggen. NiceTag beschrijft de handeling van het taggen als een op het web plaats vindende taalhandeling."@nl, "NiceTag è un'ontologia che descrive nel modo più generale possibile le tag, o meglio le azioni di tagging, come atti linguistici nel Web"@it ;
     dc:title "L'Ontologie Nice Tag"@fr, "L'ontologia Nice Tag"@it, "La ontología Nice Tag"@es, "Nice Tag Ontology"@en, "Nice Tag ontologie"@nl ;
     dc:type <http://purl.org/dc/dcmitype/Text> ;
@@ -27,7 +23,7 @@
     a owl:Class ;
     rdfs:comment "Usado para representar la realización de un recurso informacional accesible en la Web mediante el protocolo HTTP. El recurso anotado es aquel que generalmente provoca la acción de etiquetado. Siendo por definición dereferenciable, dota tambien de la dirección que quedarà guardada en sistemas de \"bookmarking\" como delicious, y que tendrà una función de anclaje para las etiqueta. De todas maneras, el recurso etiquetado no se limita a los datos accesibles en la Web (aquello que es etiquetado puede ser también lo que la representación Web de un recurso representa, por ejemplo un recurso no-informacional, en lugar de su representación)"@es, "Usato per rappresentare la realizzazione di una risorsa informazionale accessibile sul Web mediante il protocollo HTTP. La risorsa annotata è quella che generalmente provaoca l'azione di tagging. Essendo per definizione dereferenziabile, fornisce anche l'indirizzo che sarà salvato su sistemi di bookmarking come delicious, e che avrà funzione di ancoraggio per le tag. In ogni caso, la risorsa taggata non è limitata a dati accessibili sul Web (ciò che è taggato può anche essere ciò che la rappresentazione Web di una risorsa rappresenta, per esempio una risorsa non-informazionale, piuttosto che la sua rappresentazione)"@it, "Used to represent the HTTP-accessible realization of an information resource on the Web. The equivalent of irw:WebRepresentation, the Annotated Resource is that which generally triggers the act of tagging. Being dereferenceable by definition, it also provides the address that will be bookmarked on delicious-like sites and work like an anchor for tags. This said, the resource being tagged is in no way limited to HTTP-accessible data (indeed, what supports an act of tagging may very well be what the Web representation represents, a non-information resource for example, instead of the Web representation itself)."@en, "Utilisé pour représenter la réalisation d'une ressource informationnelle accessible sur le Web via le protocole HTTP. La ressource annotée, consultable en ligne, est celle-là même qui déclenche généralement l'acte de taguer. En quoi d'ailleurs elle est l'équivalent de la classe irw:WebRepresentation. Etant par définition déréférençable, elle fournit également l'adresse qui servira d'ancrage aux tags par l'intermédiaire du signet, selon le modèle proposé par delicious. Par contraste, la ressource taguée n'est, quant à elle, aucunement limitée à des données accessibles sur le Web (ce qui est taguée peut bien se révéler ne pas être autre chose que ce que la représentation d'un ressource représente, une ressource non-informationnelle par exemple, plutôt que cette représentation elle-même)."@fr, "Wordt gebruikt om een via het HTTP protocol op het web toegankelijke informatiebron te representeren. De bron met annototies, online beschikbaar en gelijkwaardig aan een irw:WebRepresentation, is wat aanzet tot de taghandeling. Aangezien de bron via het web toegankelijk is, is het per definitie mogelijk om ernaar te verwijzen, dus de bron levert ook het adres dat gebookmarkt kan worden en als anker voor de tags dient. Echter, de bron die getagd wordt is op geen enkele wijze beperkt tot http-toegankelijke data (wat getagd wordt is hetgen waar de web-representatie voor staat, bijvoorbeeld een non-informatie bron, en niet de representatie zelf)."@nl ;
     rdfs:label "Annotated resource"@en, "Bron met aantekeningen"@nl, "Recurso anotado"@es, "Ressource annotée"@fr, "Risorsa annotata"@it ;
-    owl:equivalentClass irw:WebRepresentation .
+    owl:equivalentClass <http://www.ontologydesignpatterns.org/ont/web/irw.owl#WebRepresentation> .
 
 <http://ns.inria.fr/nicetag/2010/09/09/voc#Ask>
     a owl:Class ;
@@ -165,7 +161,7 @@
     a owl:Class ;
     rdfs:comment "Usado para representar el recurso etiquetado. Equivalente a irw:Resource."@es, "Usato per rappresentare la risorsa taggata. Equivalente di irw:Resource."@it, "Used to represent the resource being tagged. Equivalent of irw:Resource."@en, "Utilisé pour représenter la ressource taguée. Equivalent de irw:Resource."@fr, "Wordt gebruikt als representatie van de bron die getagd wordt."@nl ;
     rdfs:label "Getagde bron"@nl, "Recurso etiquetado"@es, "Ressource taguée"@fr, "Risorsa taggata"@it, "Tagged resource"@en ;
-    owl:equivalentClass irw:Resource .
+    owl:equivalentClass <http://www.ontologydesignpatterns.org/ont/web/irw.owl#Resource> .
 
 <http://ns.inria.fr/nicetag/2010/09/09/voc#VisitorTagAction>
     a owl:Class ;
