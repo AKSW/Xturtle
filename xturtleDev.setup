@@ -76,20 +76,6 @@
   </setupTask>
   <setupTask
       xsi:type="setup.targlets:TargletTask"
-      disabled="true">
-    <targlet
-        name="disabled">
-      <requirement
-          name="org.eclipse.pde.feature.group"/>
-      <requirement
-          name="org.eclipse.m2e.core"/>
-      <requirement
-          name="org.eclipse.emf.mwe2.language.sdk.feature.group"
-          versionRange="[2.3.0,2.4.0)"/>
-    </targlet>
-  </setupTask>
-  <setupTask
-      xsi:type="setup.targlets:TargletTask"
       predecessor="git.clone.xturtle">
     <targlet
         name="Xtext Target Platform"
@@ -193,7 +179,7 @@
   </setupTask>
   <setupTask
       xsi:type="projects:ProjectsImportTask"
-      id="">
+      id="additional.Xturtle.project.imports">
     <sourceLocator
         rootFolder="${git.clone.xturtle.location}"/>
     <sourceLocator
@@ -223,7 +209,7 @@
         name="Distro">
       <predicate
           xsi:type="workingsets:ExclusionPredicate"
-          excludedWorkingSet="//@setupTasks.7/@workingSets.0 //@setupTasks.7/@workingSets.1"/>
+          excludedWorkingSet="//@setupTasks.6/@workingSets.0 //@setupTasks.6/@workingSets.1"/>
     </workingSet>
   </setupTask>
   <setupTask
@@ -233,17 +219,29 @@
       targetURL="${workspace.location|uri}/.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml"
       encoding="UTF-8"/>
   <setupTask
-      xsi:type="launching:LaunchTask"
-      excludedTriggers="STARTUP"
-      disabled="true"
-      launcher="Generate Language Infrastructure (de.itemis.tooling.xturtle)">
-    <description></description>
-  </setupTask>
-  <setupTask
       xsi:type="setup:EclipseIniTask"
       option="-Doomph.redirection.xturtleSetup"
       value="=https://raw.githubusercontent.com/AKSW/Xturtle/master/xturtleDev.setup->${git.clone.xturtle.location|uri}/xturtleDev.setup"
       vm="true"/>
+  <setupTask
+      xsi:type="projects:ProjectsBuildTask"
+      onlyNewProjects="true"
+      refresh="true">
+    <description></description>
+  </setupTask>
+  <setupTask
+      xsi:type="launching:LaunchTask"
+      id="GenerateXturtle"
+      launcher="Generate Language Infrastructure (de.itemis.tooling.xturtle)"/>
+  <setupTask
+      xsi:type="setup:CompoundTask"
+      name="org.eclipse.debug.ui">
+    <setupTask
+        xsi:type="setup:PreferenceTask"
+        id=""
+        key="/instance/org.eclipse.debug.ui/org.eclipse.debug.ui.cancel_launch_with_compile_errors"
+        value="always"/>
+  </setupTask>
   <stream name="master"
       label="master">
     <description>master</description>
