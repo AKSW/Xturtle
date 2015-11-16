@@ -13,18 +13,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
@@ -45,6 +49,7 @@ import de.itemis.tooling.xturtle.xturtle.Resource;
 import de.itemis.tooling.xturtle.xturtle.StringLiteral;
 import de.itemis.tooling.xturtle.xturtle.Triples;
 import de.itemis.tooling.xturtle.xturtle.UriDef;
+import de.itemis.tooling.xturtle.xturtle.UriRef;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
  
 
@@ -57,8 +62,11 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	private TurtleValidationSeverityLevels levels;
 	@Inject
 	private TurtleLinkingErrorExceptions linkingErrorExceptions;
+	@Inject IValueConverterService converter;
 
 	public static final String UNKNOWN_PREFIX="unknownPrefix";
+
+	public static final Pattern IRI_PATTERN= Pattern.compile("([^\\x00-\\x20<>\"{}\\|\\^\\`\\\\]|\\\\u([0-9A-Fa-f]){4}|\\\\U([0-9A-Fa-f]){8})*");
 
 	@Check(CheckType.NORMAL)
 	public void checkAxiomSyntax(Triples triples) {
@@ -213,6 +221,52 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 		if(linkingErrorExceptions.matchesRdfListProperty(subjectUri)){
 			EStructuralFeature feature=(subject instanceof UriDef)?XturtlePackage.Literals.URI_DEF__URI:XturtlePackage.Literals.QNAME_DEF__ID;
 			error("rdf list property not allowed as subject", feature);
+		}
+	}
+
+	@Check(CheckType.NORMAL)
+	public void iriSyntax(UriDef def){
+		checkIriError(def, XturtlePackage.Literals.URI_DEF__URI);
+	}
+
+	@Check(CheckType.NORMAL)
+	public void iriSyntax(UriRef ref){
+		checkIriError(ref, XturtlePackage.Literals.RESOURCE_REF__REF);
+	}
+
+	private void checkIriError(EObject source, EStructuralFeature feature){
+		List<INode> nodes = NodeModelUtils.findNodesForFeature(source, feature);
+		for (INode iNode : nodes) {
+			if (iNode instanceof LeafNode) {
+				LeafNode leaf = (LeafNode) iNode;
+				if(!leaf.isHidden()){
+					String iri=(String)converter.toValue(iNode.getText(), "URI", iNode);
+					if(!IRI_PATTERN.matcher(iri).matches()){
+						int firstNonMatch=firstFailurePoint(IRI_PATTERN, iri)+1;
+						String errorMessage=new StringBuilder("IRI syntax error starting with '")
+								.append(iri.charAt(firstNonMatch-1))
+								.append("'").toString();
+						int offset=leaf.getOffset()+firstNonMatch;
+						int length=leaf.getLength()-firstNonMatch;
+						getMessageAcceptor().acceptError(errorMessage, source, offset, length, null);
+					}
+				}
+			}
+		}
+	}
+
+	//from http://stackoverflow.com/questions/7783938/regular-expressions-find-mismatched-point-or-char-index
+	private int firstFailurePoint(Pattern pattern, String str) {
+		for (int i = 0; i <= str.length(); i++) {
+			Matcher m = pattern.matcher(str.substring(0, i));
+			if (!m.matches() && !m.hitEnd()) {
+				return i - 1;
+			}
+		}
+		if (pattern.matcher(str).matches()) {
+			return -1;
+		} else {
+			return str.length();
 		}
 	}
 
