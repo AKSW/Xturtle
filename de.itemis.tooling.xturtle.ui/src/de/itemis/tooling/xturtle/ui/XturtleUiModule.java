@@ -17,6 +17,7 @@ import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.actions.IActionContributor;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
+import org.eclipse.xtext.ui.editor.contentassist.ITemplateProposalProvider;
 import org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
@@ -54,6 +55,7 @@ import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingConfig;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingMapper;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleSemanticHighlighter;
 import de.itemis.tooling.xturtle.ui.templates.TurtleTemplateContextTypeRegistry;
+import de.itemis.tooling.xturtle.ui.templates.XturtleTemplateProposalProvoder;
 import de.itemis.tooling.xturtle.ui.validation.XturtleUIJavaValidator;
 import de.itemis.tooling.xturtle.validation.TurtleFixedSeverityLevels;
 import de.itemis.tooling.xturtle.validation.TurtleNoLinkingValidationUriPrefixes;
@@ -198,4 +200,8 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 		return XturtleUIJavaValidator.class;
 	}
 
+	@Override
+	public Class<? extends ITemplateProposalProvider> bindITemplateProposalProvider() {
+		return XturtleTemplateProposalProvoder.class;
+	}
 }

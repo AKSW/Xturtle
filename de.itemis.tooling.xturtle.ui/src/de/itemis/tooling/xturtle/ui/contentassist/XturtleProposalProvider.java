@@ -244,7 +244,7 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 	public void completeQNameRef_Prefix(EObject model, Assignment assignment,
 			ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
 		ICompletionProposalAcceptor colonAddingAcceptor=acceptor;
-		boolean noWhiteSpace=(context.getOffset()==context.getLastCompleteNode().getTotalEndOffset());
+		boolean noWhiteSpace=(context.getOffset()<=context.getLastCompleteNode().getTotalEndOffset());
 		if(noWhiteSpace){
 			return;
 		}
@@ -258,6 +258,10 @@ public class XturtleProposalProvider extends AbstractXturtleProposalProvider {
 	public void completeQNameDef_Prefix(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		ICompletionProposalAcceptor colonAddingAcceptor=acceptor;
+		boolean noWhiteSpace=(context.getOffset()<=context.getLastCompleteNode().getTotalEndOffset());
+		if(noWhiteSpace){
+			return;
+		}
 		if(!context.getCurrentNode().getText().contains(":")){
 			colonAddingAcceptor=new ColonAddingAcceptor(acceptor);
 		}
