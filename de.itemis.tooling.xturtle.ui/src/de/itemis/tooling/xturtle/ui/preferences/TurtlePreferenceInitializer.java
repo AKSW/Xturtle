@@ -7,28 +7,28 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.preferences;
 
-import javax.inject.Inject;
-
-import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.xtext.preferences.PreferenceKey;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
+import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider;
 
 import com.google.common.base.Joiner;
+import com.google.inject.Inject;
 
 /**
  * Class used to initialize default preference values.
  */
-public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
+@SuppressWarnings("restriction")
+public class TurtlePreferenceInitializer implements IPreferenceStoreInitializer{
 
 	@Inject
-	IPreferenceStore store;
+	private ConfigurableIssueCodesProvider issueCodes;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#
-	 * initializeDefaultPreferences()
-	 */
-	public void initializeDefaultPreferences() {
+	@Override
+	public void initialize(IPreferenceStoreAccess access) {
+		IPreferenceStore store = access.getWritablePreferenceStore();
+
 		//label preferences
 		store.setDefault(TurtlePreferenceConstants.LABEL_PREFERENCE_KEY, getDefaultLabelUris());
 
@@ -46,14 +46,9 @@ public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(TurtlePreferenceConstants.FOLD_BLANK_OBJ, true);
 
 		//validation
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_NS_MISMATCH_KEY, "warn");
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_PREFIX_MISMATCH_KEY, "warn");
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_UNRESOLVED_QNAME_KEY, "error");
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_UNRESOLVED_URI_KEY, "null");
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_UNUSED_PREFIX_KEY, "info");
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_XSD_TYPE_KEY, "info");
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_DUPLICATE_SUBJECT_KEY, "info");
-		store.setDefault(TurtlePreferenceConstants.VALIDATION_NO_LINKINGERROR_URIPREFIX, getListPreference("http://dbpedia.org/resource/","http://example.com/"));
+		for (PreferenceKey preference : issueCodes.getConfigurableIssueCodes().values()) {
+			store.setDefault(preference.getId(), preference.getDefaultValue());
+		}
 
 		//content assist
 		store.setDefault(TurtlePreferenceConstants.CA_LANGUAGES_KEY, 
@@ -93,5 +88,4 @@ public class TurtlePreferenceInitializer extends AbstractPreferenceInitializer {
 	private String getListPreference(String... elements){
 		return Joiner.on('\n').join(elements);
 	}
-
 }

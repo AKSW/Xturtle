@@ -7,14 +7,22 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.validation;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.inject.Inject;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.validation.IssueSeveritiesProvider;
 
-public class TurtleLinkingErrorExceptions {
+import com.google.common.collect.ImmutableList;
 
-	@Inject
-	private TurtleNoLinkingValidationUriPrefixes ignoreLinkingErrorPrefixes;
+public class TurtleIssuesSeveritiesProvider extends IssueSeveritiesProvider {
+
+	private List<String> getNoLinkingErrorURIPrefixes(EObject context) {
+		//TODO caching
+		@SuppressWarnings("restriction")
+		String value = getValuesProvider().getPreferenceValues(context.eResource()).getPreference(TurtleIssueCodes.NO_LINKINGERROR_URIPREFIX_KEY);
+		return ImmutableList.copyOf(value.split("\n"));
+	}
 
 	private Pattern pattern=Pattern.compile("http://www.w3.org/1999/02/22-rdf-syntax-ns#(li|_\\d*)");
 
@@ -26,12 +34,12 @@ public class TurtleLinkingErrorExceptions {
 		}
 	}
 
-	public boolean ignoreLinkingError(String uri){
+	public boolean ignoreLinkingError(EObject context, String uri){
 		if(uri!=null&&uri.length()>0){
 			if(matchesRdfListProperty(uri)){
 				return true;
 			}else{
-				for (String prefix : ignoreLinkingErrorPrefixes.getPrefixes()) {
+				for (String prefix : getNoLinkingErrorURIPrefixes(context)) {
 					if(uri.startsWith(prefix)){
 						return true;
 					}

@@ -1,36 +1,20 @@
 package de.itemis.tooling.xturtle;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.diagnostics.Severity;
+import org.eclipse.xtext.validation.IssueSeverities;
 
-import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
+import de.itemis.tooling.xturtle.validation.TurtleIssuesSeveritiesProvider;
 
-public class NullSeverities implements TurtleValidationSeverityLevels {
+public class NullSeverities extends TurtleIssuesSeveritiesProvider {
 
-	public Severity getUnresolvedUriRefLevel() {
-		return null;
-	}
-
-	public Severity getUnresolvedQNameLevel() {
-		return null;
-	}
-
-	public Severity getPrefixMismatchLevel() {
-		return null;
-	}
-
-	public Severity getNamespaceMismatchLevel() {
-		return null;
-	}
-
-	public Severity getUnusedPrefixLevel() {
-		return null;
-	}
-
-	public Severity getXsdTypeLevel() {
-		return null;
-	}
-
-	public Severity getDuplicateSubjectLevel() {
-		return null;
+	@Override
+	public IssueSeverities getIssueSeverities(Resource context) {
+		return new IssueSeverities(null, null, null){
+			@Override
+			public Severity getSeverity(String code) {
+				return Severity.IGNORE;
+			}
+		};
 	}
 }

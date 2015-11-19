@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.common.collect.ImmutableList;
 
@@ -26,8 +27,8 @@ public class TurtlePreferenceBasedLiteralsLanguages implements
 	List<String> languages;
 
 	@Inject
-	public TurtlePreferenceBasedLiteralsLanguages(IPreferenceStore store) {
-		prefernces=store;
+	public TurtlePreferenceBasedLiteralsLanguages(IPreferenceStoreAccess store) {
+		prefernces=store.getWritablePreferenceStore();
 		prefernces.addPropertyChangeListener(this);
 		initValues();
 	}

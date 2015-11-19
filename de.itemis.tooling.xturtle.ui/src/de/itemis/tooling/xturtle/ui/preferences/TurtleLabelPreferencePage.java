@@ -8,18 +8,18 @@
 package de.itemis.tooling.xturtle.ui.preferences;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 
 public class TurtleLabelPreferencePage extends FieldEditorPreferencePage  implements IWorkbenchPreferencePage{
 
 	@Inject
-	public TurtleLabelPreferencePage(IPreferenceStore preferenceStore) {
+	public TurtleLabelPreferencePage(IPreferenceStoreAccess access) {
 		super();
-		setPreferenceStore(preferenceStore);
+		setPreferenceStore(access.getWritablePreferenceStore());
 		setDescription("Manage the label predicates here. These URIs are used for retrieving aliases that are used in the code completion of URI-simple-names within the given namespace.");
 	}
 

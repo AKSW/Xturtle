@@ -9,18 +9,18 @@ package de.itemis.tooling.xturtle.ui.preferences;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 
 public class TurtleFoldingPreferencePage extends FieldEditorPreferencePage  implements IWorkbenchPreferencePage{
 
 	@Inject
-	public TurtleFoldingPreferencePage(IPreferenceStore preferenceStore) {
+	public TurtleFoldingPreferencePage(IPreferenceStoreAccess access) {
 		super();
-		setPreferenceStore(preferenceStore);
+		setPreferenceStore(access.getWritablePreferenceStore());
 		setDescription("Choose which type of sections will be folded by default on editor start.");
 	}
 

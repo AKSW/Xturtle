@@ -30,16 +30,6 @@ public class TurtlePreferenceConstants {
 	public static final String FOLD_BLANK_COLL = LANGUAGE_PREFIX+".folding.bcol";
 	public static final String FOLD_BLANK_OBJ = LANGUAGE_PREFIX+".folding.bobj";
 
-	//validation
-	public static final String VALIDATION_UNRESOLVED_URI_KEY = LANGUAGE_PREFIX+".validation.unresolvedUri";
-	public static final String VALIDATION_UNRESOLVED_QNAME_KEY = LANGUAGE_PREFIX+".validation.unresolvedQname";
-	public static final String VALIDATION_PREFIX_MISMATCH_KEY = LANGUAGE_PREFIX+".validation.prefixMismatch";
-	public static final String VALIDATION_NS_MISMATCH_KEY = LANGUAGE_PREFIX+".validation.namespaceMismatch";
-	public static final String VALIDATION_UNUSED_PREFIX_KEY = LANGUAGE_PREFIX+".validation.unusedPrefix";
-	public static final String VALIDATION_XSD_TYPE_KEY = LANGUAGE_PREFIX+".validation.xsdType";
-	public static final String VALIDATION_DUPLICATE_SUBJECT_KEY = LANGUAGE_PREFIX+".validation.duplicateSubject";
-	public static final String VALIDATION_NO_LINKINGERROR_URIPREFIX = LANGUAGE_PREFIX+".validation.noLinkingErrorUriprefix";
-
 	//languages (content assist)
 	public static final String CA_LANGUAGES_KEY = LANGUAGE_PREFIX+".contentassist.languages";
 

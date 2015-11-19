@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.base.Joiner;
 
+//TODO change in the list does not yet cause rebuildNeeded to be true
 class TurtleListEditor extends ListEditor {
 
 	private String separator="\n";
@@ -24,6 +25,10 @@ class TurtleListEditor extends ListEditor {
 	private String dialogLabel;
 	private String dialogDescription;
 	private String dialogDefaultValue;
+
+	public TurtleListEditor() {
+		super();
+	}
 
 	public TurtleListEditor(String descriptionPreferenceKey, String string, Composite fieldEditorParent) {
 		super(descriptionPreferenceKey, string, fieldEditorParent);
@@ -95,5 +100,10 @@ class TurtleListEditor extends ListEditor {
 			Arrays.sort(list);
 		}
 		return list;
+	}
+
+	@Override
+	public void store() {
+		super.store();
 	}
 }

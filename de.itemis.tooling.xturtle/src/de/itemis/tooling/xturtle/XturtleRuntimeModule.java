@@ -17,6 +17,7 @@ import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.resource.IFragmentProvider;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.validation.INamesAreUniqueValidationHelper;
+import org.eclipse.xtext.validation.IssueSeveritiesProvider;
 
 import de.itemis.tooling.xturtle.linking.TurtleLinker;
 import de.itemis.tooling.xturtle.linking.TurtleLinkingErrors;
@@ -28,10 +29,9 @@ import de.itemis.tooling.xturtle.resource.TurtleIndexingStrategy;
 import de.itemis.tooling.xturtle.resource.TurtleLocationInFileProvider;
 import de.itemis.tooling.xturtle.scoping.TurtleLocalScopeProvider;
 import de.itemis.tooling.xturtle.services.TurtleDataTypeConverters;
-import de.itemis.tooling.xturtle.validation.TurtleFixedSeverityLevels;
+import de.itemis.tooling.xturtle.validation.TurtleIssueCodes;
+import de.itemis.tooling.xturtle.validation.TurtleIssuesSeveritiesProvider;
 import de.itemis.tooling.xturtle.validation.TurtleNamesAreUniqueValidationHelper;
-import de.itemis.tooling.xturtle.validation.TurtleNoLinkingValidationUriPrefixes;
-import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 
 
 /**
@@ -106,11 +106,11 @@ public class XturtleRuntimeModule extends de.itemis.tooling.xturtle.AbstractXtur
 		return TurtleNamesAreUniqueValidationHelper.class;
 	}
 
-	public Class<? extends TurtleValidationSeverityLevels> bindSeverityLevels() {
-		return TurtleFixedSeverityLevels.class;
+	public Class<? extends org.eclipse.xtext.validation.ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
+		return TurtleIssueCodes.class;
 	}
 
-	public Class<? extends TurtleNoLinkingValidationUriPrefixes> bindIgnoreLinkingUriPrefixes() {
-		return TurtleFixedSeverityLevels.class;
+	public Class<? extends IssueSeveritiesProvider> bindIssueSeverityServiceProvider() {
+		return TurtleIssuesSeveritiesProvider.class;
 	}
 }

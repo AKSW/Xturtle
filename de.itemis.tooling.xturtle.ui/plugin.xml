@@ -102,8 +102,8 @@
         </page>
         <page
             category="de.itemis.tooling.xturtle.Xturtle"
-            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtleValidationPreferencePage"
-            id="de.itemis.tooling.xturtle.Xturtle.Validation"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.validator.preferencePage"
             name="Validation">
             <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
         </page>
@@ -116,12 +116,6 @@
         </page>
     </extension>
     <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceInitializer">
-      </initializer>
-   </extension>
-    <extension
             point="org.eclipse.ui.propertyPages">
         <page
             class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
@@ -129,10 +123,23 @@
             name="Xturtle">
             <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
             <enabledWhen>
-	            <adapt type="org.eclipse.core.resources.IProject"/>
-			</enabledWhen>
-	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+                <adapt type="org.eclipse.core.resources.IProject"/>
+            </enabledWhen>
+            <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
         </page>
+        <page
+            category="de.itemis.tooling.xturtle.Xturtle"
+            class="de.itemis.tooling.xturtle.ui.XturtleExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+            id="de.itemis.tooling.xturtle.Xturtle.validator.propertyPage"
+            name="Validation">
+            <keywordReference id="de.itemis.tooling.xturtle.ui.keyword_Xturtle"/>
+           <enabledWhen>
+              <adapt
+                    type="org.eclipse.core.resources.IProject">
+              </adapt>
+           </enabledWhen>
+           <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+       </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">

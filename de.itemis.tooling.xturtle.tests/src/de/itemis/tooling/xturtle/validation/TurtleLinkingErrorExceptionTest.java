@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class TurtleLinkingErrorExceptionTest {
 
-	TurtleLinkingErrorExceptions exc=new TurtleLinkingErrorExceptions();
+	TurtleIssuesSeveritiesProvider exc=new TurtleIssuesSeveritiesProvider();
 	private final String rdfNs="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
 	@Test

@@ -16,8 +16,8 @@ import org.eclipse.xtext.linking.impl.LinkingDiagnosticMessageProvider;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
-import de.itemis.tooling.xturtle.validation.TurtleLinkingErrorExceptions;
-import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
+import de.itemis.tooling.xturtle.validation.TurtleIssueCodes;
+import de.itemis.tooling.xturtle.validation.TurtleIssuesSeveritiesProvider;
 import de.itemis.tooling.xturtle.validation.XturtleJavaValidator;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.QNameRef;
@@ -29,9 +29,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 	@Inject 
 	TurtleResourceService service;
 	@Inject 
-	TurtleValidationSeverityLevels levels;
-	@Inject
-	TurtleLinkingErrorExceptions exceptions;
+	TurtleIssuesSeveritiesProvider severitiesProvider;
 
 
 	private DiagnosticMessage getMissingPrefixDefinitionErrorMessage(String linkText){
@@ -59,15 +57,15 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 			if(isNoLinkingError(object)){
 				return null;
 			}else if(object instanceof UriRef){
-				severity= levels.getUnresolvedUriRefLevel();
+				severity= severitiesProvider.getIssueSeverities(object.eResource()).getSeverity(TurtleIssueCodes.VALIDATION_UNRESOLVED_URI_KEY);//getUnresolvedUriRefLevel();
 			} else if(object instanceof QNameRef){
 				//if the prefix is unknown the qualified name will be null
 				//an unresolved prefix is dealt with separately
 				if(service.getQualifiedName(object)!=null){
-					severity = levels.getUnresolvedQNameLevel();
+					severity = severitiesProvider.getIssueSeverities(object.eResource()).getSeverity(TurtleIssueCodes.VALIDATION_UNRESOLVED_QNAME_KEY);//getUnresolvedQNameLevel();
 				}
 			}
-			if(severity!=null){
+			if(severity!=null && severity!=Severity.IGNORE){
 				return new DiagnosticMessage("could not find definition for "+service.getUriString(object), severity, Diagnostic.LINKING_DIAGNOSTIC);
 			}else{
 				return null;
@@ -81,7 +79,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 	private boolean isNoLinkingError(EObject object) {
 		if(object instanceof ResourceRef){
 			String uri = service.getUriString(object);
-			if(exceptions.ignoreLinkingError(uri)){
+			if(severitiesProvider.ignoreLinkingError(object, uri)){
 				return true;
 			}
 		}

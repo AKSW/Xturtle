@@ -19,6 +19,7 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Singleton;
@@ -38,7 +39,8 @@ public class TurtlePreferenceBasedUserDataNamesProvider implements
 	private Set<String> languageList;
 
 	@Inject
-	public TurtlePreferenceBasedUserDataNamesProvider(IPreferenceStore store, IQualifiedNameConverter nameConverter) {
+	public TurtlePreferenceBasedUserDataNamesProvider(IPreferenceStoreAccess storeAccess, IQualifiedNameConverter nameConverter) {
+		IPreferenceStore store = storeAccess.getWritablePreferenceStore();
 		store.addPropertyChangeListener(this);
 		this.nameConverter=nameConverter;
 		initLabelNames(store.getString(TurtlePreferenceConstants.LABEL_PREFERENCE_KEY));

@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.conversion.IValueConverterService;
-import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -59,9 +58,7 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 	@Inject 
 	private TurtleResourceService service;
 	@Inject
-	private TurtleValidationSeverityLevels levels;
-	@Inject
-	private TurtleLinkingErrorExceptions linkingErrorExceptions;
+	private TurtleIssuesSeveritiesProvider linkingErrorExceptions;
 	@Inject IValueConverterService converter;
 
 	public static final String UNKNOWN_PREFIX="unknownPrefix";
@@ -128,24 +125,24 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 
 	//check prefix definition is in line with prefix.cc
 	@Check
-	public void checkPrefixCC(PrefixId def) {
-		Severity severity=levels.getNamespaceMismatchLevel();
-		if(severity!=null){
+	public void checkPrefixCCMatch(PrefixId def) {
+		String code=TurtleIssueCodes.VALIDATION_NS_MISMATCH_KEY;
+		if(!isIgnored(code)){
 			if(def.getId()!=null && prefixes.isKnownPrefix(def.getId())){
 				List<String> expectedNs=prefixes.getUris(def.getId());
 				if(!expectedNs.contains(service.getUriString(def))){
-					createError(severity, "Namespace <"+expectedNs+"> is recommended by prefix.cc", XturtlePackage.Literals.PREFIX_ID__ID);
+					createIssue(code, "Namespace <"+expectedNs+"> is recommended by prefix.cc", XturtlePackage.Literals.PREFIX_ID__ID);
 				}
 			}
 		}
 
-		severity=levels.getPrefixMismatchLevel();
-		if(severity!=null){
+		code=TurtleIssueCodes.VALIDATION_PREFIX_MISMATCH_KEY;
+		if(!isIgnored(code)){
 			String uri = service.getUriString(def);
 			if(uri!=null && prefixes.isKnownNameSpace(uri)){
 				List<String> expectedPrefixes=prefixes.getPrefixes(uri);
 				if(def.getId()!=null && !expectedPrefixes.contains(def.getId())){
-					createError(severity,"Prefix '"+expectedPrefixes.get(0)+"' is recommended by prefix.cc", XturtlePackage.Literals.PREFIX_ID__ID);
+					createIssue(code, "Prefix '"+expectedPrefixes.get(0)+"' is recommended by prefix.cc", XturtlePackage.Literals.PREFIX_ID__ID);
 				}
 			}
 		}
@@ -172,12 +169,12 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 
 	@Check
 	public void checkUnusedPrefix(PrefixId def) {
-		Severity s=levels.getUnusedPrefixLevel();
-		if(s!=null){
+		String code=TurtleIssueCodes.VALIDATION_UNUSED_PREFIX_KEY;
+		if(!isIgnored(code)){
 			if(def.getId()!=null){
 				Collection<Setting> candidates = EcoreUtil.UsageCrossReferencer.find(def, def.eResource());
 				if(candidates.size()==0){
-					createError(s, "unused prefix", XturtlePackage.Literals.PREFIX_ID__ID);
+					createIssue(code, "unused prefix", XturtlePackage.Literals.PREFIX_ID__ID);
 				}
 			}else{
 				//TODO currently no validation for unused empty prefixes
@@ -205,12 +202,12 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 
 	@Check
 	public void checkXSDType(StringLiteral literal){
-		Severity level=levels.getXsdTypeLevel();
-		if(level!=null && literal.getType()!=null){
+		String code=TurtleIssueCodes.VALIDATION_XSD_TYPE_KEY;
+		if(!isIgnored(code) && literal.getType()!=null){
 			QualifiedName uri = service.getQualifiedName(literal.getType());
 			Optional<String> errorMessage = XsdTypeValidator.getXsdError(literal.getValue(), uri);
 			if(errorMessage.isPresent()){
-				createError(level, errorMessage.get(), XturtlePackage.Literals.LITERAL__VALUE);
+				createIssue(code, errorMessage.get(), XturtlePackage.Literals.LITERAL__VALUE);
 			}
 		}
 	}
@@ -270,20 +267,8 @@ public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
 		}
 	}
 
-	protected void createError(Severity s, String errorMEssage, EStructuralFeature feature){
-		switch (s) {
-		case ERROR:
-			error(errorMEssage, feature);
-			break;
-		case WARNING:
-			warning(errorMEssage, feature);
-			break;
-		case INFO:
-			info(errorMEssage, feature);
-			break;
-		default:
-			break;
-		}
+	protected void createIssue(String isseCode, String errorMEssage, EStructuralFeature feature){
+		addIssue(errorMEssage, getCurrentObject(), feature, isseCode);
 	}
 
 	protected TurtleResourceService getService() {

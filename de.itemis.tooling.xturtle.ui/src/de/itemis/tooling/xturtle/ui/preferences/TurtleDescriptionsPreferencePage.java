@@ -10,18 +10,18 @@ package de.itemis.tooling.xturtle.ui.preferences;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 
 public class TurtleDescriptionsPreferencePage extends FieldEditorPreferencePage  implements IWorkbenchPreferencePage{
 
 	@Inject
-	public TurtleDescriptionsPreferencePage(IPreferenceStore preferenceStore) {
+	public TurtleDescriptionsPreferencePage(IPreferenceStoreAccess access) {
 		super();
-		setPreferenceStore(preferenceStore);
+		setPreferenceStore(access.getWritablePreferenceStore());
 		setDescription("Manage the description predicates here. These URIs are used for retrieving hover text information for the subject.");
 	}
 

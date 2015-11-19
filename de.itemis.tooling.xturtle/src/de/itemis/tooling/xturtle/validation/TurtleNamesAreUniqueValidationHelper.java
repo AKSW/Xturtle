@@ -10,8 +10,10 @@ package de.itemis.tooling.xturtle.validation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.validation.IssueSeveritiesProvider;
 import org.eclipse.xtext.validation.NamesAreUniqueValidationHelper;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 
@@ -21,13 +23,17 @@ public class TurtleNamesAreUniqueValidationHelper extends
 		NamesAreUniqueValidationHelper {
 
 	@Inject
-	private TurtleValidationSeverityLevels levels;
+	private IssueSeveritiesProvider levels;
 
 	@Override
 	public void checkUniqueNames(Iterable<IEObjectDescription> descriptions,
 			CancelIndicator cancelIndicator, ValidationMessageAcceptor acceptor) {
-		if(levels.getDuplicateSubjectLevel()!=null){
-			super.checkUniqueNames(descriptions, cancelIndicator, acceptor);
+		IEObjectDescription first = descriptions.iterator().next();
+		if(first!=null){
+			Severity severity=levels.getIssueSeverities(first.getEObjectOrProxy().eResource()).getSeverity(TurtleIssueCodes.VALIDATION_DUPLICATE_SUBJECT_KEY);
+			if(severity!=Severity.IGNORE){
+				super.checkUniqueNames(descriptions, cancelIndicator, acceptor);
+			}
 		}
 	}
 
@@ -52,7 +58,9 @@ public class TurtleNamesAreUniqueValidationHelper extends
 		EStructuralFeature feature = getNameFeature(object);
 		String message=getDuplicateNameErrorMessage(description, clusterType, feature);
 		int index=ValidationMessageAcceptor.INSIGNIFICANT_INDEX;
-		switch (levels.getDuplicateSubjectLevel()) {
+		Severity severity=levels.getIssueSeverities(object.eResource()).getSeverity(TurtleIssueCodes.VALIDATION_DUPLICATE_SUBJECT_KEY);
+
+		switch (severity) {
 		case ERROR:
 			acceptor.acceptError(message, object, feature, index, null);
 			break;

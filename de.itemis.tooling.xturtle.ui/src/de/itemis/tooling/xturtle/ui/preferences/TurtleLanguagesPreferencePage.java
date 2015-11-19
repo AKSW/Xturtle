@@ -8,18 +8,18 @@
 package de.itemis.tooling.xturtle.ui.preferences;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 
 public class TurtleLanguagesPreferencePage extends FieldEditorPreferencePage  implements IWorkbenchPreferencePage{
 
 	@Inject
-	public TurtleLanguagesPreferencePage(IPreferenceStore preferenceStore) {
+	public TurtleLanguagesPreferencePage(IPreferenceStoreAccess access) {
 		super();
-		setPreferenceStore(preferenceStore);
+		setPreferenceStore(access.getWritablePreferenceStore());
 		setDescription("Manage the languages proposed for string literals here.");
 	}
 

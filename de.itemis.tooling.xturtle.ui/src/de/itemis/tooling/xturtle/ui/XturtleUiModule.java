@@ -28,6 +28,7 @@ import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreInitializer;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.eclipse.xtext.ui.validation.AbstractValidatorConfigurationBlock;
 
 import com.google.inject.Binder;
 import com.google.inject.Provider;
@@ -48,22 +49,20 @@ import de.itemis.tooling.xturtle.ui.hover.TurtleEObjectHoverProvider;
 import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleHyperlinkHelper;
 import de.itemis.tooling.xturtle.ui.hyperlinking.TurtleOpenDeclarationHandler;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedLiteralsLanguages;
-import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedNoLinkingValidationUriPrefixes;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedUserDataNamesProvider;
-import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceBasedValidationSeverityLevels;
+import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceInitializer;
+import de.itemis.tooling.xturtle.ui.preferences.TurtleValidatorConfigBlock;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingConfig;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleHighlightingMapper;
 import de.itemis.tooling.xturtle.ui.syntaxcoloring.TurtleSemanticHighlighter;
 import de.itemis.tooling.xturtle.ui.templates.TurtleTemplateContextTypeRegistry;
 import de.itemis.tooling.xturtle.ui.templates.XturtleTemplateProposalProvoder;
 import de.itemis.tooling.xturtle.ui.validation.XturtleUIJavaValidator;
-import de.itemis.tooling.xturtle.validation.TurtleFixedSeverityLevels;
-import de.itemis.tooling.xturtle.validation.TurtleNoLinkingValidationUriPrefixes;
-import de.itemis.tooling.xturtle.validation.TurtleValidationSeverityLevels;
 
 /**
  * Use this class to register components to be used within the IDE.
  */
+@SuppressWarnings("restriction")
 public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtleUiModule {
 	public XturtleUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
@@ -183,16 +182,12 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 		return TurtlePreferenceBasedUserDataNamesProvider.class;
 	}
 
-	public Class<? extends TurtleValidationSeverityLevels> bindSeverityLevels() {
-		return TurtlePreferenceBasedValidationSeverityLevels.class;
-	}
-
-	public Class<? extends TurtleNoLinkingValidationUriPrefixes> bindIgnoreLinkingUriPrefixes() {
-		return TurtlePreferenceBasedNoLinkingValidationUriPrefixes.class;
-	}
-
 	public Class<? extends TurtleLiteralsLanguages> bindCALanguages() {
 		return TurtlePreferenceBasedLiteralsLanguages.class;
+	}
+
+	public Class<? extends AbstractValidatorConfigurationBlock> bindValidationConfigurationBlock() {
+		return TurtleValidatorConfigBlock.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
@@ -203,5 +198,9 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	@Override
 	public Class<? extends ITemplateProposalProvider> bindITemplateProposalProvider() {
 		return XturtleTemplateProposalProvoder.class;
+	}
+
+	public void configurePreferenceAccessPreferenceInitializer(Binder binder) {
+		binder.bind(IPreferenceStoreInitializer.class).to(TurtlePreferenceInitializer.class);
 	}
 }

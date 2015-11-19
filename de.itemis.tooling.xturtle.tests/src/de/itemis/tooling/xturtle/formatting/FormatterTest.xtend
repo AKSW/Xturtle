@@ -23,7 +23,7 @@ class FormatterTest {
 	@Inject INodeModelFormatter formatter
 
 	@Test
-	def void testDiractivesSame() {
+	def void testDirectivesSame() {
 		'''@base <tada> .'''.same
 		'''@prefix a:<ab> .'''.same
 
