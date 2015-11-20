@@ -99,6 +99,10 @@
       <requirement
           name="org.eclipse.xtext.junit4"
           versionRange="[2.6.0,2.7.0)"/>
+      <requirement
+          name="org.eclipse.pde.junit.runtime"/>
+      <requirement
+          name="org.eclipse.pde.core"/>
       <repositoryList
           name="Mars">
         <repository
