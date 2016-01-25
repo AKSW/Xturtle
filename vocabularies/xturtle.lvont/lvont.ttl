@@ -58,7 +58,7 @@
 
 <http://lexvo.org/ontology#Term>
     lvont:nearlySameAs <http://lexonto.ontoware.org/lmf#FormRepresentation> ;
-    lvont:subClassOf <http://www.w3.org/2008/05/skos-xl#Label> ;
+    rdfs:subClassOf <http://www.w3.org/2008/05/skos-xl#Label> ;
     a owl:Class ;
     rdfs:comment "A term in a specific language."@en ;
     rdfs:label "term"@en .
