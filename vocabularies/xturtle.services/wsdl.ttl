@@ -2,7 +2,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix wsdl: <http://www.w3.org/ns/wsdl-rdf#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 
 <http://www.w3.org/2003/05/soap/mep/request-response/>
     a <http://www.w3.org/2006/02/soap12/abstractions#classOfMEPs> .
