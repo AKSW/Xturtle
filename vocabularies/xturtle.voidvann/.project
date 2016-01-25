@@ -4,8 +4,11 @@
 	<comment></comment>
 	<projects>
 		<project>xturtle.core</project>
-		<project>xturtle.foaf</project>
 		<project>xturtle.dc</project>
+		<project>xturtle.foaf</project>
+		<project>xturtle.schemaorg</project>
+		<project>xturtle.skos</project>
+		<project>xturtle.vcard</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

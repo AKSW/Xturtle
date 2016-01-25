@@ -508,12 +508,12 @@ voaf:usedBy
 
 <http://purl.org/vocommons/voaf/v2.2/voaf_v2.2.rdf>
     <http://purl.org/vocab/frbr/core#alternate> <http://purl.org/vocommons/voaf/v2.2/index.html> ;
-    a <<http://purl.org/vocab/frbr/core#Manifestation> .
+    a <http://purl.org/vocab/frbr/core#Manifestation> .
 
 <http://purl.org/vocommons/voaf/v2.3>
     dc:creator <http://data.semanticweb.org/person/pierre-yves-vandenbussche> ;
     dc:date "2013-05-24" ;
-    <<http://purl.org/vocab/frbr/core#embodiment> <http://purl.org/vocommons/voaf/v2.3/voaf_v2.3.rdf> ;
+    <http://purl.org/vocab/frbr/core#embodiment> <http://purl.org/vocommons/voaf/v2.3/voaf_v2.3.rdf> ;
     a <http://purl.org/vocab/frbr/core#Expression> ;
     rdfs:comment "Refined the voaf:dataset to a more complex element with occurrences information and added extra properties to represent metrics of vocabulary elements usage in LOV and LOD"@en, "Remplacement de voaf:dataset par un objet permettant d'attacher la notion d'occurrenceet ajout supplémentaire de propriétés pour représenter les métriques d'usage d'éléments de vocabulaire dans le LOV et le LOD"@fr ;
     owl:versionInfo "2.3" .
