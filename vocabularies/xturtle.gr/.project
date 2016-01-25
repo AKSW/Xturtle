@@ -4,6 +4,8 @@
 	<comment></comment>
 	<projects>
 		<project>xturtle.core</project>
+		<project>xturtle.dc</project>
+		<project>xturtle.foaf</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
