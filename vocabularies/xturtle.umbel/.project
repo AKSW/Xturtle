@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>xturtle.core</project>
+		<project>xturtle.skos</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
