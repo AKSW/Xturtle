@@ -199,3 +199,23 @@ xsd:anyURI a rdfs:Datatype;
   rdfs:isDefinedBy <http://www.w3.org/TR/xmlschema-2/#anyURI>;
   rdfs:comment "The ·lexical space· of anyURI is finite-length character sequences which, when the algorithm defined in Section 5.4 of [XML Linking Language] is applied to them, result in strings which are legal URIs according to [RFC 2396], as amended by [RFC 2732]. Note:  Spaces are, in principle, allowed in the ·lexical space· of anyURI, however, their use is highly discouraged (unless they are encoded by %20).";
   rdfs:label "anyURI" .
+
+xsd:maxInclusive a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://www.w3.org/TR/xmlschema-2/#rf-maxInclusive>;
+  rdfs:comment "maxInclusive is the ·inclusive upper bound· of the ·value space· for a datatype with the ·ordered· property. The value of maxInclusive ·must· be in the ·value space· of the ·base type·.";
+  rdfs:label "maxInclusive" .
+
+xsd:maxExclusive a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://www.w3.org/TR/xmlschema-2/#rf-maxExclusive>;
+  rdfs:comment "maxExclusive is the ·exclusive upper bound· of the ·value space· for a datatype with the ·ordered· property. The value of maxExclusive  ·must· be in the ·value space· of the ·base type· or be equal to {value} in {base type definition}.";
+  rdfs:label "maxExclusive".
+
+xsd:minInclusive a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://www.w3.org/TR/xmlschema-2/#rf-minInclusive>;
+  rdfs:comment "minInclusive is the ·inclusive lower bound· of the ·value space· for a datatype with the ·ordered· property. The value of minInclusive  ·must· be in the ·value space· of the ·base type·.";
+  rdfs:label "minInclusive" .
+
+xsd:minExclusive a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://www.w3.org/TR/xmlschema-2/#rf-minExclusive>;
+  rdfs:comment "minExclusive is the ·exclusive lower bound· of the ·value space· for a datatype with the ·ordered· property. The value of minExclusive ·must· be in the ·value space· of the ·base type· or be equal to {value} in {base type definition}.";
+  rdfs:label "minExclusive" .
