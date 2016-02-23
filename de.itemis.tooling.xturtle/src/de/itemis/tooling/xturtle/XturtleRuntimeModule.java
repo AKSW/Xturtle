@@ -55,6 +55,13 @@ public class XturtleRuntimeModule extends de.itemis.tooling.xturtle.AbstractXtur
 		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.parser.antlr.LexerBindings.RUNTIME)).to(CustomXturtleLexer.class);
 	}
 
+	// contributed by org.eclipse.xtext.generator.serializer.SerializerFragment
+	@Override
+	@SuppressWarnings("restriction")
+	public Class<? extends org.eclipse.xtext.serializer.sequencer.ISyntacticSequencer> bindISyntacticSequencer() {
+		return de.itemis.tooling.xturtle.serializer.XturtleCustomSyntacticSequencer.class;
+	}
+
 	@Override
 	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
 		return TurtleDataTypeConverters.class;
