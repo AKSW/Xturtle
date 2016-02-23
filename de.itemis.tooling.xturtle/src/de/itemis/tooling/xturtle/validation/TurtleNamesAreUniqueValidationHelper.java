@@ -7,6 +7,8 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.validation;
 
+import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -28,11 +30,14 @@ public class TurtleNamesAreUniqueValidationHelper extends
 	@Override
 	public void checkUniqueNames(Iterable<IEObjectDescription> descriptions,
 			CancelIndicator cancelIndicator, ValidationMessageAcceptor acceptor) {
-		IEObjectDescription first = descriptions.iterator().next();
-		if(first!=null){
-			Severity severity=levels.getIssueSeverities(first.getEObjectOrProxy().eResource()).getSeverity(TurtleIssueCodes.VALIDATION_DUPLICATE_SUBJECT_KEY);
-			if(severity!=Severity.IGNORE){
-				super.checkUniqueNames(descriptions, cancelIndicator, acceptor);
+		Iterator<IEObjectDescription> iterator = descriptions.iterator();
+		if(iterator.hasNext()){
+			IEObjectDescription first = iterator.next();
+			if(first!=null){
+				Severity severity=levels.getIssueSeverities(first.getEObjectOrProxy().eResource()).getSeverity(TurtleIssueCodes.VALIDATION_DUPLICATE_SUBJECT_KEY);
+				if(severity!=Severity.IGNORE){
+					super.checkUniqueNames(descriptions, cancelIndicator, acceptor);
+				}
 			}
 		}
 	}
