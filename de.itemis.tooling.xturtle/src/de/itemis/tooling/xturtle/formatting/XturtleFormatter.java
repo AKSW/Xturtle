@@ -48,6 +48,9 @@ public class XturtleFormatter extends AbstractDeclarativeFormatter {
 		//line wraps between directive and triple
 		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getUriDefRule());
 		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getQNameDefRule());
+		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getBlankObjectsRule());
+		c.setLinewrap(2).between(grammarAccess.getDirectiveAccess().getTRIPELENDTerminalRuleCall_1(),grammarAccess.getBlankCollectionRule());
+		
 		//linw wraps between triple and directive
 		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getPrefixIdAccess().getPrefixKeyword_0());
 		c.setLinewrap(2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getBaseAccess().getBaseKeyword_0());
@@ -55,6 +58,8 @@ public class XturtleFormatter extends AbstractDeclarativeFormatter {
 		//line wraps between triples
 		c.setLinewrap(1,2,2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getUriDefRule());
 		c.setLinewrap(1,2,2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getQNameDefRule());
+		c.setLinewrap(1,2,2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getBlankCollectionRule());
+		c.setLinewrap(1,2,2).between(grammarAccess.getTriplesAccess().getTRIPELENDTerminalRuleCall_2(),grammarAccess.getBlankObjectsRule());
 
 		//line wraps in predicate object list of triple
 		c.setLinewrap(0,0,1).after(grammarAccess.getQNameDefRule());

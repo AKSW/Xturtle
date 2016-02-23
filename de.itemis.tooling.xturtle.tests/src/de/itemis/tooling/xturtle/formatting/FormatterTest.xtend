@@ -47,27 +47,30 @@ class FormatterTest {
 
 	@Test
 	def void testDirectiveTripleSame() {
-		'''
-		@prefix a:<ab> .
-		
-		<a> <a> <a> .'''.same
-
-		'''
-		@base <ab> .
-		
-		<a> <a> <a> .'''.same
-
-		'''
-		@base <tada> .
-		@prefix a:<ab> .
-		
-		<a> <a> <a> .'''.same
-
-		'''
-		@prefix a:<ab> .
-		@base <tada> .
-		
-		<a> <a> <a> .'''.same
+		val subjects=#["<a>","()","[]"]
+		subjects.forEach[subject|
+			'''
+			@prefix a:<ab> .
+			
+			«subject» <a> <a> .'''.same
+	
+			'''
+			@base <ab> .
+			
+			«subject» <a> <a> .'''.same
+	
+			'''
+			@base <tada> .
+			@prefix a:<ab> .
+			
+			«subject» <a> <a> .'''.same
+	
+			'''
+			@prefix a:<ab> .
+			@base <tada> .
+			
+			«subject» <a> <a> .'''.same
+		]
 	}
 
 	@Test
@@ -133,6 +136,19 @@ class FormatterTest {
 		@base <tada> .
 		
 		<b> <b> <b> .
+		b:x a <b> .'''.same
+
+		'''
+		@base <tada> .
+		@prefix a:<ab> .
+		
+		() <a> <a> .
+		a:a a <a> .
+		
+		@prefix b:<ab> .
+		@base <tada> .
+		
+		[] <b> <b> .
 		b:x a <b> .'''.same
 	}
 
