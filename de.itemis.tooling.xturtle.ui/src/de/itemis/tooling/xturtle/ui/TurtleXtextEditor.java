@@ -108,14 +108,29 @@ public class TurtleXtextEditor extends XtextEditor{
 
 	@Override
 	protected String[] collectContextMenuPreferencePages() {
-		String[] superPages = super.collectContextMenuPreferencePages();
-		String[] xturtlePages = new String[] {
+		return getPreferencePages(super.collectContextMenuPreferencePages());
+	}
+
+	@Override
+	protected String[] collectRulerMenuPreferencePages() {
+		return getPreferencePages(super.collectRulerMenuPreferencePages());
+	}
+
+	@Override
+	protected String[] collectOverviewRulerMenuPreferencePages() {
+		return getPreferencePages(super.collectOverviewRulerMenuPreferencePages());
+	}
+
+	private String[] getPreferencePages(String[] superPages) {
+		String[] xturtlePages = new String[] { 
+				getLanguageName(),
+				getLanguageName() + ".coloring",
+				getLanguageName() + ".templates",
 				getLanguageName() + ".indexing.Labels",
 				getLanguageName() + ".indexing.Descriptions",
 				getLanguageName() + ".Folding",
-				getLanguageName() + ".Validation",
-				getLanguageName() + ".LanguageContentAssist"
-				};
+				getLanguageName() + ".validator.preferencePage",
+				getLanguageName() + ".LanguageContentAssist" };
 		return ObjectArrays.concat(superPages, xturtlePages, String.class);
 	}
 }

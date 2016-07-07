@@ -87,8 +87,18 @@ class TurtleListEditor extends ListEditor {
 	}
 
 	@Override
+	protected void doFillIntoGrid(Composite parent, int numColumns) {
+		super.doFillIntoGrid(parent, numColumns);
+		hideUpDownButtons();
+	}
+
+	@Override
 	protected void createControl(Composite parent) {
 		super.createControl(parent);
+		hideUpDownButtons();
+	}
+
+	private void hideUpDownButtons() {
 		getUpButton().setVisible(false);
 		getDownButton().setVisible(false);
 	}
