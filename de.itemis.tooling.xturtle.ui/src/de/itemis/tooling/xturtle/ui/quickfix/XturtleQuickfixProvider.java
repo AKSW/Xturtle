@@ -9,7 +9,6 @@ package de.itemis.tooling.xturtle.ui.quickfix;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -27,10 +26,11 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
 
 import com.google.common.collect.ObjectArrays;
+import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.services.Prefixes;
 import de.itemis.tooling.xturtle.ui.validation.XturtleUIJavaValidator;
-import de.itemis.tooling.xturtle.validation.XturtleJavaValidator;
+import de.itemis.tooling.xturtle.validation.XturtleValidator;
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.XturtleFactory;
@@ -40,7 +40,7 @@ public class XturtleQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private Prefixes prefixes;
 
-	@Fix(XturtleJavaValidator.UNKNOWN_PREFIX)
+	@Fix(XturtleValidator.UNKNOWN_PREFIX)
 	public void addPrefixDefinition(final Issue issue, IssueResolutionAcceptor acceptor) {
 		if(issue.getData().length>0){
 			final String linkText = issue.getData()[0];

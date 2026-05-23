@@ -56,6 +56,16 @@
                 </with>        
             </and>
         </definition>
+		<definition id="de.itemis.tooling.xturtle.Xturtle.XtextEditor.opened">
+			<and>
+				<reference definitionId="isXtextEditorActive"/>
+				<with variable="activeEditor">
+					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
+						value="de.itemis.tooling.xturtle.Xturtle"
+						forcePluginActivation="true"/>
+				</with>
+			</and>
+		</definition>
     </extension>
     <extension
             point="org.eclipse.ui.preferencePages">
@@ -191,7 +201,15 @@
             </activeWhen>
         </handler>
     </extension>   
-
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="ttl"
+			id="de.itemis.tooling.xturtle.Xturtle.contenttype"
+			name="Xturtle File"
+			priority="normal">
+		</content-type>
+	</extension>
 <!-- adding resource factories -->
 
 	<extension

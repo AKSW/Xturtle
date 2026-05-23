@@ -1,20 +1,20 @@
 package de.itemis.tooling.xturtle.parsing
 
 import com.google.inject.Inject
-import de.itemis.tooling.xturtle.XturtleInjectorProvider
 import de.itemis.tooling.xturtle.parser.antlr.XturtleParser
 import de.itemis.tooling.xturtle.services.XturtleGrammarAccess
+import de.itemis.tooling.xturtle.tests.XturtleInjectorProvider
 import java.io.StringReader
 import org.eclipse.xtext.ParserRule
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(XturtleInjectorProvider))
-class ParserRuleTests {
+@RunWith(XtextRunner)
+@InjectWith(XturtleInjectorProvider)
+class ParserRuleTest {
 
 	@Inject XturtleParser parser
 

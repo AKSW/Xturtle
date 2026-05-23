@@ -31,10 +31,10 @@ public class IriPatternTest {
 	}
 
 	private void match(String iri){
-		Assert.assertTrue(XturtleJavaValidator.IRI_PATTERN.matcher(iri).matches());
+		Assert.assertTrue(XturtleValidator.IRI_PATTERN.matcher(iri).matches());
 	}
 
 	private void noMatch(String iri){
-		Assert.assertFalse(XturtleJavaValidator.IRI_PATTERN.matcher(iri).matches());
+		Assert.assertFalse(XturtleValidator.IRI_PATTERN.matcher(iri).matches());
 	}
 }

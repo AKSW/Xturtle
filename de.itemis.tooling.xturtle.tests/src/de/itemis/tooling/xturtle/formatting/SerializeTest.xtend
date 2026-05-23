@@ -4,8 +4,6 @@ import com.google.inject.Inject
 import de.itemis.tooling.xturtle.NoValidationInjectorProvider
 import de.itemis.tooling.xturtle.TurtleParseHelper
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.resource.SaveOptions
 import org.eclipse.xtext.serializer.ISerializer
 import org.junit.Assert
@@ -13,9 +11,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.InjectWith
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(NoValidationInjectorProvider))
+@RunWith(XtextRunner)
+@InjectWith(NoValidationInjectorProvider)
 class SerializeTest {
 
 	@Inject extension ISerializer serializer

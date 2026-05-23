@@ -9,8 +9,6 @@ package de.itemis.tooling.xturtle.ui.preferences;
 
 import java.util.Arrays;
 
-import javax.inject.Inject;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.jobs.Job;
@@ -19,6 +17,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.ui.preferences.OptionsConfigurationBlock;
 import org.eclipse.xtext.ui.validation.AbstractValidatorConfigurationBlock;
+
+import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.validation.TurtleIssueCodes;
 
@@ -75,11 +75,6 @@ public class TurtleValidatorConfigBlock extends AbstractValidatorConfigurationBl
 
 	@Override
 	protected void validateSettings(String changedKey, String oldValue, String newValue) {}
-
-	@Override
-	public boolean hasProjectSpecificOptions(IProject project) {
-		return storeAccess.getWritablePreferenceStore(project).getBoolean(IS_PROJECT_SPECIFIC);
-	}
 
 	//The following overrides were necessary, because the super class has no simple way to add controls other than combobox etc
 	//the listFieldEditor has to be taken into account as well

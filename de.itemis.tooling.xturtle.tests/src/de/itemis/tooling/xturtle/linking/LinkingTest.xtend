@@ -10,16 +10,16 @@ import de.itemis.tooling.xturtle.xturtle.QNameRef
 import de.itemis.tooling.xturtle.xturtle.Resource
 import de.itemis.tooling.xturtle.xturtle.Triples
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(NoValidationInjectorProvider))
+@RunWith(XtextRunner)
+@InjectWith(NoValidationInjectorProvider)
 class LinkingTest {
 
 	@Inject extension TurtleParseHelper<DirectiveBlock>

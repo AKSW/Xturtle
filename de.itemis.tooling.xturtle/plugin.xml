@@ -7,7 +7,7 @@
     <package 
        uri = "http://www.itemis.de/tooling/xturtle/Xturtle" 
        class = "de.itemis.tooling.xturtle.xturtle.XturtlePackage"
-       genModel = "de/itemis/tooling/xturtle/Xturtle.genmodel" /> 
+       genModel = "model/generated/Xturtle.genmodel" /> 
 	
   </extension>
 

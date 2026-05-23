@@ -13,8 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -30,6 +28,7 @@ import org.eclipse.xtext.ui.XtextUIMessages;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 
 import com.google.common.collect.ObjectArrays;
+import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider.TypedFoldedRegion;
 import de.itemis.tooling.xturtle.ui.preferences.TurtlePreferenceConstants;

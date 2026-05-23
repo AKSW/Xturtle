@@ -1,25 +1,25 @@
 package de.itemis.tooling.xturtle.lexing
 
 import com.google.inject.Inject
-import de.itemis.tooling.xturtle.XturtleInjectorProvider
 import de.itemis.tooling.xturtle.services.XturtleGrammarAccess
+import de.itemis.tooling.xturtle.tests.XturtleInjectorProvider
 import java.util.List
 import org.antlr.runtime.ANTLRStringStream
 import org.antlr.runtime.CharStream
 import org.antlr.runtime.Token
 import org.eclipse.xtext.TerminalRule
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.parser.antlr.ITokenDefProvider
 import org.eclipse.xtext.parser.antlr.Lexer
 import org.eclipse.xtext.parser.antlr.XtextTokenStream
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(XturtleInjectorProvider))
-class LexerTests {
+@RunWith(XtextRunner)
+@InjectWith(XturtleInjectorProvider)
+class LexerTest {
 
 	@Inject Lexer lexer
 	@Inject ITokenDefProvider tokenProvider

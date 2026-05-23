@@ -7,12 +7,12 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.wizard;
 
-import javax.inject.Inject;
-
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.xtext.ui.wizard.IProjectCreator;
 import org.eclipse.xtext.ui.wizard.IProjectInfo;
 import org.eclipse.xtext.ui.wizard.XtextNewProjectWizard;
+
+import com.google.inject.Inject;
 
 public class TurtleNewProjectWizard extends XtextNewProjectWizard {
 

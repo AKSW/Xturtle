@@ -2,20 +2,20 @@ package de.itemis.tooling.xturtle.validation
 
 import com.google.inject.Inject
 import de.itemis.tooling.xturtle.TurtleParseHelper
-import de.itemis.tooling.xturtle.XturtleInjectorProvider
+import de.itemis.tooling.xturtle.tests.XturtleInjectorProvider
 import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
 import de.itemis.tooling.xturtle.xturtle.ResourceRef
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import de.itemis.tooling.xturtle.xturtle.XturtlePackage
+import org.eclipse.xtext.diagnostics.Diagnostic
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import de.itemis.tooling.xturtle.xturtle.XturtlePackage
-import org.eclipse.xtext.diagnostics.Diagnostic
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(XturtleInjectorProvider))
+@RunWith(XtextRunner)
+@InjectWith(XturtleInjectorProvider)
 class LinkingErrorTest {
 
 	@Inject extension TurtleParseHelper<DirectiveBlock>
@@ -36,7 +36,7 @@ class LinkingErrorTest {
 			<1> foo:bar <3> .
 		'''.parse
 		//assert that there is a linking error
-		model.assertError(XturtlePackage$Literals::QNAME_REF, Diagnostic::LINKING_DIAGNOSTIC)
+		model.assertError(XturtlePackage.Literals::QNAME_REF, Diagnostic::LINKING_DIAGNOSTIC)
 	}
 
 	@Test

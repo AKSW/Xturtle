@@ -13,6 +13,8 @@ package de.itemis.tooling.xturtle.ui;
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.templates.ContextTypeRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ide.LexerIdeBindings;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.Lexer;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.actions.IActionContributor;
@@ -35,12 +37,12 @@ import com.google.inject.Provider;
 import com.google.inject.name.Names;
 
 import de.itemis.tooling.xturtle.CustomXturtleLexer;
+import de.itemis.tooling.xturtle.ide.contentassist.antlr.internal.InternalXturtleLexer;
 import de.itemis.tooling.xturtle.resource.TurtleIndexUserDataNamesProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleAutoEditStrategyProvider;
 import de.itemis.tooling.xturtle.ui.autoedit.TurtleNewLineAutoedit;
 import de.itemis.tooling.xturtle.ui.contentassist.CustomXturtleContentassistLexer;
 import de.itemis.tooling.xturtle.ui.contentassist.TurtleLiteralsLanguages;
-import de.itemis.tooling.xturtle.ui.contentassist.antlr.internal.InternalXturtleLexer;
 import de.itemis.tooling.xturtle.ui.findrefs.TurtleReferenceFinder;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingActionContributor;
 import de.itemis.tooling.xturtle.ui.folding.TurtleFoldingRegionProvider;
@@ -82,9 +84,7 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	 */
 	@Override
 	public void configureContentAssistLexer(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(
-			com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(
-			CustomXturtleContentassistLexer.class);
+		binder.bind(Lexer.class).annotatedWith(Names.named(LexerIdeBindings.CONTENT_ASSIST)).to(CustomXturtleContentassistLexer.class);
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class XturtleUiModule extends de.itemis.tooling.xturtle.ui.AbstractXturtl
 	}
 
 	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends de.itemis.tooling.xturtle.validation.XturtleJavaValidator> bindXturtleJavaValidator() {
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends de.itemis.tooling.xturtle.validation.XturtleValidator> bindXturtleJavaValidator() {
 		return XturtleUIJavaValidator.class;
 	}
 

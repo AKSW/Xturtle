@@ -7,14 +7,14 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.templates;
 
-import javax.inject.Inject;
-
 import org.eclipse.jface.text.templates.ContextTypeRegistry;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ITemplateAcceptor;
 import org.eclipse.xtext.ui.editor.templates.ContextTypeIdHelper;
 import org.eclipse.xtext.ui.editor.templates.DefaultTemplateProposalProvider;
+
+import com.google.inject.Inject;
 
 public class XturtleTemplateProposalProvoder extends DefaultTemplateProposalProvider {
 

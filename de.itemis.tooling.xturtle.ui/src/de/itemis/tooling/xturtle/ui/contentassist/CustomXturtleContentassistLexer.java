@@ -11,7 +11,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 
 import de.itemis.tooling.xturtle.LexerOverrider;
-import de.itemis.tooling.xturtle.ui.contentassist.antlr.internal.InternalXturtleLexer;
+import de.itemis.tooling.xturtle.ide.contentassist.antlr.internal.InternalXturtleLexer;
 
 public class CustomXturtleContentassistLexer extends InternalXturtleLexer {
 

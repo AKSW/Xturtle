@@ -11,14 +11,13 @@ import java.util.Map;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 
-import javax.inject.Singleton;
-
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.preferences.PreferenceKey;
 import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
+import com.google.inject.Singleton;
 
 @SuppressWarnings("restriction")
 @Singleton

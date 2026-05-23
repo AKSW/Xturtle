@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: de.itemis.tooling.xturtle.ide
+Bundle-ManifestVersion: 2
+Bundle-Name: de.itemis.tooling.xturtle.ide
+Bundle-Version: 2.0.0.qualifier
+Bundle-SymbolicName: de.itemis.tooling.xturtle.ide;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: de.itemis.tooling.xturtle,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: de.itemis.tooling.xturtle.ide.contentassist.antlr,
+ de.itemis.tooling.xturtle.ide.contentassist.antlr.internal,
+ de.itemis.tooling.xturtle.ide.contentassist.antlr

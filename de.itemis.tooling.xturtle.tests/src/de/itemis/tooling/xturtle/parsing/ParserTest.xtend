@@ -8,14 +8,14 @@ import de.itemis.tooling.xturtle.xturtle.DirectiveBlock
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage
 import java.io.File
 import java.nio.charset.Charset
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(NoValidationInjectorProvider))
+@RunWith(XtextRunner)
+@InjectWith(NoValidationInjectorProvider)
 class ParserTest {
 
 	@Inject extension TurtleParseHelper<DirectiveBlock>
@@ -158,13 +158,13 @@ class ParserTest {
 
 	@Test
 	def void missingSubject() {
-		'''<a>.'''.parse.assertError(XturtlePackage$Literals::TRIPLES, "axiom")
+		'''<a>.'''.parse.assertError(XturtlePackage.Literals::TRIPLES, "axiom")
 	}
 
 	@Test
 	def void preventBlankPrefix() {
 		'''@prefix _:<tada/>.
-		'''.parse.assertError(XturtlePackage$Literals::PREFIX_ID, "blank_prefix"
+		'''.parse.assertError(XturtlePackage.Literals::PREFIX_ID, "blank_prefix"
 		)
 	}
 
@@ -183,7 +183,7 @@ class ParserTest {
 			'''
 				@prefix bla:<tada/>.
 				bla«hiddenToken»:tada <> <>.
-			'''.parse.assertError(XturtlePackage$Literals::QNAME_DEF,"qnameWS")
+			'''.parse.assertError(XturtlePackage.Literals::QNAME_DEF,"qnameWS")
 		]
 	}
 
@@ -193,7 +193,7 @@ class ParserTest {
 			'''
 				@prefix bla:<tada/>.
 				bla:tada bla«hiddenToken»:tada <>.
-			'''.parse.assertError(XturtlePackage$Literals::QNAME_REF,"qnameWS")
+			'''.parse.assertError(XturtlePackage.Literals::QNAME_REF,"qnameWS")
 		]
 	}
 
@@ -201,7 +201,7 @@ class ParserTest {
 	def void preventListPropertySubjetURI() {
 		'''
 			<http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <> <>.
-		'''.parse.assertError(XturtlePackage$Literals::RESOURCE,null)
+		'''.parse.assertError(XturtlePackage.Literals::RESOURCE,null)
 	}
 
 	@Test
@@ -209,7 +209,7 @@ class ParserTest {
 		'''
 			@prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			rdf:li <> <>.
-		'''.parse.assertError(XturtlePackage$Literals::RESOURCE,null)
+		'''.parse.assertError(XturtlePackage.Literals::RESOURCE,null)
 	}
 
 	@Test

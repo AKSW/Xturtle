@@ -18,7 +18,7 @@ import com.google.inject.Inject;
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.validation.TurtleIssueCodes;
 import de.itemis.tooling.xturtle.validation.TurtleIssuesSeveritiesProvider;
-import de.itemis.tooling.xturtle.validation.XturtleJavaValidator;
+import de.itemis.tooling.xturtle.validation.XturtleValidator;
 import de.itemis.tooling.xturtle.xturtle.QNameDef;
 import de.itemis.tooling.xturtle.xturtle.QNameRef;
 import de.itemis.tooling.xturtle.xturtle.ResourceRef;
@@ -38,7 +38,7 @@ public class TurtleLinkingErrors extends LinkingDiagnosticMessageProvider {
 			//no prefix definition for blank label prefix '_' allowed, so it is OK that it is missing
 			return null;
 		}else{
-			return new DiagnosticMessage("no @prefix-Definition for "+linkText+" up to this point", Severity.ERROR, XturtleJavaValidator.UNKNOWN_PREFIX,linkText);
+			return new DiagnosticMessage("no @prefix-Definition for "+linkText+" up to this point", Severity.ERROR, XturtleValidator.UNKNOWN_PREFIX,linkText);
 		}
 	}
 

@@ -1,11 +1,12 @@
 package de.itemis.tooling.xturtle;
 
-import org.eclipse.xtext.junit4.GlobalRegistries;
+import org.eclipse.xtext.testing.GlobalRegistries;
 import org.eclipse.xtext.validation.IssueSeveritiesProvider;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import de.itemis.tooling.xturtle.tests.XturtleInjectorProvider;
 import de.itemis.tooling.xturtle.validation.TurtleIssuesSeveritiesProvider;
 
 public class NoValidationInjectorProvider extends XturtleInjectorProvider {

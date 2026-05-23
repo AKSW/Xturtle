@@ -10,6 +10,7 @@
  */
 package de.itemis.tooling.xturtle;
 
+import org.eclipse.xtext.formatting.IFormatter;
 import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.linking.impl.LinkingHelper;
@@ -19,6 +20,7 @@ import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.validation.INamesAreUniqueValidationHelper;
 import org.eclipse.xtext.validation.IssueSeveritiesProvider;
 
+import de.itemis.tooling.xturtle.formatting.XturtleFormatter;
 import de.itemis.tooling.xturtle.linking.TurtleLinker;
 import de.itemis.tooling.xturtle.linking.TurtleLinkingErrors;
 import de.itemis.tooling.xturtle.linking.TurtleLinkingHelper;
@@ -119,5 +121,10 @@ public class XturtleRuntimeModule extends de.itemis.tooling.xturtle.AbstractXtur
 
 	public Class<? extends IssueSeveritiesProvider> bindIssueSeverityServiceProvider() {
 		return TurtleIssuesSeveritiesProvider.class;
+	}
+
+	@Override
+	public Class<? extends IFormatter> bindIFormatter() {
+		return XturtleFormatter.class;
 	}
 }

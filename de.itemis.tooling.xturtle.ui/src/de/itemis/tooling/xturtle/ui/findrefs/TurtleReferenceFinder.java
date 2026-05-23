@@ -8,13 +8,13 @@
 package de.itemis.tooling.xturtle.ui.findrefs;
 
 import java.util.Iterator;
-import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.findReferences.TargetURIs;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
@@ -24,7 +24,7 @@ import org.eclipse.xtext.resource.impl.DefaultReferenceDescription;
 import org.eclipse.xtext.ui.editor.findrefs.DefaultReferenceFinder;
 import org.eclipse.xtext.util.IAcceptor;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.resource.TurtleReferenceDescription;
@@ -48,28 +48,33 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 		super(indexData, serviceProviderRegistry);
 	}
 
+	//TODO adapted implementation adds "correct" local references
+	//but <unnamed> references are proposed as well
+
 	@Override
-	protected void findLocalReferencesInResource(final Iterable<URI> targetURIs, Resource resource,
-			final IAcceptor<IReferenceDescription> acceptor) {
-		Set<URI> targetURISet = ImmutableSet.copyOf(targetURIs);
-//		Map<EObject, URI> exportedElementsMap = createExportedElementsMap(resource);
-		for(EObject content: resource.getContents()) {
-			findLocalReferencesFromElement(targetURISet, content, resource, acceptor, resource.getURI());
+	protected void findLocalReferencesInResource(Predicate<URI> targetURIs, Resource resource,
+			IAcceptor<IReferenceDescription> acceptor) {
+		if (targetURIs instanceof TargetURIs) {
+			for (EObject content : resource.getContents()) {
+				findLocalReferencesFromElement((TargetURIs) targetURIs, content, resource, acceptor, resource.getURI());
+			}
+		} else {
+			throw new IllegalArgumentException("unexpected targetUris class " +targetURIs.getClass());
 		}
 	}
 
-	protected void findLocalReferencesFromElement(Set<URI> targetURISet,
+	protected void findLocalReferencesFromElement(TargetURIs targetURIs,
 			EObject sourceCandidate,
 			org.eclipse.emf.ecore.resource.Resource localResource,
 			IAcceptor<IReferenceDescription> acceptor,
 			URI currentExportedContainerURI) {
 		URI exportedContainerURI=currentExportedContainerURI;
-		Iterator<URI> it = targetURISet.iterator();
+		Iterator<URI> it = targetURIs.iterator();
 		while(it.hasNext()){
 			URI next=it.next();
 			EObject obj = service.getObject(localResource, next.fragment());
 			QualifiedName name = service.getQualifiedName(obj);
-
+	
 			if(sourceCandidate instanceof ResourceRef){
 				QualifiedName sourceName = service.getQualifiedName(sourceCandidate);
 				if(name.equals(sourceName)){
@@ -92,7 +97,7 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 							exportedContainerURI=localResource.getURI().appendFragment(service.getFragment(obj2));
 						}
 					}
-					findLocalReferencesFromElement(targetURISet, obj2, localResource, acceptor, exportedContainerURI);
+					findLocalReferencesFromElement(targetURIs, obj2, localResource, acceptor, exportedContainerURI);
 				}
 			}
 		}

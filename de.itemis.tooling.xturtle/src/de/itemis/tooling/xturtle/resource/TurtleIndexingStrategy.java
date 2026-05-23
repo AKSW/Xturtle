@@ -15,8 +15,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
@@ -37,6 +35,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
+import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.xturtle.Predicate;
 import de.itemis.tooling.xturtle.xturtle.PredicateObjectList;
@@ -48,7 +47,7 @@ import de.itemis.tooling.xturtle.xturtle.Triples;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
 
 public class TurtleIndexingStrategy extends DefaultResourceDescriptionStrategy {
-	@Inject 
+	@Inject
 	TurtleResourceService service;
 
 	@Inject

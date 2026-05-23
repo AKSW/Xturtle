@@ -7,8 +7,6 @@
  ******************************************************************************/
 package de.itemis.tooling.xturtle.ui.hyperlinking;
 
-import javax.inject.Inject;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.hyperlink.URLHyperlink;
@@ -27,6 +25,8 @@ import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.ui.editor.hyperlinking.XtextHyperlink;
 
+import com.google.inject.Inject;
+
 import de.itemis.tooling.xturtle.resource.TurtleResourceService;
 import de.itemis.tooling.xturtle.xturtle.Resource;
 import de.itemis.tooling.xturtle.xturtle.UriDef;
@@ -35,7 +35,7 @@ import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
 
 public class TurtleHyperlinkHelper extends HyperlinkHelper {
 
-	@Inject 
+	@Inject
 	private EObjectAtOffsetHelper helper;
 	
 	@Inject

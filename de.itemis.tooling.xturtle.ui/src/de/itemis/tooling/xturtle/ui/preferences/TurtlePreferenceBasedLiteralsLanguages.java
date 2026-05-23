@@ -9,14 +9,13 @@ package de.itemis.tooling.xturtle.ui.preferences;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Inject;
 
 import de.itemis.tooling.xturtle.ui.contentassist.TurtleLiteralsLanguages;
 

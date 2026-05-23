@@ -10,8 +10,6 @@ package de.itemis.tooling.xturtle.ui.validation;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -24,12 +22,13 @@ import org.eclipse.xtext.validation.Check;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.google.inject.Inject;
 
-import de.itemis.tooling.xturtle.validation.XturtleJavaValidator;
+import de.itemis.tooling.xturtle.validation.XturtleValidator;
 import de.itemis.tooling.xturtle.xturtle.PrefixId;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
 
-public class XturtleUIJavaValidator extends XturtleJavaValidator {
+public class XturtleUIJavaValidator extends XturtleValidator {
 
 	public static final String IMPORT_PROJECT="importProject";
 

@@ -52,7 +52,7 @@ import de.itemis.tooling.xturtle.xturtle.UriRef;
 import de.itemis.tooling.xturtle.xturtle.XturtlePackage;
  
 
-public class XturtleJavaValidator extends AbstractXturtleJavaValidator {
+public class XturtleValidator extends AbstractXturtleValidator {
 	@Inject 
 	private Prefixes prefixes;
 	@Inject 

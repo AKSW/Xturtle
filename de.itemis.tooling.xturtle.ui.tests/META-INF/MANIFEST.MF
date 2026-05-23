@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: de.itemis.tooling.xturtle.ui.tests
+Bundle-ManifestVersion: 2
+Bundle-Name: Xturtle UI Tests
+Bundle-Vendor: itemis AG 4+1
+Bundle-Version: 2.0.0.qualifier
+Bundle-SymbolicName: de.itemis.tooling.xturtle.ui.tests;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-ActivationPolicy: lazy
+Export-Package: de.itemis.tooling.xturtle.ui.tests;x-internal=true
+Require-Bundle: de.itemis.tooling.xturtle, 
+ de.itemis.tooling.xturtle.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.xtext.common.types.ui,
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.ui.testing,
+ org.eclipse.xtext.xbase.junit,
+ org.eclipse.xtext.xbase.testing
+Import-Package: org.apache.log4j,
+ org.hamcrest.core,
+ org.junit;version="4.5.0",
+ org.junit.runner;version="4.5.0",
+ org.junit.runner.manipulation;version="4.5.0",
+ org.junit.runner.notification;version="4.5.0",
+ org.junit.runners;version="4.5.0",
+ org.junit.runners.model;version="4.5.0"
