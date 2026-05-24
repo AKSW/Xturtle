@@ -9,6 +9,9 @@
    <feature url="features/de.itemis.tooling.xturtle.feature_1.1.0.jar" id="de.itemis.tooling.xturtle.feature" version="1.1.0">
       <category name="XturtleIDE"/>
    </feature>
+   <feature url="features/de.itemis.tooling.xturtle.feature_2.0.0.jar" id="de.itemis.tooling.xturtle.feature" version="2.0.0">
+      <category name="XturtleIDE"/>
+   </feature>
    <category-def name="XturtleIDE" label="Xturtle Editor">
       <description>
          Xtext2 based editor for the RDF serialisation format turtle.
