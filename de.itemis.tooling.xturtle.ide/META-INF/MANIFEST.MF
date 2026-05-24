@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: de.itemis.tooling.xturtle.ide
 Bundle-ManifestVersion: 2
 Bundle-Name: de.itemis.tooling.xturtle.ide
-Bundle-Version: 2.0.0.qualifier
+Bundle-Version: 2.0.0
 Bundle-SymbolicName: de.itemis.tooling.xturtle.ide;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: de.itemis.tooling.xturtle,

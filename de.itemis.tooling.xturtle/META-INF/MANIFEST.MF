@@ -3,7 +3,7 @@ Automatic-Module-Name: de.itemis.tooling.xturtle
 Bundle-ManifestVersion: 2
 Bundle-Name: Xturtle language infrastructure
 Bundle-Vendor: itemis AG 4+1
-Bundle-Version: 2.0.0.qualifier
+Bundle-Version: 2.0.0
 Bundle-SymbolicName: de.itemis.tooling.xturtle; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="2.6.0";visibility:=reexport,
