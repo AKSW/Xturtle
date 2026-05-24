@@ -9,11 +9,11 @@
     label="Xturtle Editor">
   <setupTask
       xsi:type="setup.p2:P2Task"
-      id="Xturtle dependencies"
+      id="Xturtle.dependencies"
       label="">
     <requirement
         name="org.eclipse.xtext.redist.feature.group"
-        versionRange="2.6.0"/>
+        versionRange="2.23.0"/>
     <requirement
         name="de.itemis.tooling.xturtle.feature.feature.group"/>
     <repository
@@ -27,10 +27,10 @@
       label="Release">
     <setupTask
         xsi:type="setup.p2:P2Task"
-        id="Xturtle release updatesite"
+        id="Xturtle.release.updatesite"
         label="">
       <repository
-          url="http://xturtle.aksw.org/site.xml"/>
+          url="https://raw.githubusercontent.com/AKSW/Xturtle/gh-pages/site.xml"/>
     </setupTask>
     <description>installs the latest released version</description>
   </stream>
@@ -38,7 +38,7 @@
       label="Snapshot">
     <setupTask
         xsi:type="setup.p2:P2Task"
-        id="Xturtle snapshot update site"
+        id="Xturtle.snapshot.update.site"
         label="">
       <repository
           url="http://xturtle.nittka.de/snapshot/site.xml"/>
