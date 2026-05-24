@@ -3,7 +3,7 @@ Automatic-Module-Name: de.itemis.tooling.xturtle.ui.tests
 Bundle-ManifestVersion: 2
 Bundle-Name: Xturtle UI Tests
 Bundle-Vendor: itemis AG 4+1
-Bundle-Version: 2.0.0
+Bundle-Version: 2.0.1.qualifier
 Bundle-SymbolicName: de.itemis.tooling.xturtle.ui.tests;singleton:=true
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
