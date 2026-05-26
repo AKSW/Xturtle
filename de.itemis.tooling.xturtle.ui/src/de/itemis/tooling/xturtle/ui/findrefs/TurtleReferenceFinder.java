@@ -12,6 +12,7 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.findReferences.TargetURIs;
@@ -48,9 +49,14 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 		super(indexData, serviceProviderRegistry);
 	}
 
-	//TODO adapted implementation adds "correct" local references
-	//but <unnamed> references are proposed as well
+	//suppress default local references search
+	//which yields <unnamed> references
+	@Override
+	protected boolean doProcess(EReference reference, Predicate<URI> targetURIs) {
+		return false;
+	}
 
+	//adapted implementation - adds named local references
 	@Override
 	protected void findLocalReferencesInResource(Predicate<URI> targetURIs, Resource resource,
 			IAcceptor<IReferenceDescription> acceptor) {
@@ -74,8 +80,10 @@ public class TurtleReferenceFinder extends DefaultReferenceFinder {
 			URI next=it.next();
 			EObject obj = service.getObject(localResource, next.fragment());
 			QualifiedName name = service.getQualifiedName(obj);
-	
-			if(sourceCandidate instanceof ResourceRef){
+
+			if(name==null) {
+				//no reference possible
+			}else if(sourceCandidate instanceof ResourceRef){
 				QualifiedName sourceName = service.getQualifiedName(sourceCandidate);
 				if(name.equals(sourceName)){
 					acceptor.accept(new TurtleReferenceDescription(sourceCandidate,EObjectDescription.create("", obj),exportedContainerURI));
